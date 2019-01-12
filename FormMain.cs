@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -31,6 +30,9 @@ namespace ClipboardAutoProcessor
 
         public FormMain()
         {
+//            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
+//            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("zh-CN");
+
             m_path_current_directory = Path.GetFullPath(".");
 
             m_path_processors_1 = m_path_current_directory + "\\processors";
@@ -42,6 +44,36 @@ namespace ClipboardAutoProcessor
             this.Font = SystemFonts.MessageBoxFont;
 
             InitializeComponent();
+
+            UpdateTexts();
+        }
+
+        private void UpdateTexts()
+        {
+            menuItemFile.Text = I18n._("&File");
+            menuItemOptions.Text = I18n._("&Options");
+            menuItemHelp.Text = I18n._("&Help");
+
+            labelClipboardText.Text = I18n._("Clipboard text:");
+            buttonGetClipboardText.Text = I18n._("Fetch");
+            buttonProcess.Text = I18n._("Process");
+            checkBoxAutoFetch.Text = I18n._("Auto fetch");
+            checkBoxAutoProcessAfterCapturing.Text = I18n._("Auto process");
+            checkBoxOnlyWhenFormIsActivated.Text = I18n._("Only when activated");
+
+            labelPrimaryProcessedResult.Text = I18n._("Processed result:");
+            buttonCopyPrimaryProcessedResult.Text = I18n._("Copy");
+            buttonSavePrimaryProcessedResultAsFile.Text = I18n._("Save as file...");
+            checkBoxAutoCopyPrimaryProcessedResult.Text = I18n._("Auto copy to clipboard");
+            checkBoxAppendPrimaryProcessedResultToEnd.Text = I18n._("Append new result");
+
+            labelSecondaryProcessedResult.Text = I18n._("Secondary processed result:");
+
+            labelHistory.Text = I18n._("History:");
+            buttonHistoryPrevious.Text = I18n._("<");
+            buttonHistoryNext.Text = I18n._(">");
+
+            this.Text = I18n._("Clipboard Auto Processor");
         }
 
         private BindingList<ProcessorScript> GetProcessorScripts(string path)
@@ -243,7 +275,7 @@ namespace ClipboardAutoProcessor
 
             HistoryState history_state = new HistoryState()
             {
-                Type = "Auto",
+                Type = I18n._("Auto"),
                 Time = DateTime.Now,
                 SummaryText = summary_text
             };

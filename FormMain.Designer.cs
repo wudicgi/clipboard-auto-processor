@@ -39,7 +39,7 @@
             this.buttonCopyPrimaryProcessedResult = new System.Windows.Forms.Button();
             this.buttonSavePrimaryProcessedResultAsFile = new System.Windows.Forms.Button();
             this.comboBoxHistory = new System.Windows.Forms.ComboBox();
-            this.buttonHistroyPrevious = new System.Windows.Forms.Button();
+            this.buttonHistoryPrevious = new System.Windows.Forms.Button();
             this.buttonHistoryNext = new System.Windows.Forms.Button();
             this.comboBoxSecondaryScriptFileNames = new System.Windows.Forms.ComboBox();
             this.labelSecondaryProcessedResult = new System.Windows.Forms.Label();
@@ -175,15 +175,15 @@
             this.comboBoxHistory.Size = new System.Drawing.Size(498, 24);
             this.comboBoxHistory.TabIndex = 9;
             // 
-            // buttonHistroyPrevious
+            // buttonHistoryPrevious
             // 
-            this.buttonHistroyPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHistroyPrevious.Location = new System.Drawing.Point(581, 538);
-            this.buttonHistroyPrevious.Name = "buttonHistroyPrevious";
-            this.buttonHistroyPrevious.Size = new System.Drawing.Size(90, 26);
-            this.buttonHistroyPrevious.TabIndex = 10;
-            this.buttonHistroyPrevious.Text = "<";
-            this.buttonHistroyPrevious.UseVisualStyleBackColor = true;
+            this.buttonHistoryPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHistoryPrevious.Location = new System.Drawing.Point(581, 538);
+            this.buttonHistoryPrevious.Name = "buttonHistoryPrevious";
+            this.buttonHistoryPrevious.Size = new System.Drawing.Size(90, 26);
+            this.buttonHistoryPrevious.TabIndex = 10;
+            this.buttonHistoryPrevious.Text = "<";
+            this.buttonHistoryPrevious.UseVisualStyleBackColor = true;
             // 
             // buttonHistoryNext
             // 
@@ -377,7 +377,7 @@
             this.Controls.Add(this.labelHistory);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.buttonHistoryNext);
-            this.Controls.Add(this.buttonHistroyPrevious);
+            this.Controls.Add(this.buttonHistoryPrevious);
             this.Controls.Add(this.comboBoxHistory);
             this.MinimumSize = new System.Drawing.Size(600, 600);
             this.Name = "FormMain";
@@ -412,7 +412,7 @@
         private System.Windows.Forms.Button buttonCopyPrimaryProcessedResult;
         private System.Windows.Forms.Button buttonSavePrimaryProcessedResultAsFile;
         private System.Windows.Forms.ComboBox comboBoxHistory;
-        private System.Windows.Forms.Button buttonHistroyPrevious;
+        private System.Windows.Forms.Button buttonHistoryPrevious;
         private System.Windows.Forms.Button buttonHistoryNext;
         private System.Windows.Forms.ComboBox comboBoxSecondaryScriptFileNames;
         private System.Windows.Forms.Label labelSecondaryProcessedResult;
