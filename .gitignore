@@ -1,4 +1,5 @@
 /*.suo
+/.vs
 /obj
 /bin/Debug/*.*
 /bin/Release/*.*
