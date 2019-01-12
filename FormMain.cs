@@ -75,15 +75,15 @@ namespace ClipboardAutoProcessor
         private void FormMain_Load(object sender, EventArgs e)
         {
             // To avoid the bug of MainMenu control handling in Visual Studio designer
-            this.Menu = mainMenu1;
+            this.Menu = mainMenu;
 
-            comboBoxScriptFileNames.ValueMember = null;
-            comboBoxScriptFileNames.DisplayMember = "ShowTitle";
-            comboBoxScriptFileNames.DataSource = m_processor_scripts_1;
+            comboBoxPrimaryScriptFileNames.ValueMember = null;
+            comboBoxPrimaryScriptFileNames.DisplayMember = "ShowTitle";
+            comboBoxPrimaryScriptFileNames.DataSource = m_processor_scripts_1;
             
-            if (comboBoxScriptFileNames.Items.Count > 0)
+            if (comboBoxPrimaryScriptFileNames.Items.Count > 0)
             {
-                comboBoxScriptFileNames.SelectedIndex = 0;
+                comboBoxPrimaryScriptFileNames.SelectedIndex = 0;
             }
 
             m_history_states = new BindingList<HistoryState>();
@@ -142,7 +142,7 @@ namespace ClipboardAutoProcessor
         {
             string text = textBoxClipboardText.Text;
 
-            string script_file_name = comboBoxScriptFileNames.Text;
+            string script_file_name = comboBoxPrimaryScriptFileNames.Text;
             string script_file_fullpath = Path.GetFullPath(m_path_current_directory + "\\processors\\" + script_file_name);
 
             if (!File.Exists(script_file_fullpath))
@@ -214,20 +214,20 @@ namespace ClipboardAutoProcessor
 
             string text2 = Base64Decode(stdout.ToString());
 
-            if (checkBoxAppendMode.Checked)
+            if (checkBoxAppendPrimaryProcessedResultToEnd.Checked)
             {
-                if (textBoxResult1.Text == "")
+                if (textBoxPrimaryProcessedResult.Text == "")
                 {
-                    textBoxResult1.Text = text2;
+                    textBoxPrimaryProcessedResult.Text = text2;
                 }
                 else
                 {
-                    textBoxResult1.Text += "\r\n" + text2;
+                    textBoxPrimaryProcessedResult.Text += "\r\n" + text2;
                 }
             }
             else
             {
-                textBoxResult1.Text = text2;
+                textBoxPrimaryProcessedResult.Text = text2;
             }
 
             if (!process.HasExited)
@@ -258,15 +258,15 @@ namespace ClipboardAutoProcessor
                 comboBoxHistory.SelectedIndex = comboBoxHistory.Items.Count - 1;
             }
 
-            if (checkBoxAutoCopyResult1.Checked)
+            if (checkBoxAutoCopyPrimaryProcessedResult.Checked)
             {
-                Clipboard.SetText(textBoxResult1.Text);
+                Clipboard.SetText(textBoxPrimaryProcessedResult.Text);
 
                 m_current_clipboard_text = Clipboard.GetText();
             }
 
-            textBoxResult1.Select(textBoxResult1.Text.Length, 0);
-            textBoxResult1.Focus();
+            textBoxPrimaryProcessedResult.Select(textBoxPrimaryProcessedResult.Text.Length, 0);
+            textBoxPrimaryProcessedResult.Focus();
         }
 
         private void FormMain_Activated(object sender, EventArgs e)
@@ -291,7 +291,7 @@ namespace ClipboardAutoProcessor
             }
         }
 
-        private void textBox_KeyDown(object sender, KeyEventArgs e)
+        private void textBoxClipboardText_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control & e.KeyCode == Keys.A)
             {
@@ -299,9 +299,9 @@ namespace ClipboardAutoProcessor
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonCopyPrimaryProcessedResult_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(textBoxResult1.Text);
+            Clipboard.SetText(textBoxPrimaryProcessedResult.Text);
 
             m_current_clipboard_text = Clipboard.GetText();
         }

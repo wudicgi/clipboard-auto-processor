@@ -30,35 +30,37 @@
         {
             this.components = new System.ComponentModel.Container();
             this.textBoxClipboardText = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxResult1 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBoxScriptFileNames = new System.Windows.Forms.ComboBox();
+            this.labelClipboardText = new System.Windows.Forms.Label();
+            this.textBoxPrimaryProcessedResult = new System.Windows.Forms.TextBox();
+            this.labelPrimaryProcessedResult = new System.Windows.Forms.Label();
+            this.comboBoxPrimaryScriptFileNames = new System.Windows.Forms.ComboBox();
             this.buttonGetClipboardText = new System.Windows.Forms.Button();
-            this.checkBoxAppendMode = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.checkBoxAppendPrimaryProcessedResultToEnd = new System.Windows.Forms.CheckBox();
+            this.buttonCopyPrimaryProcessedResult = new System.Windows.Forms.Button();
+            this.buttonSavePrimaryProcessedResultAsFile = new System.Windows.Forms.Button();
             this.comboBoxHistory = new System.Windows.Forms.ComboBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.buttonHistroyPrevious = new System.Windows.Forms.Button();
+            this.buttonHistoryNext = new System.Windows.Forms.Button();
+            this.comboBoxSecondaryScriptFileNames = new System.Windows.Forms.ComboBox();
+            this.labelSecondaryProcessedResult = new System.Windows.Forms.Label();
+            this.textBoxSecondaryProcessedResult = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.buttonProcess = new System.Windows.Forms.Button();
             this.checkBoxOnlyWhenFormIsActivated = new System.Windows.Forms.CheckBox();
             this.checkBoxAutoProcessAfterCapturing = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAutoFetch = new System.Windows.Forms.CheckBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.checkBoxAutoCopyResult1 = new System.Windows.Forms.CheckBox();
-            this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
-            this.menuItem1 = new System.Windows.Forms.MenuItem();
-            this.menuItem2 = new System.Windows.Forms.MenuItem();
-            this.menuItem3 = new System.Windows.Forms.MenuItem();
-            this.label4 = new System.Windows.Forms.Label();
+            this.checkBoxAutoCopyPrimaryProcessedResult = new System.Windows.Forms.CheckBox();
+            this.mainMenu = new System.Windows.Forms.MainMenu(this.components);
+            this.menuItemFile = new System.Windows.Forms.MenuItem();
+            this.menuItemOptions = new System.Windows.Forms.MenuItem();
+            this.menuItemHelp = new System.Windows.Forms.MenuItem();
+            this.labelHistory = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
@@ -76,49 +78,49 @@
             this.textBoxClipboardText.Size = new System.Drawing.Size(560, 125);
             this.textBoxClipboardText.TabIndex = 0;
             this.textBoxClipboardText.WordWrap = false;
-            this.textBoxClipboardText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
+            this.textBoxClipboardText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxClipboardText_KeyDown);
             // 
-            // label1
+            // labelClipboardText
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 5);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(98, 17);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Clipboard text:";
+            this.labelClipboardText.AutoSize = true;
+            this.labelClipboardText.Location = new System.Drawing.Point(3, 5);
+            this.labelClipboardText.Name = "labelClipboardText";
+            this.labelClipboardText.Size = new System.Drawing.Size(98, 17);
+            this.labelClipboardText.TabIndex = 1;
+            this.labelClipboardText.Text = "Clipboard text:";
             // 
-            // textBoxResult1
+            // textBoxPrimaryProcessedResult
             // 
-            this.textBoxResult1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.textBoxPrimaryProcessedResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxResult1.Location = new System.Drawing.Point(3, 35);
-            this.textBoxResult1.Multiline = true;
-            this.textBoxResult1.Name = "textBoxResult1";
-            this.textBoxResult1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxResult1.Size = new System.Drawing.Size(560, 135);
-            this.textBoxResult1.TabIndex = 2;
-            this.textBoxResult1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
+            this.textBoxPrimaryProcessedResult.Location = new System.Drawing.Point(3, 35);
+            this.textBoxPrimaryProcessedResult.Multiline = true;
+            this.textBoxPrimaryProcessedResult.Name = "textBoxPrimaryProcessedResult";
+            this.textBoxPrimaryProcessedResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxPrimaryProcessedResult.Size = new System.Drawing.Size(560, 135);
+            this.textBoxPrimaryProcessedResult.TabIndex = 2;
+            this.textBoxPrimaryProcessedResult.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxClipboardText_KeyDown);
             // 
-            // label2
+            // labelPrimaryProcessedResult
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 10);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(105, 17);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Processed text:";
+            this.labelPrimaryProcessedResult.AutoSize = true;
+            this.labelPrimaryProcessedResult.Location = new System.Drawing.Point(3, 10);
+            this.labelPrimaryProcessedResult.Name = "labelPrimaryProcessedResult";
+            this.labelPrimaryProcessedResult.Size = new System.Drawing.Size(118, 17);
+            this.labelPrimaryProcessedResult.TabIndex = 3;
+            this.labelPrimaryProcessedResult.Text = "Processed result:";
             // 
-            // comboBoxScriptFileNames
+            // comboBoxPrimaryScriptFileNames
             // 
-            this.comboBoxScriptFileNames.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.comboBoxPrimaryScriptFileNames.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxScriptFileNames.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxScriptFileNames.FormattingEnabled = true;
-            this.comboBoxScriptFileNames.Location = new System.Drawing.Point(233, 7);
-            this.comboBoxScriptFileNames.Name = "comboBoxScriptFileNames";
-            this.comboBoxScriptFileNames.Size = new System.Drawing.Size(330, 24);
-            this.comboBoxScriptFileNames.TabIndex = 6;
+            this.comboBoxPrimaryScriptFileNames.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPrimaryScriptFileNames.FormattingEnabled = true;
+            this.comboBoxPrimaryScriptFileNames.Location = new System.Drawing.Point(233, 7);
+            this.comboBoxPrimaryScriptFileNames.Name = "comboBoxPrimaryScriptFileNames";
+            this.comboBoxPrimaryScriptFileNames.Size = new System.Drawing.Size(330, 24);
+            this.comboBoxPrimaryScriptFileNames.TabIndex = 6;
             // 
             // buttonGetClipboardText
             // 
@@ -131,36 +133,36 @@
             this.buttonGetClipboardText.UseVisualStyleBackColor = true;
             this.buttonGetClipboardText.Click += new System.EventHandler(this.buttonGetClipboardText_Click);
             // 
-            // checkBoxAppendMode
+            // checkBoxAppendPrimaryProcessedResultToEnd
             // 
-            this.checkBoxAppendMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxAppendMode.Location = new System.Drawing.Point(570, 149);
-            this.checkBoxAppendMode.Name = "checkBoxAppendMode";
-            this.checkBoxAppendMode.Size = new System.Drawing.Size(160, 21);
-            this.checkBoxAppendMode.TabIndex = 5;
-            this.checkBoxAppendMode.Text = "Append new result";
-            this.checkBoxAppendMode.UseVisualStyleBackColor = true;
+            this.checkBoxAppendPrimaryProcessedResultToEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxAppendPrimaryProcessedResultToEnd.Location = new System.Drawing.Point(570, 149);
+            this.checkBoxAppendPrimaryProcessedResultToEnd.Name = "checkBoxAppendPrimaryProcessedResultToEnd";
+            this.checkBoxAppendPrimaryProcessedResultToEnd.Size = new System.Drawing.Size(160, 21);
+            this.checkBoxAppendPrimaryProcessedResultToEnd.TabIndex = 5;
+            this.checkBoxAppendPrimaryProcessedResultToEnd.Text = "Append new result";
+            this.checkBoxAppendPrimaryProcessedResultToEnd.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // buttonCopyPrimaryProcessedResult
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(569, 35);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(186, 28);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Copy";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonCopyPrimaryProcessedResult.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCopyPrimaryProcessedResult.Location = new System.Drawing.Point(569, 35);
+            this.buttonCopyPrimaryProcessedResult.Name = "buttonCopyPrimaryProcessedResult";
+            this.buttonCopyPrimaryProcessedResult.Size = new System.Drawing.Size(186, 28);
+            this.buttonCopyPrimaryProcessedResult.TabIndex = 3;
+            this.buttonCopyPrimaryProcessedResult.Text = "Copy";
+            this.buttonCopyPrimaryProcessedResult.UseVisualStyleBackColor = true;
+            this.buttonCopyPrimaryProcessedResult.Click += new System.EventHandler(this.buttonCopyPrimaryProcessedResult_Click);
             // 
-            // button2
+            // buttonSavePrimaryProcessedResultAsFile
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(569, 69);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(186, 28);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Save as file...";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonSavePrimaryProcessedResultAsFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSavePrimaryProcessedResultAsFile.Location = new System.Drawing.Point(569, 69);
+            this.buttonSavePrimaryProcessedResultAsFile.Name = "buttonSavePrimaryProcessedResultAsFile";
+            this.buttonSavePrimaryProcessedResultAsFile.Size = new System.Drawing.Size(186, 28);
+            this.buttonSavePrimaryProcessedResultAsFile.TabIndex = 4;
+            this.buttonSavePrimaryProcessedResultAsFile.Text = "Save as file...";
+            this.buttonSavePrimaryProcessedResultAsFile.UseVisualStyleBackColor = true;
             // 
             // comboBoxHistory
             // 
@@ -173,58 +175,58 @@
             this.comboBoxHistory.Size = new System.Drawing.Size(498, 24);
             this.comboBoxHistory.TabIndex = 9;
             // 
-            // button3
+            // buttonHistroyPrevious
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(581, 538);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(90, 26);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "<";
-            this.button3.UseVisualStyleBackColor = true;
+            this.buttonHistroyPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHistroyPrevious.Location = new System.Drawing.Point(581, 538);
+            this.buttonHistroyPrevious.Name = "buttonHistroyPrevious";
+            this.buttonHistroyPrevious.Size = new System.Drawing.Size(90, 26);
+            this.buttonHistroyPrevious.TabIndex = 10;
+            this.buttonHistroyPrevious.Text = "<";
+            this.buttonHistroyPrevious.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // buttonHistoryNext
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(677, 538);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(90, 26);
-            this.button4.TabIndex = 11;
-            this.button4.Text = ">";
-            this.button4.UseVisualStyleBackColor = true;
+            this.buttonHistoryNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHistoryNext.Location = new System.Drawing.Point(677, 538);
+            this.buttonHistoryNext.Name = "buttonHistoryNext";
+            this.buttonHistoryNext.Size = new System.Drawing.Size(90, 26);
+            this.buttonHistoryNext.TabIndex = 11;
+            this.buttonHistoryNext.Text = ">";
+            this.buttonHistoryNext.UseVisualStyleBackColor = true;
             // 
-            // comboBox2
+            // comboBoxSecondaryScriptFileNames
             // 
-            this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.comboBoxSecondaryScriptFileNames.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(233, 7);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(330, 24);
-            this.comboBox2.TabIndex = 7;
+            this.comboBoxSecondaryScriptFileNames.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSecondaryScriptFileNames.FormattingEnabled = true;
+            this.comboBoxSecondaryScriptFileNames.Location = new System.Drawing.Point(233, 7);
+            this.comboBoxSecondaryScriptFileNames.Name = "comboBoxSecondaryScriptFileNames";
+            this.comboBoxSecondaryScriptFileNames.Size = new System.Drawing.Size(330, 24);
+            this.comboBoxSecondaryScriptFileNames.TabIndex = 7;
             // 
-            // label3
+            // labelSecondaryProcessedResult
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 10);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(176, 17);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "Secondary processed text:";
+            this.labelSecondaryProcessedResult.AutoSize = true;
+            this.labelSecondaryProcessedResult.Location = new System.Drawing.Point(3, 10);
+            this.labelSecondaryProcessedResult.Name = "labelSecondaryProcessedResult";
+            this.labelSecondaryProcessedResult.Size = new System.Drawing.Size(189, 17);
+            this.labelSecondaryProcessedResult.TabIndex = 13;
+            this.labelSecondaryProcessedResult.Text = "Secondary processed result:";
             // 
-            // textBox1
+            // textBoxSecondaryProcessedResult
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.textBoxSecondaryProcessedResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(3, 35);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(560, 135);
-            this.textBox1.TabIndex = 5;
-            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
+            this.textBoxSecondaryProcessedResult.Location = new System.Drawing.Point(3, 35);
+            this.textBoxSecondaryProcessedResult.Multiline = true;
+            this.textBoxSecondaryProcessedResult.Name = "textBoxSecondaryProcessedResult";
+            this.textBoxSecondaryProcessedResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxSecondaryProcessedResult.Size = new System.Drawing.Size(560, 135);
+            this.textBoxSecondaryProcessedResult.TabIndex = 5;
+            this.textBoxSecondaryProcessedResult.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxClipboardText_KeyDown);
             // 
             // splitContainer1
             // 
@@ -240,9 +242,9 @@
             this.splitContainer1.Panel1.Controls.Add(this.buttonProcess);
             this.splitContainer1.Panel1.Controls.Add(this.checkBoxOnlyWhenFormIsActivated);
             this.splitContainer1.Panel1.Controls.Add(this.checkBoxAutoProcessAfterCapturing);
-            this.splitContainer1.Panel1.Controls.Add(this.checkBox1);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBoxAutoFetch);
             this.splitContainer1.Panel1.Controls.Add(this.textBoxClipboardText);
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
+            this.splitContainer1.Panel1.Controls.Add(this.labelClipboardText);
             this.splitContainer1.Panel1.Controls.Add(this.buttonGetClipboardText);
             // 
             // splitContainer1.Panel2
@@ -287,17 +289,17 @@
             this.checkBoxAutoProcessAfterCapturing.Text = "Auto process";
             this.checkBoxAutoProcessAfterCapturing.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // checkBoxAutoFetch
             // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(570, 84);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(110, 21);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "Auto fetch";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBoxAutoFetch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxAutoFetch.Checked = true;
+            this.checkBoxAutoFetch.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxAutoFetch.Location = new System.Drawing.Point(570, 84);
+            this.checkBoxAutoFetch.Name = "checkBoxAutoFetch";
+            this.checkBoxAutoFetch.Size = new System.Drawing.Size(110, 21);
+            this.checkBoxAutoFetch.TabIndex = 2;
+            this.checkBoxAutoFetch.Text = "Auto fetch";
+            this.checkBoxAutoFetch.UseVisualStyleBackColor = true;
             // 
             // splitContainer2
             // 
@@ -308,74 +310,74 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.checkBoxAutoCopyResult1);
-            this.splitContainer2.Panel1.Controls.Add(this.textBoxResult1);
-            this.splitContainer2.Panel1.Controls.Add(this.label2);
-            this.splitContainer2.Panel1.Controls.Add(this.comboBoxScriptFileNames);
-            this.splitContainer2.Panel1.Controls.Add(this.button1);
-            this.splitContainer2.Panel1.Controls.Add(this.checkBoxAppendMode);
-            this.splitContainer2.Panel1.Controls.Add(this.button2);
+            this.splitContainer2.Panel1.Controls.Add(this.checkBoxAutoCopyPrimaryProcessedResult);
+            this.splitContainer2.Panel1.Controls.Add(this.textBoxPrimaryProcessedResult);
+            this.splitContainer2.Panel1.Controls.Add(this.labelPrimaryProcessedResult);
+            this.splitContainer2.Panel1.Controls.Add(this.comboBoxPrimaryScriptFileNames);
+            this.splitContainer2.Panel1.Controls.Add(this.buttonCopyPrimaryProcessedResult);
+            this.splitContainer2.Panel1.Controls.Add(this.checkBoxAppendPrimaryProcessedResultToEnd);
+            this.splitContainer2.Panel1.Controls.Add(this.buttonSavePrimaryProcessedResultAsFile);
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.comboBox2);
-            this.splitContainer2.Panel2.Controls.Add(this.textBox1);
-            this.splitContainer2.Panel2.Controls.Add(this.label3);
+            this.splitContainer2.Panel2.Controls.Add(this.comboBoxSecondaryScriptFileNames);
+            this.splitContainer2.Panel2.Controls.Add(this.textBoxSecondaryProcessedResult);
+            this.splitContainer2.Panel2.Controls.Add(this.labelSecondaryProcessedResult);
             this.splitContainer2.Size = new System.Drawing.Size(758, 356);
             this.splitContainer2.SplitterDistance = 175;
             this.splitContainer2.TabIndex = 0;
             // 
-            // checkBoxAutoCopyResult1
+            // checkBoxAutoCopyPrimaryProcessedResult
             // 
-            this.checkBoxAutoCopyResult1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxAutoCopyResult1.Location = new System.Drawing.Point(570, 108);
-            this.checkBoxAutoCopyResult1.Name = "checkBoxAutoCopyResult1";
-            this.checkBoxAutoCopyResult1.Size = new System.Drawing.Size(180, 21);
-            this.checkBoxAutoCopyResult1.TabIndex = 7;
-            this.checkBoxAutoCopyResult1.Text = "Auto copy to clipboard";
-            this.checkBoxAutoCopyResult1.UseVisualStyleBackColor = true;
+            this.checkBoxAutoCopyPrimaryProcessedResult.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxAutoCopyPrimaryProcessedResult.Location = new System.Drawing.Point(570, 108);
+            this.checkBoxAutoCopyPrimaryProcessedResult.Name = "checkBoxAutoCopyPrimaryProcessedResult";
+            this.checkBoxAutoCopyPrimaryProcessedResult.Size = new System.Drawing.Size(180, 21);
+            this.checkBoxAutoCopyPrimaryProcessedResult.TabIndex = 7;
+            this.checkBoxAutoCopyPrimaryProcessedResult.Text = "Auto copy to clipboard";
+            this.checkBoxAutoCopyPrimaryProcessedResult.UseVisualStyleBackColor = true;
             // 
-            // mainMenu1
+            // mainMenu
             // 
-            this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.menuItem1,
-            this.menuItem2,
-            this.menuItem3});
+            this.mainMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItemFile,
+            this.menuItemOptions,
+            this.menuItemHelp});
             // 
-            // menuItem1
+            // menuItemFile
             // 
-            this.menuItem1.Index = 0;
-            this.menuItem1.Text = "&File";
+            this.menuItemFile.Index = 0;
+            this.menuItemFile.Text = "&File";
             // 
-            // menuItem2
+            // menuItemOptions
             // 
-            this.menuItem2.Index = 1;
-            this.menuItem2.Text = "&Options";
+            this.menuItemOptions.Index = 1;
+            this.menuItemOptions.Text = "&Options";
             // 
-            // menuItem3
+            // menuItemHelp
             // 
-            this.menuItem3.Index = 2;
-            this.menuItem3.Text = "&Help";
+            this.menuItemHelp.Index = 2;
+            this.menuItemHelp.Text = "&Help";
             // 
-            // label4
+            // labelHistory
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 543);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 17);
-            this.label4.TabIndex = 16;
-            this.label4.Text = "History:";
+            this.labelHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelHistory.AutoSize = true;
+            this.labelHistory.Location = new System.Drawing.Point(15, 543);
+            this.labelHistory.Name = "labelHistory";
+            this.labelHistory.Size = new System.Drawing.Size(56, 17);
+            this.labelHistory.TabIndex = 16;
+            this.labelHistory.Text = "History:";
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(782, 577);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.labelHistory);
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.buttonHistoryNext);
+            this.Controls.Add(this.buttonHistroyPrevious);
             this.Controls.Add(this.comboBoxHistory);
             this.MinimumSize = new System.Drawing.Size(600, 600);
             this.Name = "FormMain";
@@ -385,11 +387,13 @@
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
             this.splitContainer2.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -399,31 +403,31 @@
         #endregion
 
         private System.Windows.Forms.TextBox textBoxClipboardText;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxResult1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBoxScriptFileNames;
+        private System.Windows.Forms.Label labelClipboardText;
+        private System.Windows.Forms.TextBox textBoxPrimaryProcessedResult;
+        private System.Windows.Forms.Label labelPrimaryProcessedResult;
+        private System.Windows.Forms.ComboBox comboBoxPrimaryScriptFileNames;
         private System.Windows.Forms.Button buttonGetClipboardText;
-        private System.Windows.Forms.CheckBox checkBoxAppendMode;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.CheckBox checkBoxAppendPrimaryProcessedResultToEnd;
+        private System.Windows.Forms.Button buttonCopyPrimaryProcessedResult;
+        private System.Windows.Forms.Button buttonSavePrimaryProcessedResultAsFile;
         private System.Windows.Forms.ComboBox comboBoxHistory;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button buttonHistroyPrevious;
+        private System.Windows.Forms.Button buttonHistoryNext;
+        private System.Windows.Forms.ComboBox comboBoxSecondaryScriptFileNames;
+        private System.Windows.Forms.Label labelSecondaryProcessedResult;
+        private System.Windows.Forms.TextBox textBoxSecondaryProcessedResult;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.MainMenu mainMenu1;
-        private System.Windows.Forms.MenuItem menuItem1;
-        private System.Windows.Forms.MenuItem menuItem2;
-        private System.Windows.Forms.MenuItem menuItem3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.MainMenu mainMenu;
+        private System.Windows.Forms.MenuItem menuItemFile;
+        private System.Windows.Forms.MenuItem menuItemOptions;
+        private System.Windows.Forms.MenuItem menuItemHelp;
+        private System.Windows.Forms.Label labelHistory;
         private System.Windows.Forms.CheckBox checkBoxAutoProcessAfterCapturing;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxAutoFetch;
         private System.Windows.Forms.CheckBox checkBoxOnlyWhenFormIsActivated;
-        private System.Windows.Forms.CheckBox checkBoxAutoCopyResult1;
+        private System.Windows.Forms.CheckBox checkBoxAutoCopyPrimaryProcessedResult;
         private System.Windows.Forms.Button buttonProcess;
     }
 }
