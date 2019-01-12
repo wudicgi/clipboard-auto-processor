@@ -74,6 +74,9 @@ namespace ClipboardAutoProcessor
 
         private void FormMain_Load(object sender, EventArgs e)
         {
+            // To avoid the bug of MainMenu control handling in Visual Studio designer
+            this.Menu = mainMenu1;
+
             comboBoxScriptFileNames.ValueMember = null;
             comboBoxScriptFileNames.DisplayMember = "ShowTitle";
             comboBoxScriptFileNames.DataSource = m_processor_scripts_1;

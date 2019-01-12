@@ -377,7 +377,6 @@
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.comboBoxHistory);
-            this.Menu = this.mainMenu1;
             this.MinimumSize = new System.Drawing.Size(600, 600);
             this.Name = "FormMain";
             this.Text = "Clipboard Auto Processor";
