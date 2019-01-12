@@ -240,7 +240,7 @@ namespace ClipboardAutoProcessor
 
             HistoryState history_state = new HistoryState()
             {
-                Type = "自动",
+                Type = "Auto",
                 Time = DateTime.Now,
                 SummaryText = summary_text
             };

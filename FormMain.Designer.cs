@@ -83,9 +83,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 17);
+            this.label1.Size = new System.Drawing.Size(98, 17);
             this.label1.TabIndex = 1;
-            this.label1.Text = "剪贴板内容:";
+            this.label1.Text = "Clipboard text:";
             // 
             // textBoxResult1
             // 
@@ -105,9 +105,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 10);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 17);
+            this.label2.Size = new System.Drawing.Size(105, 17);
             this.label2.TabIndex = 3;
-            this.label2.Text = "处理后内容:";
+            this.label2.Text = "Processed text:";
             // 
             // comboBoxScriptFileNames
             // 
@@ -127,7 +127,7 @@
             this.buttonGetClipboardText.Name = "buttonGetClipboardText";
             this.buttonGetClipboardText.Size = new System.Drawing.Size(80, 28);
             this.buttonGetClipboardText.TabIndex = 1;
-            this.buttonGetClipboardText.Text = "获取";
+            this.buttonGetClipboardText.Text = "Fetch";
             this.buttonGetClipboardText.UseVisualStyleBackColor = true;
             this.buttonGetClipboardText.Click += new System.EventHandler(this.buttonGetClipboardText_Click);
             // 
@@ -136,9 +136,9 @@
             this.checkBoxAppendMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxAppendMode.Location = new System.Drawing.Point(570, 149);
             this.checkBoxAppendMode.Name = "checkBoxAppendMode";
-            this.checkBoxAppendMode.Size = new System.Drawing.Size(150, 21);
+            this.checkBoxAppendMode.Size = new System.Drawing.Size(160, 21);
             this.checkBoxAppendMode.TabIndex = 5;
-            this.checkBoxAppendMode.Text = "新结果附加到尾部";
+            this.checkBoxAppendMode.Text = "Append new result";
             this.checkBoxAppendMode.UseVisualStyleBackColor = true;
             // 
             // button1
@@ -148,7 +148,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(186, 28);
             this.button1.TabIndex = 3;
-            this.button1.Text = "复制";
+            this.button1.Text = "Copy";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -159,7 +159,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(186, 28);
             this.button2.TabIndex = 4;
-            this.button2.Text = "另存为文件...";
+            this.button2.Text = "Save as file...";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // comboBoxHistory
@@ -168,9 +168,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxHistory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxHistory.FormattingEnabled = true;
-            this.comboBoxHistory.Location = new System.Drawing.Point(61, 539);
+            this.comboBoxHistory.Location = new System.Drawing.Point(77, 539);
             this.comboBoxHistory.Name = "comboBoxHistory";
-            this.comboBoxHistory.Size = new System.Drawing.Size(514, 24);
+            this.comboBoxHistory.Size = new System.Drawing.Size(498, 24);
             this.comboBoxHistory.TabIndex = 9;
             // 
             // button3
@@ -209,9 +209,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(3, 10);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(110, 17);
+            this.label3.Size = new System.Drawing.Size(176, 17);
             this.label3.TabIndex = 13;
-            this.label3.Text = "二次处理后内容:";
+            this.label3.Text = "Secondary processed text:";
             // 
             // textBox1
             // 
@@ -259,7 +259,7 @@
             this.buttonProcess.Name = "buttonProcess";
             this.buttonProcess.Size = new System.Drawing.Size(100, 28);
             this.buttonProcess.TabIndex = 5;
-            this.buttonProcess.Text = "处理";
+            this.buttonProcess.Text = "Process";
             this.buttonProcess.UseVisualStyleBackColor = true;
             this.buttonProcess.Click += new System.EventHandler(this.buttonProcess_Click);
             // 
@@ -270,9 +270,9 @@
             this.checkBoxOnlyWhenFormIsActivated.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxOnlyWhenFormIsActivated.Location = new System.Drawing.Point(593, 134);
             this.checkBoxOnlyWhenFormIsActivated.Name = "checkBoxOnlyWhenFormIsActivated";
-            this.checkBoxOnlyWhenFormIsActivated.Size = new System.Drawing.Size(135, 21);
+            this.checkBoxOnlyWhenFormIsActivated.Size = new System.Drawing.Size(145, 21);
             this.checkBoxOnlyWhenFormIsActivated.TabIndex = 4;
-            this.checkBoxOnlyWhenFormIsActivated.Text = "仅在窗体激活时";
+            this.checkBoxOnlyWhenFormIsActivated.Text = "Only when activated";
             this.checkBoxOnlyWhenFormIsActivated.UseVisualStyleBackColor = true;
             // 
             // checkBoxAutoProcessAfterCapturing
@@ -282,9 +282,9 @@
             this.checkBoxAutoProcessAfterCapturing.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxAutoProcessAfterCapturing.Location = new System.Drawing.Point(593, 109);
             this.checkBoxAutoProcessAfterCapturing.Name = "checkBoxAutoProcessAfterCapturing";
-            this.checkBoxAutoProcessAfterCapturing.Size = new System.Drawing.Size(135, 21);
+            this.checkBoxAutoProcessAfterCapturing.Size = new System.Drawing.Size(145, 21);
             this.checkBoxAutoProcessAfterCapturing.TabIndex = 3;
-            this.checkBoxAutoProcessAfterCapturing.Text = "获取后自动处理";
+            this.checkBoxAutoProcessAfterCapturing.Text = "Auto process";
             this.checkBoxAutoProcessAfterCapturing.UseVisualStyleBackColor = true;
             // 
             // checkBox1
@@ -294,9 +294,9 @@
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox1.Location = new System.Drawing.Point(570, 84);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(95, 21);
+            this.checkBox1.Size = new System.Drawing.Size(110, 21);
             this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "自动获取";
+            this.checkBox1.Text = "Auto fetch";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // splitContainer2
@@ -330,9 +330,9 @@
             this.checkBoxAutoCopyResult1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxAutoCopyResult1.Location = new System.Drawing.Point(570, 108);
             this.checkBoxAutoCopyResult1.Name = "checkBoxAutoCopyResult1";
-            this.checkBoxAutoCopyResult1.Size = new System.Drawing.Size(150, 21);
+            this.checkBoxAutoCopyResult1.Size = new System.Drawing.Size(180, 21);
             this.checkBoxAutoCopyResult1.TabIndex = 7;
-            this.checkBoxAutoCopyResult1.Text = "自动复制到剪贴板";
+            this.checkBoxAutoCopyResult1.Text = "Auto copy to clipboard";
             this.checkBoxAutoCopyResult1.UseVisualStyleBackColor = true;
             // 
             // mainMenu1
@@ -345,17 +345,17 @@
             // menuItem1
             // 
             this.menuItem1.Index = 0;
-            this.menuItem1.Text = "文件(&F)";
+            this.menuItem1.Text = "&File";
             // 
             // menuItem2
             // 
             this.menuItem2.Index = 1;
-            this.menuItem2.Text = "选项(&O)";
+            this.menuItem2.Text = "&Options";
             // 
             // menuItem3
             // 
             this.menuItem3.Index = 2;
-            this.menuItem3.Text = "帮助(&H)";
+            this.menuItem3.Text = "&Help";
             // 
             // label4
             // 
@@ -363,9 +363,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(15, 543);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(40, 17);
+            this.label4.Size = new System.Drawing.Size(56, 17);
             this.label4.TabIndex = 16;
-            this.label4.Text = "历史:";
+            this.label4.Text = "History:";
             // 
             // FormMain
             // 
