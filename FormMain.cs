@@ -41,7 +41,7 @@ namespace ClipboardAutoProcessor
             m_processor_scripts_1 = GetProcessorScripts(m_path_processors_1);
             m_processor_scripts_2 = GetProcessorScripts(m_path_processors_2);
 
-            this.Font = SystemFonts.MessageBoxFont;
+//            this.Font = SystemFonts.MessageBoxFont;
 
             InitializeComponent();
 
@@ -55,19 +55,19 @@ namespace ClipboardAutoProcessor
             menuItemHelp.Text = I18n._("&Help");
 
             labelClipboardText.Text = I18n._("Clipboard text:");
-            buttonGetClipboardText.Text = I18n._("Fetch");
-            buttonProcess.Text = I18n._("Process");
+            buttonFetchClipboardText.Text = I18n._("Fetch");
+            buttonProcessClipboardText.Text = I18n._("Process");
             checkBoxAutoFetch.Text = I18n._("Auto fetch");
-            checkBoxAutoProcessAfterCapturing.Text = I18n._("Auto process");
-            checkBoxOnlyWhenFormIsActivated.Text = I18n._("Only when activated");
+            checkBoxAutoProcessAfterCapturing.Text = I18n._("Auto process after fetching");
+            checkBoxOnlyWhenFormIsActivated.Text = I18n._("Only when form is activated");
 
-            labelPrimaryProcessedResult.Text = I18n._("Processed result:");
-            buttonCopyPrimaryProcessedResult.Text = I18n._("Copy");
-            buttonSavePrimaryProcessedResultAsFile.Text = I18n._("Save as file...");
-            checkBoxAutoCopyPrimaryProcessedResult.Text = I18n._("Auto copy to clipboard");
-            checkBoxAppendPrimaryProcessedResultToEnd.Text = I18n._("Append new result");
+            labelProcessedResult1.Text = I18n._("Processed result:");
+            buttonCopyProcessedResult1.Text = I18n._("Copy");
+            buttonSaveProcessedResult1AsFile.Text = I18n._("Save as file...");
+            checkBoxAutoCopyProcessedResult1.Text = I18n._("Auto copy to clipboard");
+            checkBoxAppendProcessedResult1ToEnd.Text = I18n._("Append new result");
 
-            labelSecondaryProcessedResult.Text = I18n._("Secondary processed result:");
+            labelProcessedResult2.Text = I18n._("Secondary processed result:");
 
             labelHistory.Text = I18n._("History:");
             buttonHistoryPrevious.Text = I18n._("<");
@@ -79,6 +79,11 @@ namespace ClipboardAutoProcessor
         private BindingList<ProcessorScript> GetProcessorScripts(string path)
         {
             BindingList<ProcessorScript> processor_scripts = new BindingList<ProcessorScript>();
+
+            if (!Directory.Exists(path))
+            {
+                return processor_scripts;
+            }
 
             string[] files = Directory.GetFiles(path);
 
@@ -246,20 +251,20 @@ namespace ClipboardAutoProcessor
 
             string text2 = Base64Decode(stdout.ToString());
 
-            if (checkBoxAppendPrimaryProcessedResultToEnd.Checked)
+            if (checkBoxAppendProcessedResult1ToEnd.Checked)
             {
-                if (textBoxPrimaryProcessedResult.Text == "")
+                if (textBoxProcessedResult1.Text == "")
                 {
-                    textBoxPrimaryProcessedResult.Text = text2;
+                    textBoxProcessedResult1.Text = text2;
                 }
                 else
                 {
-                    textBoxPrimaryProcessedResult.Text += "\r\n" + text2;
+                    textBoxProcessedResult1.Text += "\r\n" + text2;
                 }
             }
             else
             {
-                textBoxPrimaryProcessedResult.Text = text2;
+                textBoxProcessedResult1.Text = text2;
             }
 
             if (!process.HasExited)
@@ -290,15 +295,15 @@ namespace ClipboardAutoProcessor
                 comboBoxHistory.SelectedIndex = comboBoxHistory.Items.Count - 1;
             }
 
-            if (checkBoxAutoCopyPrimaryProcessedResult.Checked)
+            if (checkBoxAutoCopyProcessedResult1.Checked)
             {
-                Clipboard.SetText(textBoxPrimaryProcessedResult.Text);
+                Clipboard.SetText(textBoxProcessedResult1.Text);
 
                 m_current_clipboard_text = Clipboard.GetText();
             }
 
-            textBoxPrimaryProcessedResult.Select(textBoxPrimaryProcessedResult.Text.Length, 0);
-            textBoxPrimaryProcessedResult.Focus();
+            textBoxProcessedResult1.Select(textBoxProcessedResult1.Text.Length, 0);
+            textBoxProcessedResult1.Focus();
         }
 
         private void FormMain_Activated(object sender, EventArgs e)
@@ -333,7 +338,7 @@ namespace ClipboardAutoProcessor
 
         private void buttonCopyPrimaryProcessedResult_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(textBoxPrimaryProcessedResult.Text);
+            Clipboard.SetText(textBoxProcessedResult1.Text);
 
             m_current_clipboard_text = Clipboard.GetText();
         }

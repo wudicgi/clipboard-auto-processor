@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ClipboardAutoProcessor\n"
-"POT-Creation-Date: 2019-01-12 21:28+0800\n"
-"PO-Revision-Date: 2019-01-12 21:32+0800\n"
+"POT-Creation-Date: 2019-01-13 00:25+0800\n"
+"PO-Revision-Date: 2019-01-13 00:26+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -16,82 +16,82 @@ msgstr ""
 "X-Poedit-KeywordsList: I18n._\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: FormMain.cs:51
+#: FormMain.cs:53
 msgid "&File"
 msgstr "文件(&F)"
 
-#: FormMain.cs:52
+#: FormMain.cs:54
 msgid "&Options"
 msgstr "选项(&O)"
 
-#: FormMain.cs:53
+#: FormMain.cs:55
 msgid "&Help"
 msgstr "帮助(&H)"
 
-#: FormMain.cs:55
+#: FormMain.cs:57
 msgid "Clipboard text:"
 msgstr "剪贴板内容:"
 
-#: FormMain.cs:56
+#: FormMain.cs:58
 msgid "Fetch"
 msgstr "获取"
 
-#: FormMain.cs:57
+#: FormMain.cs:59
 msgid "Process"
 msgstr "处理"
 
-#: FormMain.cs:58
+#: FormMain.cs:60
 msgid "Auto fetch"
 msgstr "自动获取"
 
-#: FormMain.cs:59
-msgid "Auto process"
+#: FormMain.cs:61
+msgid "Auto process after fetching"
 msgstr "获取后自动处理"
 
-#: FormMain.cs:60
-msgid "Only when activated"
+#: FormMain.cs:62
+msgid "Only when form is activated"
 msgstr "仅在窗体激活时"
 
-#: FormMain.cs:62
+#: FormMain.cs:64
 msgid "Processed result:"
 msgstr "处理后内容:"
 
-#: FormMain.cs:63
+#: FormMain.cs:65
 msgid "Copy"
 msgstr "复制"
 
-#: FormMain.cs:64
+#: FormMain.cs:66
 msgid "Save as file..."
 msgstr "另存为文件..."
 
-#: FormMain.cs:65
+#: FormMain.cs:67
 msgid "Auto copy to clipboard"
 msgstr "自动复制到剪贴板"
 
-#: FormMain.cs:66
+#: FormMain.cs:68
 msgid "Append new result"
 msgstr "新结果附加到尾部"
 
-#: FormMain.cs:68
+#: FormMain.cs:70
 msgid "Secondary processed result:"
 msgstr "二次处理后内容:"
 
-#: FormMain.cs:70
+#: FormMain.cs:72
 msgid "History:"
 msgstr "历史:"
 
-#: FormMain.cs:71
+#: FormMain.cs:73
 msgid "<"
 msgstr "<"
 
-#: FormMain.cs:72
+#: FormMain.cs:74
 msgid ">"
 msgstr ">"
 
-#: FormMain.cs:74
+#: FormMain.cs:76
 msgid "Clipboard Auto Processor"
 msgstr "Clipboard Auto Processor"
 
-#: FormMain.cs:276
+#: FormMain.cs:283
 msgid "Auto"
 msgstr "自动"
