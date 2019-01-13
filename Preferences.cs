@@ -7,11 +7,11 @@ namespace ClipboardAutoProcessor
 {
     public class Preferences
     {
-        private Dictionary<string, ScriptExecuteCommandLine> m_script_execute_command_lines;
+        private Dictionary<string, ScriptExecuteCommandLine> _scriptExecuteCommandLines;
 
         public Preferences()
         {
-            m_script_execute_command_lines = new Dictionary<string, ScriptExecuteCommandLine>();
+            _scriptExecuteCommandLines = new Dictionary<string, ScriptExecuteCommandLine>();
 
             ScriptExecuteCommandLine item = new ScriptExecuteCommandLine()
             {
@@ -19,25 +19,25 @@ namespace ClipboardAutoProcessor
                 ExecutableProgram = @"C:\php\php.exe",
                 CommandLineArguments = "-f \"<filename>\" --"
             };
-            m_script_execute_command_lines.Add(item.FileExtension.ToLower(), item);
+            _scriptExecuteCommandLines.Add(item.FileExtension.ToLower(), item);
 
-            ScriptExecuteCommandLine item_2 = new ScriptExecuteCommandLine()
+            ScriptExecuteCommandLine item2 = new ScriptExecuteCommandLine()
             {
                 FileExtension = "js",
                 ExecutableProgram = @"cscript.exe",
                 CommandLineArguments = "//E:jscript //Nologo \"<filename>\""
             };
-            m_script_execute_command_lines.Add(item_2.FileExtension.ToLower(), item_2);
+            _scriptExecuteCommandLines.Add(item2.FileExtension.ToLower(), item2);
         }
 
-        public ScriptExecuteCommandLine GetScriptExecuteCommandLine(string file_extension)
+        public ScriptExecuteCommandLine GetScriptExecuteCommandLine(string fileExtension)
         {
-            return m_script_execute_command_lines[file_extension];
+            return _scriptExecuteCommandLines[fileExtension];
         }
 
-        public bool IsSupportedFileExtension(string file_extension)
+        public bool IsSupportedFileExtension(string fileExtension)
         {
-            return m_script_execute_command_lines.ContainsKey(file_extension);
+            return _scriptExecuteCommandLines.ContainsKey(fileExtension);
         }
     }
 

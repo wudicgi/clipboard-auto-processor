@@ -14,32 +14,32 @@ namespace ClipboardAutoProcessor
 {
     public partial class FormMain : Form
     {
-        private Preferences m_preferences = new Preferences();
+        private Preferences _preferences = new Preferences();
 
-        private string m_path_current_directory;
+        private string _pathCurrentDirectory;
 
-        private string m_path_processors_1;
-        private string m_path_processors_2;
+        private string _pathProcessors1;
+        private string _pathProcessors2;
 
-        private BindingList<ProcessorScript> m_processor_scripts_1;
-        private BindingList<ProcessorScript> m_processor_scripts_2;
+        private BindingList<ProcessorScript> _processorScripts1;
+        private BindingList<ProcessorScript> _processorScripts2;
 
-        private string m_current_clipboard_text = "";
+        private string _currentClipboardText = "";
 
-        private BindingList<HistoryState> m_history_states;
+        private BindingList<HistoryState> _historyStates;
 
         public FormMain()
         {
 //            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
 //            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("zh-CN");
 
-            m_path_current_directory = Path.GetFullPath(".");
+            _pathCurrentDirectory = Path.GetFullPath(".");
 
-            m_path_processors_1 = m_path_current_directory + "\\processors";
-            m_path_processors_2 = m_path_current_directory + "\\processors2";
+            _pathProcessors1 = _pathCurrentDirectory + "\\processors";
+            _pathProcessors2 = _pathCurrentDirectory + "\\processors2";
 
-            m_processor_scripts_1 = GetProcessorScripts(m_path_processors_1);
-            m_processor_scripts_2 = GetProcessorScripts(m_path_processors_2);
+            _processorScripts1 = GetProcessorScripts(_pathProcessors1);
+            _processorScripts2 = GetProcessorScripts(_pathProcessors2);
 
 //            this.Font = SystemFonts.MessageBoxFont;
 
@@ -78,11 +78,11 @@ namespace ClipboardAutoProcessor
 
         private BindingList<ProcessorScript> GetProcessorScripts(string path)
         {
-            BindingList<ProcessorScript> processor_scripts = new BindingList<ProcessorScript>();
+            BindingList<ProcessorScript> processorScripts = new BindingList<ProcessorScript>();
 
             if (!Directory.Exists(path))
             {
-                return processor_scripts;
+                return processorScripts;
             }
 
             string[] files = Directory.GetFiles(path);
@@ -91,7 +91,7 @@ namespace ClipboardAutoProcessor
             {
                 string extension = Path.GetExtension(file).TrimStart('.').ToLower();
 
-                if (!m_preferences.IsSupportedFileExtension(extension))
+                if (!_preferences.IsSupportedFileExtension(extension))
                 {
                     continue;
                 }
@@ -103,10 +103,10 @@ namespace ClipboardAutoProcessor
                     ShowTitle = Path.GetFileName(file),
                 };
 
-                processor_scripts.Add(item);
+                processorScripts.Add(item);
             }
 
-            return processor_scripts;
+            return processorScripts;
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -116,18 +116,18 @@ namespace ClipboardAutoProcessor
 
             comboBoxPrimaryScriptFileNames.ValueMember = null;
             comboBoxPrimaryScriptFileNames.DisplayMember = "ShowTitle";
-            comboBoxPrimaryScriptFileNames.DataSource = m_processor_scripts_1;
+            comboBoxPrimaryScriptFileNames.DataSource = _processorScripts1;
             
             if (comboBoxPrimaryScriptFileNames.Items.Count > 0)
             {
                 comboBoxPrimaryScriptFileNames.SelectedIndex = 0;
             }
 
-            m_history_states = new BindingList<HistoryState>();
+            _historyStates = new BindingList<HistoryState>();
 
             comboBoxHistory.ValueMember = null;
             comboBoxHistory.DisplayMember = "Text";
-            comboBoxHistory.DataSource = m_history_states;
+            comboBoxHistory.DataSource = _historyStates;
         }
 
         private void SetClipboardText(string clipboard_text)
@@ -137,7 +137,7 @@ namespace ClipboardAutoProcessor
                 return;
             }
 
-            m_current_clipboard_text = clipboard_text;
+            _currentClipboardText = clipboard_text;
 
             textBoxClipboardText.Text = clipboard_text;
         }
@@ -179,20 +179,20 @@ namespace ClipboardAutoProcessor
         {
             string text = textBoxClipboardText.Text;
 
-            string script_file_name = comboBoxPrimaryScriptFileNames.Text;
-            string script_file_fullpath = Path.GetFullPath(m_path_current_directory + "\\processors\\" + script_file_name);
+            string scriptFileName = comboBoxPrimaryScriptFileNames.Text;
+            string scriptFileFullpath = Path.GetFullPath(_pathCurrentDirectory + "\\processors\\" + scriptFileName);
 
-            if (!File.Exists(script_file_fullpath))
+            if (!File.Exists(scriptFileFullpath))
             {
                 return;
             }
 
-            string script_file_extension = Path.GetExtension(script_file_fullpath).TrimStart('.').ToLower();
-            ScriptExecuteCommandLine script_cmd = m_preferences.GetScriptExecuteCommandLine(script_file_extension);
+            string scriptFileExtension = Path.GetExtension(scriptFileFullpath).TrimStart('.').ToLower();
+            ScriptExecuteCommandLine script_cmd = _preferences.GetScriptExecuteCommandLine(scriptFileExtension);
 
             Process process = new Process();
-            process.StartInfo.FileName = script_cmd.ExecutableProgram.Replace("<filename>", script_file_fullpath);
-            process.StartInfo.Arguments = script_cmd.CommandLineArguments.Replace("<filename>", script_file_fullpath);
+            process.StartInfo.FileName = script_cmd.ExecutableProgram.Replace("<filename>", scriptFileFullpath);
+            process.StartInfo.Arguments = script_cmd.CommandLineArguments.Replace("<filename>", scriptFileFullpath);
             process.StartInfo.CreateNoWindow = true;
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardInput = true;
@@ -272,23 +272,23 @@ namespace ClipboardAutoProcessor
                 process.Kill();
             }
 
-            string summary_text = Regex.Replace(text, "/[\\t\\r\\n]/", " ").Trim();
-            if (summary_text.Length > 50)
+            string summaryText = Regex.Replace(text, "/[\\t\\r\\n]/", " ").Trim();
+            if (summaryText.Length > 50)
             {
-                summary_text = summary_text.Substring(0, 47) + "...";
+                summaryText = summaryText.Substring(0, 47) + "...";
             }
 
-            HistoryState history_state = new HistoryState()
+            HistoryState historyState = new HistoryState()
             {
                 Type = I18n._("Auto"),
                 Time = DateTime.Now,
-                SummaryText = summary_text
+                SummaryText = summaryText
             };
 
-            history_state.Text = String.Format("[{0}] ({1:H:mm:ss}) {2}",
-                history_state.Type, history_state.Time, history_state.SummaryText);
+            historyState.Text = String.Format("[{0}] ({1:H:mm:ss}) {2}",
+                historyState.Type, historyState.Time, historyState.SummaryText);
 
-            m_history_states.Add(history_state);
+            _historyStates.Add(historyState);
 
             if (comboBoxHistory.Items.Count > 0)
             {
@@ -299,7 +299,7 @@ namespace ClipboardAutoProcessor
             {
                 Clipboard.SetText(textBoxProcessedResult1.Text);
 
-                m_current_clipboard_text = Clipboard.GetText();
+                _currentClipboardText = Clipboard.GetText();
             }
 
             textBoxProcessedResult1.Select(textBoxProcessedResult1.Text.Length, 0);
@@ -314,11 +314,11 @@ namespace ClipboardAutoProcessor
                 return;
             }
 
-            string clipboard_text = Clipboard.GetText();
+            string clipboardText = Clipboard.GetText();
 
-            if (clipboard_text != m_current_clipboard_text)
+            if (clipboardText != _currentClipboardText)
             {
-                SetClipboardText(clipboard_text);
+                SetClipboardText(clipboardText);
 
                 if (checkBoxAutoProcessAfterCapturing.Enabled
                     && checkBoxAutoProcessAfterCapturing.Checked)
@@ -328,7 +328,7 @@ namespace ClipboardAutoProcessor
             }
         }
 
-        private void textBoxClipboardText_KeyDown(object sender, KeyEventArgs e)
+        private void MultilineTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control & e.KeyCode == Keys.A)
             {
@@ -340,7 +340,7 @@ namespace ClipboardAutoProcessor
         {
             Clipboard.SetText(textBoxProcessedResult1.Text);
 
-            m_current_clipboard_text = Clipboard.GetText();
+            _currentClipboardText = Clipboard.GetText();
         }
     }
 

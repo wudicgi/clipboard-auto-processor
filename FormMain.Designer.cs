@@ -89,7 +89,7 @@
             this.textBoxClipboardText.Size = new System.Drawing.Size(637, 182);
             this.textBoxClipboardText.TabIndex = 0;
             this.textBoxClipboardText.WordWrap = false;
-            this.textBoxClipboardText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxClipboardText_KeyDown);
+            this.textBoxClipboardText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MultilineTextBox_KeyDown);
             // 
             // labelClipboardText
             // 
@@ -113,7 +113,7 @@
             this.textBoxProcessedResult1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxProcessedResult1.Size = new System.Drawing.Size(637, 189);
             this.textBoxProcessedResult1.TabIndex = 2;
-            this.textBoxProcessedResult1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxClipboardText_KeyDown);
+            this.textBoxProcessedResult1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MultilineTextBox_KeyDown);
             // 
             // labelProcessedResult1
             // 
@@ -246,7 +246,7 @@
             this.textBoxProcessedResult2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxProcessedResult2.Size = new System.Drawing.Size(637, 143);
             this.textBoxProcessedResult2.TabIndex = 5;
-            this.textBoxProcessedResult2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxClipboardText_KeyDown);
+            this.textBoxProcessedResult2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MultilineTextBox_KeyDown);
             // 
             // splitContainerMain
             // 
