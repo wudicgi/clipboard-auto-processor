@@ -45,48 +45,54 @@
             this.labelProcessedResult2 = new System.Windows.Forms.Label();
             this.textBoxProcessedResult2 = new System.Windows.Forms.TextBox();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
-            this.panelClipboardTextControls = new System.Windows.Forms.Panel();
+            this.tableLayoutPanelClipboardText = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelClipboardTextControls = new System.Windows.Forms.TableLayoutPanel();
+            this.checkBoxAutoFetch = new System.Windows.Forms.CheckBox();
+            this.checkBoxAutoProcessAfterCapturing = new System.Windows.Forms.CheckBox();
             this.checkBoxOnlyWhenFormIsActivated = new System.Windows.Forms.CheckBox();
             this.buttonProcessClipboardText = new System.Windows.Forms.Button();
-            this.checkBoxAutoProcessAfterCapturing = new System.Windows.Forms.CheckBox();
-            this.checkBoxAutoFetch = new System.Windows.Forms.CheckBox();
             this.splitContainerSub = new System.Windows.Forms.SplitContainer();
-            this.panelProcessedResult1Controls = new System.Windows.Forms.Panel();
+            this.tableLayoutPanelProcessedResult1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelProcessedResult1Controls = new System.Windows.Forms.TableLayoutPanel();
             this.checkBoxAutoCopyProcessedResult1 = new System.Windows.Forms.CheckBox();
-            this.panelProcessedResult2Controls = new System.Windows.Forms.Panel();
+            this.tableLayoutPanelProcessedResult2 = new System.Windows.Forms.TableLayoutPanel();
             this.mainMenu = new System.Windows.Forms.MainMenu(this.components);
             this.menuItemFile = new System.Windows.Forms.MenuItem();
             this.menuItemOptions = new System.Windows.Forms.MenuItem();
             this.menuItemHelp = new System.Windows.Forms.MenuItem();
             this.labelHistory = new System.Windows.Forms.Label();
-            this.panelHistoryControls = new System.Windows.Forms.Panel();
             this.statusBar = new System.Windows.Forms.StatusBar();
-            this.panelHistory = new System.Windows.Forms.Panel();
+            this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelHistory = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelHistoryControls = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
-            this.panelClipboardTextControls.SuspendLayout();
+            this.tableLayoutPanelClipboardText.SuspendLayout();
+            this.tableLayoutPanelClipboardTextControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerSub)).BeginInit();
             this.splitContainerSub.Panel1.SuspendLayout();
             this.splitContainerSub.Panel2.SuspendLayout();
             this.splitContainerSub.SuspendLayout();
-            this.panelProcessedResult1Controls.SuspendLayout();
-            this.panelHistoryControls.SuspendLayout();
-            this.panelHistory.SuspendLayout();
+            this.tableLayoutPanelProcessedResult1.SuspendLayout();
+            this.tableLayoutPanelProcessedResult1Controls.SuspendLayout();
+            this.tableLayoutPanelProcessedResult2.SuspendLayout();
+            this.tableLayoutPanelMain.SuspendLayout();
+            this.tableLayoutPanelHistory.SuspendLayout();
+            this.tableLayoutPanelHistoryControls.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxClipboardText
             // 
-            this.textBoxClipboardText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxClipboardText.Location = new System.Drawing.Point(2, 25);
+            this.tableLayoutPanelClipboardText.SetColumnSpan(this.textBoxClipboardText, 2);
+            this.textBoxClipboardText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxClipboardText.Location = new System.Drawing.Point(2, 27);
             this.textBoxClipboardText.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBoxClipboardText.Multiline = true;
             this.textBoxClipboardText.Name = "textBoxClipboardText";
             this.textBoxClipboardText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxClipboardText.Size = new System.Drawing.Size(637, 182);
+            this.textBoxClipboardText.Size = new System.Drawing.Size(639, 180);
             this.textBoxClipboardText.TabIndex = 0;
             this.textBoxClipboardText.WordWrap = false;
             this.textBoxClipboardText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MultilineTextBox_KeyDown);
@@ -94,55 +100,57 @@
             // labelClipboardText
             // 
             this.labelClipboardText.AutoSize = true;
-            this.labelClipboardText.Location = new System.Drawing.Point(2, 4);
+            this.labelClipboardText.Location = new System.Drawing.Point(2, 0);
             this.labelClipboardText.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelClipboardText.Name = "labelClipboardText";
-            this.labelClipboardText.Size = new System.Drawing.Size(74, 13);
+            this.labelClipboardText.Size = new System.Drawing.Size(98, 17);
             this.labelClipboardText.TabIndex = 1;
             this.labelClipboardText.Text = "Clipboard text:";
+            this.labelClipboardText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // textBoxProcessedResult1
             // 
-            this.textBoxProcessedResult1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxProcessedResult1.Location = new System.Drawing.Point(2, 38);
+            this.tableLayoutPanelProcessedResult1.SetColumnSpan(this.textBoxProcessedResult1, 2);
+            this.textBoxProcessedResult1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxProcessedResult1.Location = new System.Drawing.Point(2, 37);
             this.textBoxProcessedResult1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBoxProcessedResult1.Multiline = true;
             this.textBoxProcessedResult1.Name = "textBoxProcessedResult1";
             this.textBoxProcessedResult1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxProcessedResult1.Size = new System.Drawing.Size(637, 189);
+            this.textBoxProcessedResult1.Size = new System.Drawing.Size(639, 200);
             this.textBoxProcessedResult1.TabIndex = 2;
             this.textBoxProcessedResult1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MultilineTextBox_KeyDown);
             // 
             // labelProcessedResult1
             // 
+            this.labelProcessedResult1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelProcessedResult1.AutoSize = true;
             this.labelProcessedResult1.Location = new System.Drawing.Point(2, 8);
             this.labelProcessedResult1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelProcessedResult1.Name = "labelProcessedResult1";
-            this.labelProcessedResult1.Size = new System.Drawing.Size(88, 13);
+            this.labelProcessedResult1.Size = new System.Drawing.Size(118, 17);
             this.labelProcessedResult1.TabIndex = 3;
             this.labelProcessedResult1.Text = "Processed result:";
             // 
             // comboBoxPrimaryScriptFileNames
             // 
-            this.comboBoxPrimaryScriptFileNames.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxPrimaryScriptFileNames.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxPrimaryScriptFileNames.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxPrimaryScriptFileNames.FormattingEnabled = true;
-            this.comboBoxPrimaryScriptFileNames.Location = new System.Drawing.Point(240, 6);
+            this.comboBoxPrimaryScriptFileNames.Location = new System.Drawing.Point(212, 4);
             this.comboBoxPrimaryScriptFileNames.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.comboBoxPrimaryScriptFileNames.Name = "comboBoxPrimaryScriptFileNames";
-            this.comboBoxPrimaryScriptFileNames.Size = new System.Drawing.Size(399, 21);
+            this.comboBoxPrimaryScriptFileNames.Size = new System.Drawing.Size(429, 24);
             this.comboBoxPrimaryScriptFileNames.TabIndex = 6;
             // 
             // buttonFetchClipboardText
             // 
-            this.buttonFetchClipboardText.Location = new System.Drawing.Point(3, 3);
+            this.buttonFetchClipboardText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFetchClipboardText.Location = new System.Drawing.Point(2, 3);
             this.buttonFetchClipboardText.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.buttonFetchClipboardText.Name = "buttonFetchClipboardText";
-            this.buttonFetchClipboardText.Size = new System.Drawing.Size(120, 28);
+            this.buttonFetchClipboardText.Size = new System.Drawing.Size(113, 28);
             this.buttonFetchClipboardText.TabIndex = 1;
             this.buttonFetchClipboardText.Text = "Fetch";
             this.buttonFetchClipboardText.UseVisualStyleBackColor = true;
@@ -151,20 +159,22 @@
             // checkBoxAppendProcessedResult1ToEnd
             // 
             this.checkBoxAppendProcessedResult1ToEnd.AutoSize = true;
-            this.checkBoxAppendProcessedResult1ToEnd.Location = new System.Drawing.Point(5, 102);
-            this.checkBoxAppendProcessedResult1ToEnd.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.checkBoxAppendProcessedResult1ToEnd.Location = new System.Drawing.Point(4, 109);
+            this.checkBoxAppendProcessedResult1ToEnd.Margin = new System.Windows.Forms.Padding(4, 3, 2, 3);
             this.checkBoxAppendProcessedResult1ToEnd.Name = "checkBoxAppendProcessedResult1ToEnd";
-            this.checkBoxAppendProcessedResult1ToEnd.Size = new System.Drawing.Size(147, 17);
+            this.checkBoxAppendProcessedResult1ToEnd.Size = new System.Drawing.Size(191, 21);
             this.checkBoxAppendProcessedResult1ToEnd.TabIndex = 5;
             this.checkBoxAppendProcessedResult1ToEnd.Text = "Append new result to end";
             this.checkBoxAppendProcessedResult1ToEnd.UseVisualStyleBackColor = true;
             // 
             // buttonCopyProcessedResult1
             // 
-            this.buttonCopyProcessedResult1.Location = new System.Drawing.Point(3, 3);
+            this.buttonCopyProcessedResult1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCopyProcessedResult1.Location = new System.Drawing.Point(2, 3);
             this.buttonCopyProcessedResult1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.buttonCopyProcessedResult1.Name = "buttonCopyProcessedResult1";
-            this.buttonCopyProcessedResult1.Size = new System.Drawing.Size(274, 28);
+            this.buttonCopyProcessedResult1.Size = new System.Drawing.Size(270, 28);
             this.buttonCopyProcessedResult1.TabIndex = 3;
             this.buttonCopyProcessedResult1.Text = "Copy";
             this.buttonCopyProcessedResult1.UseVisualStyleBackColor = true;
@@ -172,29 +182,31 @@
             // 
             // buttonSaveProcessedResult1AsFile
             // 
-            this.buttonSaveProcessedResult1AsFile.Location = new System.Drawing.Point(3, 35);
+            this.buttonSaveProcessedResult1AsFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSaveProcessedResult1AsFile.Location = new System.Drawing.Point(2, 37);
             this.buttonSaveProcessedResult1AsFile.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.buttonSaveProcessedResult1AsFile.Name = "buttonSaveProcessedResult1AsFile";
-            this.buttonSaveProcessedResult1AsFile.Size = new System.Drawing.Size(274, 28);
+            this.buttonSaveProcessedResult1AsFile.Size = new System.Drawing.Size(270, 28);
             this.buttonSaveProcessedResult1AsFile.TabIndex = 4;
             this.buttonSaveProcessedResult1AsFile.Text = "Save as file...";
             this.buttonSaveProcessedResult1AsFile.UseVisualStyleBackColor = true;
             // 
             // comboBoxHistory
             // 
-            this.comboBoxHistory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxHistory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxHistory.FormattingEnabled = true;
-            this.comboBoxHistory.Location = new System.Drawing.Point(70, 4);
+            this.comboBoxHistory.Location = new System.Drawing.Point(67, 10);
             this.comboBoxHistory.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.comboBoxHistory.Name = "comboBoxHistory";
-            this.comboBoxHistory.Size = new System.Drawing.Size(569, 21);
+            this.comboBoxHistory.Size = new System.Drawing.Size(572, 24);
             this.comboBoxHistory.TabIndex = 9;
             // 
             // buttonHistoryPrevious
             // 
-            this.buttonHistoryPrevious.Location = new System.Drawing.Point(3, 4);
+            this.buttonHistoryPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHistoryPrevious.Location = new System.Drawing.Point(2, 5);
             this.buttonHistoryPrevious.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.buttonHistoryPrevious.Name = "buttonHistoryPrevious";
             this.buttonHistoryPrevious.Size = new System.Drawing.Size(133, 28);
@@ -204,7 +216,8 @@
             // 
             // buttonHistoryNext
             // 
-            this.buttonHistoryNext.Location = new System.Drawing.Point(141, 4);
+            this.buttonHistoryNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHistoryNext.Location = new System.Drawing.Point(139, 5);
             this.buttonHistoryNext.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.buttonHistoryNext.Name = "buttonHistoryNext";
             this.buttonHistoryNext.Size = new System.Drawing.Size(133, 28);
@@ -214,23 +227,23 @@
             // 
             // comboBoxSecondaryScriptFileNames
             // 
-            this.comboBoxSecondaryScriptFileNames.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxSecondaryScriptFileNames.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxSecondaryScriptFileNames.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSecondaryScriptFileNames.FormattingEnabled = true;
-            this.comboBoxSecondaryScriptFileNames.Location = new System.Drawing.Point(240, 6);
+            this.comboBoxSecondaryScriptFileNames.Location = new System.Drawing.Point(212, 5);
             this.comboBoxSecondaryScriptFileNames.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.comboBoxSecondaryScriptFileNames.Name = "comboBoxSecondaryScriptFileNames";
-            this.comboBoxSecondaryScriptFileNames.Size = new System.Drawing.Size(399, 21);
+            this.comboBoxSecondaryScriptFileNames.Size = new System.Drawing.Size(429, 24);
             this.comboBoxSecondaryScriptFileNames.TabIndex = 7;
             // 
             // labelProcessedResult2
             // 
+            this.labelProcessedResult2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelProcessedResult2.AutoSize = true;
             this.labelProcessedResult2.Location = new System.Drawing.Point(2, 8);
             this.labelProcessedResult2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelProcessedResult2.Name = "labelProcessedResult2";
-            this.labelProcessedResult2.Size = new System.Drawing.Size(141, 13);
+            this.labelProcessedResult2.Size = new System.Drawing.Size(189, 17);
             this.labelProcessedResult2.TabIndex = 13;
             this.labelProcessedResult2.Text = "Secondary processed result:";
             // 
@@ -239,104 +252,132 @@
             this.textBoxProcessedResult2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxProcessedResult2.Location = new System.Drawing.Point(2, 38);
+            this.tableLayoutPanelProcessedResult2.SetColumnSpan(this.textBoxProcessedResult2, 2);
+            this.textBoxProcessedResult2.Location = new System.Drawing.Point(2, 37);
             this.textBoxProcessedResult2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBoxProcessedResult2.Multiline = true;
             this.textBoxProcessedResult2.Name = "textBoxProcessedResult2";
             this.textBoxProcessedResult2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxProcessedResult2.Size = new System.Drawing.Size(637, 143);
+            this.textBoxProcessedResult2.Size = new System.Drawing.Size(639, 133);
             this.textBoxProcessedResult2.TabIndex = 5;
             this.textBoxProcessedResult2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MultilineTextBox_KeyDown);
             // 
             // splitContainerMain
             // 
-            this.splitContainerMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainerMain.Location = new System.Drawing.Point(9, 5);
+            this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerMain.Location = new System.Drawing.Point(7, 8);
             this.splitContainerMain.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.splitContainerMain.Name = "splitContainerMain";
             this.splitContainerMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // splitContainerMain.Panel1
             // 
-            this.splitContainerMain.Panel1.Controls.Add(this.panelClipboardTextControls);
-            this.splitContainerMain.Panel1.Controls.Add(this.textBoxClipboardText);
-            this.splitContainerMain.Panel1.Controls.Add(this.labelClipboardText);
+            this.splitContainerMain.Panel1.Controls.Add(this.tableLayoutPanelClipboardText);
             // 
             // splitContainerMain.Panel2
             // 
             this.splitContainerMain.Panel2.Controls.Add(this.splitContainerSub);
-            this.splitContainerMain.Size = new System.Drawing.Size(926, 630);
+            this.splitContainerMain.Size = new System.Drawing.Size(928, 629);
             this.splitContainerMain.SplitterDistance = 210;
             this.splitContainerMain.SplitterWidth = 3;
             this.splitContainerMain.TabIndex = 0;
             // 
-            // panelClipboardTextControls
+            // tableLayoutPanelClipboardText
             // 
-            this.panelClipboardTextControls.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelClipboardTextControls.AutoScroll = true;
-            this.panelClipboardTextControls.Controls.Add(this.buttonFetchClipboardText);
-            this.panelClipboardTextControls.Controls.Add(this.checkBoxOnlyWhenFormIsActivated);
-            this.panelClipboardTextControls.Controls.Add(this.buttonProcessClipboardText);
-            this.panelClipboardTextControls.Controls.Add(this.checkBoxAutoProcessAfterCapturing);
-            this.panelClipboardTextControls.Controls.Add(this.checkBoxAutoFetch);
-            this.panelClipboardTextControls.Location = new System.Drawing.Point(643, 22);
-            this.panelClipboardTextControls.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.panelClipboardTextControls.Name = "panelClipboardTextControls";
-            this.panelClipboardTextControls.Size = new System.Drawing.Size(280, 185);
-            this.panelClipboardTextControls.TabIndex = 6;
+            this.tableLayoutPanelClipboardText.ColumnCount = 4;
+            this.tableLayoutPanelClipboardText.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 210F));
+            this.tableLayoutPanelClipboardText.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelClipboardText.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 5F));
+            this.tableLayoutPanelClipboardText.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 280F));
+            this.tableLayoutPanelClipboardText.Controls.Add(this.labelClipboardText, 0, 0);
+            this.tableLayoutPanelClipboardText.Controls.Add(this.textBoxClipboardText, 0, 1);
+            this.tableLayoutPanelClipboardText.Controls.Add(this.tableLayoutPanelClipboardTextControls, 3, 1);
+            this.tableLayoutPanelClipboardText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelClipboardText.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelClipboardText.Name = "tableLayoutPanelClipboardText";
+            this.tableLayoutPanelClipboardText.RowCount = 2;
+            this.tableLayoutPanelClipboardText.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.tableLayoutPanelClipboardText.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelClipboardText.Size = new System.Drawing.Size(928, 210);
+            this.tableLayoutPanelClipboardText.TabIndex = 7;
             // 
-            // checkBoxOnlyWhenFormIsActivated
+            // tableLayoutPanelClipboardTextControls
             // 
-            this.checkBoxOnlyWhenFormIsActivated.AutoSize = true;
-            this.checkBoxOnlyWhenFormIsActivated.Checked = true;
-            this.checkBoxOnlyWhenFormIsActivated.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxOnlyWhenFormIsActivated.Location = new System.Drawing.Point(22, 102);
-            this.checkBoxOnlyWhenFormIsActivated.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.checkBoxOnlyWhenFormIsActivated.Name = "checkBoxOnlyWhenFormIsActivated";
-            this.checkBoxOnlyWhenFormIsActivated.Size = new System.Drawing.Size(156, 17);
-            this.checkBoxOnlyWhenFormIsActivated.TabIndex = 4;
-            this.checkBoxOnlyWhenFormIsActivated.Text = "Only when form is activated";
-            this.checkBoxOnlyWhenFormIsActivated.UseVisualStyleBackColor = true;
-            // 
-            // buttonProcessClipboardText
-            // 
-            this.buttonProcessClipboardText.Location = new System.Drawing.Point(127, 3);
-            this.buttonProcessClipboardText.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.buttonProcessClipboardText.Name = "buttonProcessClipboardText";
-            this.buttonProcessClipboardText.Size = new System.Drawing.Size(150, 28);
-            this.buttonProcessClipboardText.TabIndex = 5;
-            this.buttonProcessClipboardText.Text = "Process";
-            this.buttonProcessClipboardText.UseVisualStyleBackColor = true;
-            this.buttonProcessClipboardText.Click += new System.EventHandler(this.buttonProcess_Click);
-            // 
-            // checkBoxAutoProcessAfterCapturing
-            // 
-            this.checkBoxAutoProcessAfterCapturing.AutoSize = true;
-            this.checkBoxAutoProcessAfterCapturing.Checked = true;
-            this.checkBoxAutoProcessAfterCapturing.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAutoProcessAfterCapturing.Location = new System.Drawing.Point(22, 76);
-            this.checkBoxAutoProcessAfterCapturing.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.checkBoxAutoProcessAfterCapturing.Name = "checkBoxAutoProcessAfterCapturing";
-            this.checkBoxAutoProcessAfterCapturing.Size = new System.Drawing.Size(153, 17);
-            this.checkBoxAutoProcessAfterCapturing.TabIndex = 3;
-            this.checkBoxAutoProcessAfterCapturing.Text = "Auto process after fetching";
-            this.checkBoxAutoProcessAfterCapturing.UseVisualStyleBackColor = true;
+            this.tableLayoutPanelClipboardTextControls.ColumnCount = 2;
+            this.tableLayoutPanelClipboardTextControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43F));
+            this.tableLayoutPanelClipboardTextControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 57F));
+            this.tableLayoutPanelClipboardTextControls.Controls.Add(this.checkBoxAutoFetch, 0, 2);
+            this.tableLayoutPanelClipboardTextControls.Controls.Add(this.checkBoxAutoProcessAfterCapturing, 0, 3);
+            this.tableLayoutPanelClipboardTextControls.Controls.Add(this.checkBoxOnlyWhenFormIsActivated, 0, 4);
+            this.tableLayoutPanelClipboardTextControls.Controls.Add(this.buttonFetchClipboardText, 0, 0);
+            this.tableLayoutPanelClipboardTextControls.Controls.Add(this.buttonProcessClipboardText, 1, 0);
+            this.tableLayoutPanelClipboardTextControls.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelClipboardTextControls.Location = new System.Drawing.Point(651, 27);
+            this.tableLayoutPanelClipboardTextControls.Name = "tableLayoutPanelClipboardTextControls";
+            this.tableLayoutPanelClipboardTextControls.RowCount = 6;
+            this.tableLayoutPanelClipboardTextControls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanelClipboardTextControls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanelClipboardTextControls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanelClipboardTextControls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanelClipboardTextControls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanelClipboardTextControls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelClipboardTextControls.Size = new System.Drawing.Size(274, 180);
+            this.tableLayoutPanelClipboardTextControls.TabIndex = 3;
             // 
             // checkBoxAutoFetch
             // 
             this.checkBoxAutoFetch.AutoSize = true;
             this.checkBoxAutoFetch.Checked = true;
             this.checkBoxAutoFetch.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAutoFetch.Location = new System.Drawing.Point(5, 50);
-            this.checkBoxAutoFetch.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.tableLayoutPanelClipboardTextControls.SetColumnSpan(this.checkBoxAutoFetch, 2);
+            this.checkBoxAutoFetch.Location = new System.Drawing.Point(4, 47);
+            this.checkBoxAutoFetch.Margin = new System.Windows.Forms.Padding(4, 3, 2, 3);
             this.checkBoxAutoFetch.Name = "checkBoxAutoFetch";
-            this.checkBoxAutoFetch.Size = new System.Drawing.Size(75, 17);
+            this.checkBoxAutoFetch.Size = new System.Drawing.Size(94, 21);
             this.checkBoxAutoFetch.TabIndex = 2;
             this.checkBoxAutoFetch.Text = "Auto fetch";
             this.checkBoxAutoFetch.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAutoProcessAfterCapturing
+            // 
+            this.checkBoxAutoProcessAfterCapturing.AutoSize = true;
+            this.checkBoxAutoProcessAfterCapturing.Checked = true;
+            this.checkBoxAutoProcessAfterCapturing.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tableLayoutPanelClipboardTextControls.SetColumnSpan(this.checkBoxAutoProcessAfterCapturing, 2);
+            this.checkBoxAutoProcessAfterCapturing.Location = new System.Drawing.Point(30, 75);
+            this.checkBoxAutoProcessAfterCapturing.Margin = new System.Windows.Forms.Padding(30, 3, 2, 3);
+            this.checkBoxAutoProcessAfterCapturing.Name = "checkBoxAutoProcessAfterCapturing";
+            this.checkBoxAutoProcessAfterCapturing.Size = new System.Drawing.Size(200, 21);
+            this.checkBoxAutoProcessAfterCapturing.TabIndex = 3;
+            this.checkBoxAutoProcessAfterCapturing.Text = "Auto process after fetching";
+            this.checkBoxAutoProcessAfterCapturing.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxOnlyWhenFormIsActivated
+            // 
+            this.checkBoxOnlyWhenFormIsActivated.AutoSize = true;
+            this.checkBoxOnlyWhenFormIsActivated.Checked = true;
+            this.checkBoxOnlyWhenFormIsActivated.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tableLayoutPanelClipboardTextControls.SetColumnSpan(this.checkBoxOnlyWhenFormIsActivated, 2);
+            this.checkBoxOnlyWhenFormIsActivated.Location = new System.Drawing.Point(30, 103);
+            this.checkBoxOnlyWhenFormIsActivated.Margin = new System.Windows.Forms.Padding(30, 3, 2, 3);
+            this.checkBoxOnlyWhenFormIsActivated.Name = "checkBoxOnlyWhenFormIsActivated";
+            this.checkBoxOnlyWhenFormIsActivated.Size = new System.Drawing.Size(203, 21);
+            this.checkBoxOnlyWhenFormIsActivated.TabIndex = 4;
+            this.checkBoxOnlyWhenFormIsActivated.Text = "Only when form is activated";
+            this.checkBoxOnlyWhenFormIsActivated.UseVisualStyleBackColor = true;
+            // 
+            // buttonProcessClipboardText
+            // 
+            this.buttonProcessClipboardText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonProcessClipboardText.Location = new System.Drawing.Point(119, 3);
+            this.buttonProcessClipboardText.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.buttonProcessClipboardText.Name = "buttonProcessClipboardText";
+            this.buttonProcessClipboardText.Size = new System.Drawing.Size(153, 28);
+            this.buttonProcessClipboardText.TabIndex = 5;
+            this.buttonProcessClipboardText.Text = "Process";
+            this.buttonProcessClipboardText.UseVisualStyleBackColor = true;
+            this.buttonProcessClipboardText.Click += new System.EventHandler(this.buttonProcess_Click);
             // 
             // splitContainerSub
             // 
@@ -348,58 +389,86 @@
             // 
             // splitContainerSub.Panel1
             // 
-            this.splitContainerSub.Panel1.Controls.Add(this.panelProcessedResult1Controls);
-            this.splitContainerSub.Panel1.Controls.Add(this.textBoxProcessedResult1);
-            this.splitContainerSub.Panel1.Controls.Add(this.labelProcessedResult1);
-            this.splitContainerSub.Panel1.Controls.Add(this.comboBoxPrimaryScriptFileNames);
+            this.splitContainerSub.Panel1.Controls.Add(this.tableLayoutPanelProcessedResult1);
             // 
             // splitContainerSub.Panel2
             // 
-            this.splitContainerSub.Panel2.Controls.Add(this.panelProcessedResult2Controls);
-            this.splitContainerSub.Panel2.Controls.Add(this.comboBoxSecondaryScriptFileNames);
-            this.splitContainerSub.Panel2.Controls.Add(this.textBoxProcessedResult2);
-            this.splitContainerSub.Panel2.Controls.Add(this.labelProcessedResult2);
-            this.splitContainerSub.Size = new System.Drawing.Size(926, 417);
-            this.splitContainerSub.SplitterDistance = 230;
+            this.splitContainerSub.Panel2.Controls.Add(this.tableLayoutPanelProcessedResult2);
+            this.splitContainerSub.Size = new System.Drawing.Size(928, 416);
+            this.splitContainerSub.SplitterDistance = 240;
             this.splitContainerSub.SplitterWidth = 3;
             this.splitContainerSub.TabIndex = 0;
             // 
-            // panelProcessedResult1Controls
+            // tableLayoutPanelProcessedResult1
             // 
-            this.panelProcessedResult1Controls.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelProcessedResult1Controls.AutoScroll = true;
-            this.panelProcessedResult1Controls.Controls.Add(this.buttonCopyProcessedResult1);
-            this.panelProcessedResult1Controls.Controls.Add(this.checkBoxAutoCopyProcessedResult1);
-            this.panelProcessedResult1Controls.Controls.Add(this.buttonSaveProcessedResult1AsFile);
-            this.panelProcessedResult1Controls.Controls.Add(this.checkBoxAppendProcessedResult1ToEnd);
-            this.panelProcessedResult1Controls.Location = new System.Drawing.Point(643, 35);
-            this.panelProcessedResult1Controls.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.panelProcessedResult1Controls.Name = "panelProcessedResult1Controls";
-            this.panelProcessedResult1Controls.Size = new System.Drawing.Size(280, 192);
-            this.panelProcessedResult1Controls.TabIndex = 8;
+            this.tableLayoutPanelProcessedResult1.ColumnCount = 4;
+            this.tableLayoutPanelProcessedResult1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 210F));
+            this.tableLayoutPanelProcessedResult1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelProcessedResult1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 5F));
+            this.tableLayoutPanelProcessedResult1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 280F));
+            this.tableLayoutPanelProcessedResult1.Controls.Add(this.labelProcessedResult1, 0, 0);
+            this.tableLayoutPanelProcessedResult1.Controls.Add(this.comboBoxPrimaryScriptFileNames, 1, 0);
+            this.tableLayoutPanelProcessedResult1.Controls.Add(this.textBoxProcessedResult1, 0, 1);
+            this.tableLayoutPanelProcessedResult1.Controls.Add(this.tableLayoutPanelProcessedResult1Controls, 3, 1);
+            this.tableLayoutPanelProcessedResult1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelProcessedResult1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelProcessedResult1.Name = "tableLayoutPanelProcessedResult1";
+            this.tableLayoutPanelProcessedResult1.RowCount = 2;
+            this.tableLayoutPanelProcessedResult1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanelProcessedResult1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelProcessedResult1.Size = new System.Drawing.Size(928, 240);
+            this.tableLayoutPanelProcessedResult1.TabIndex = 9;
+            // 
+            // tableLayoutPanelProcessedResult1Controls
+            // 
+            this.tableLayoutPanelProcessedResult1Controls.ColumnCount = 1;
+            this.tableLayoutPanelProcessedResult1Controls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelProcessedResult1Controls.Controls.Add(this.checkBoxAppendProcessedResult1ToEnd, 0, 4);
+            this.tableLayoutPanelProcessedResult1Controls.Controls.Add(this.checkBoxAutoCopyProcessedResult1, 0, 3);
+            this.tableLayoutPanelProcessedResult1Controls.Controls.Add(this.buttonCopyProcessedResult1, 0, 0);
+            this.tableLayoutPanelProcessedResult1Controls.Controls.Add(this.buttonSaveProcessedResult1AsFile, 0, 1);
+            this.tableLayoutPanelProcessedResult1Controls.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelProcessedResult1Controls.Location = new System.Drawing.Point(651, 37);
+            this.tableLayoutPanelProcessedResult1Controls.Name = "tableLayoutPanelProcessedResult1Controls";
+            this.tableLayoutPanelProcessedResult1Controls.RowCount = 6;
+            this.tableLayoutPanelProcessedResult1Controls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanelProcessedResult1Controls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanelProcessedResult1Controls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanelProcessedResult1Controls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanelProcessedResult1Controls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanelProcessedResult1Controls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelProcessedResult1Controls.Size = new System.Drawing.Size(274, 200);
+            this.tableLayoutPanelProcessedResult1Controls.TabIndex = 7;
             // 
             // checkBoxAutoCopyProcessedResult1
             // 
             this.checkBoxAutoCopyProcessedResult1.AutoSize = true;
-            this.checkBoxAutoCopyProcessedResult1.Location = new System.Drawing.Point(5, 76);
-            this.checkBoxAutoCopyProcessedResult1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.checkBoxAutoCopyProcessedResult1.Location = new System.Drawing.Point(4, 81);
+            this.checkBoxAutoCopyProcessedResult1.Margin = new System.Windows.Forms.Padding(4, 3, 2, 3);
             this.checkBoxAutoCopyProcessedResult1.Name = "checkBoxAutoCopyProcessedResult1";
-            this.checkBoxAutoCopyProcessedResult1.Size = new System.Drawing.Size(132, 17);
+            this.checkBoxAutoCopyProcessedResult1.Size = new System.Drawing.Size(171, 21);
             this.checkBoxAutoCopyProcessedResult1.TabIndex = 7;
             this.checkBoxAutoCopyProcessedResult1.Text = "Auto copy to clipboard";
             this.checkBoxAutoCopyProcessedResult1.UseVisualStyleBackColor = true;
             // 
-            // panelProcessedResult2Controls
+            // tableLayoutPanelProcessedResult2
             // 
-            this.panelProcessedResult2Controls.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelProcessedResult2Controls.AutoScroll = true;
-            this.panelProcessedResult2Controls.Location = new System.Drawing.Point(646, 35);
-            this.panelProcessedResult2Controls.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.panelProcessedResult2Controls.Name = "panelProcessedResult2Controls";
-            this.panelProcessedResult2Controls.Size = new System.Drawing.Size(277, 146);
-            this.panelProcessedResult2Controls.TabIndex = 14;
+            this.tableLayoutPanelProcessedResult2.ColumnCount = 4;
+            this.tableLayoutPanelProcessedResult2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 210F));
+            this.tableLayoutPanelProcessedResult2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelProcessedResult2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 5F));
+            this.tableLayoutPanelProcessedResult2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 280F));
+            this.tableLayoutPanelProcessedResult2.Controls.Add(this.labelProcessedResult2, 0, 0);
+            this.tableLayoutPanelProcessedResult2.Controls.Add(this.comboBoxSecondaryScriptFileNames, 1, 0);
+            this.tableLayoutPanelProcessedResult2.Controls.Add(this.textBoxProcessedResult2, 0, 1);
+            this.tableLayoutPanelProcessedResult2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelProcessedResult2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelProcessedResult2.Name = "tableLayoutPanelProcessedResult2";
+            this.tableLayoutPanelProcessedResult2.RowCount = 2;
+            this.tableLayoutPanelProcessedResult2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanelProcessedResult2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelProcessedResult2.Size = new System.Drawing.Size(928, 173);
+            this.tableLayoutPanelProcessedResult2.TabIndex = 15;
             // 
             // mainMenu
             // 
@@ -425,54 +494,79 @@
             // 
             // labelHistory
             // 
+            this.labelHistory.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelHistory.AutoSize = true;
-            this.labelHistory.Location = new System.Drawing.Point(2, 7);
-            this.labelHistory.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelHistory.Location = new System.Drawing.Point(2, 13);
+            this.labelHistory.Margin = new System.Windows.Forms.Padding(2, 0, 7, 0);
             this.labelHistory.Name = "labelHistory";
-            this.labelHistory.Size = new System.Drawing.Size(42, 13);
+            this.labelHistory.Size = new System.Drawing.Size(56, 17);
             this.labelHistory.TabIndex = 16;
             this.labelHistory.Text = "History:";
             // 
-            // panelHistoryControls
-            // 
-            this.panelHistoryControls.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelHistoryControls.Controls.Add(this.buttonHistoryPrevious);
-            this.panelHistoryControls.Controls.Add(this.buttonHistoryNext);
-            this.panelHistoryControls.Location = new System.Drawing.Point(646, 0);
-            this.panelHistoryControls.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.panelHistoryControls.Name = "panelHistoryControls";
-            this.panelHistoryControls.Size = new System.Drawing.Size(277, 36);
-            this.panelHistoryControls.TabIndex = 17;
-            // 
             // statusBar
             // 
-            this.statusBar.Location = new System.Drawing.Point(0, 683);
+            this.statusBar.Location = new System.Drawing.Point(0, 695);
             this.statusBar.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.statusBar.Name = "statusBar";
-            this.statusBar.Size = new System.Drawing.Size(944, 18);
+            this.statusBar.Size = new System.Drawing.Size(942, 18);
             this.statusBar.TabIndex = 18;
             // 
-            // panelHistory
+            // tableLayoutPanelMain
             // 
-            this.panelHistory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelHistory.Controls.Add(this.labelHistory);
-            this.panelHistory.Controls.Add(this.comboBoxHistory);
-            this.panelHistory.Controls.Add(this.panelHistoryControls);
-            this.panelHistory.Location = new System.Drawing.Point(9, 638);
-            this.panelHistory.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.panelHistory.Name = "panelHistory";
-            this.panelHistory.Size = new System.Drawing.Size(926, 36);
-            this.panelHistory.TabIndex = 19;
+            this.tableLayoutPanelMain.ColumnCount = 1;
+            this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelMain.Controls.Add(this.splitContainerMain, 0, 0);
+            this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelHistory, 0, 1);
+            this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelMain.Name = "tableLayoutPanelMain";
+            this.tableLayoutPanelMain.Padding = new System.Windows.Forms.Padding(5);
+            this.tableLayoutPanelMain.RowCount = 2;
+            this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanelMain.Size = new System.Drawing.Size(942, 695);
+            this.tableLayoutPanelMain.TabIndex = 20;
+            // 
+            // tableLayoutPanelHistory
+            // 
+            this.tableLayoutPanelHistory.ColumnCount = 4;
+            this.tableLayoutPanelHistory.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanelHistory.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelHistory.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 5F));
+            this.tableLayoutPanelHistory.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 280F));
+            this.tableLayoutPanelHistory.Controls.Add(this.comboBoxHistory, 1, 0);
+            this.tableLayoutPanelHistory.Controls.Add(this.labelHistory, 0, 0);
+            this.tableLayoutPanelHistory.Controls.Add(this.tableLayoutPanelHistoryControls, 3, 0);
+            this.tableLayoutPanelHistory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelHistory.Location = new System.Drawing.Point(8, 643);
+            this.tableLayoutPanelHistory.Name = "tableLayoutPanelHistory";
+            this.tableLayoutPanelHistory.RowCount = 1;
+            this.tableLayoutPanelHistory.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelHistory.Size = new System.Drawing.Size(926, 44);
+            this.tableLayoutPanelHistory.TabIndex = 1;
+            // 
+            // tableLayoutPanelHistoryControls
+            // 
+            this.tableLayoutPanelHistoryControls.ColumnCount = 2;
+            this.tableLayoutPanelHistoryControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelHistoryControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelHistoryControls.Controls.Add(this.buttonHistoryNext, 1, 0);
+            this.tableLayoutPanelHistoryControls.Controls.Add(this.buttonHistoryPrevious, 0, 0);
+            this.tableLayoutPanelHistoryControls.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelHistoryControls.Location = new System.Drawing.Point(649, 3);
+            this.tableLayoutPanelHistoryControls.Name = "tableLayoutPanelHistoryControls";
+            this.tableLayoutPanelHistoryControls.RowCount = 1;
+            this.tableLayoutPanelHistoryControls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelHistoryControls.Size = new System.Drawing.Size(274, 38);
+            this.tableLayoutPanelHistoryControls.TabIndex = 17;
             // 
             // FormMain
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(944, 701);
-            this.Controls.Add(this.panelHistory);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(942, 713);
+            this.Controls.Add(this.tableLayoutPanelMain);
             this.Controls.Add(this.statusBar);
-            this.Controls.Add(this.splitContainerMain);
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MinimumSize = new System.Drawing.Size(453, 480);
             this.Name = "FormMain";
@@ -480,23 +574,27 @@
             this.Activated += new System.EventHandler(this.FormMain_Activated);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.splitContainerMain.Panel1.ResumeLayout(false);
-            this.splitContainerMain.Panel1.PerformLayout();
             this.splitContainerMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
             this.splitContainerMain.ResumeLayout(false);
-            this.panelClipboardTextControls.ResumeLayout(false);
-            this.panelClipboardTextControls.PerformLayout();
+            this.tableLayoutPanelClipboardText.ResumeLayout(false);
+            this.tableLayoutPanelClipboardText.PerformLayout();
+            this.tableLayoutPanelClipboardTextControls.ResumeLayout(false);
+            this.tableLayoutPanelClipboardTextControls.PerformLayout();
             this.splitContainerSub.Panel1.ResumeLayout(false);
-            this.splitContainerSub.Panel1.PerformLayout();
             this.splitContainerSub.Panel2.ResumeLayout(false);
-            this.splitContainerSub.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerSub)).EndInit();
             this.splitContainerSub.ResumeLayout(false);
-            this.panelProcessedResult1Controls.ResumeLayout(false);
-            this.panelProcessedResult1Controls.PerformLayout();
-            this.panelHistoryControls.ResumeLayout(false);
-            this.panelHistory.ResumeLayout(false);
-            this.panelHistory.PerformLayout();
+            this.tableLayoutPanelProcessedResult1.ResumeLayout(false);
+            this.tableLayoutPanelProcessedResult1.PerformLayout();
+            this.tableLayoutPanelProcessedResult1Controls.ResumeLayout(false);
+            this.tableLayoutPanelProcessedResult1Controls.PerformLayout();
+            this.tableLayoutPanelProcessedResult2.ResumeLayout(false);
+            this.tableLayoutPanelProcessedResult2.PerformLayout();
+            this.tableLayoutPanelMain.ResumeLayout(false);
+            this.tableLayoutPanelHistory.ResumeLayout(false);
+            this.tableLayoutPanelHistory.PerformLayout();
+            this.tableLayoutPanelHistoryControls.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -530,12 +628,15 @@
         private System.Windows.Forms.CheckBox checkBoxOnlyWhenFormIsActivated;
         private System.Windows.Forms.CheckBox checkBoxAutoCopyProcessedResult1;
         private System.Windows.Forms.Button buttonProcessClipboardText;
-        private System.Windows.Forms.Panel panelClipboardTextControls;
-        private System.Windows.Forms.Panel panelProcessedResult1Controls;
-        private System.Windows.Forms.Panel panelProcessedResult2Controls;
-        private System.Windows.Forms.Panel panelHistoryControls;
         private System.Windows.Forms.StatusBar statusBar;
-        private System.Windows.Forms.Panel panelHistory;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelClipboardText;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelClipboardTextControls;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelProcessedResult1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelProcessedResult1Controls;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelProcessedResult2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelMain;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelHistory;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelHistoryControls;
     }
 }
 
