@@ -133,9 +133,9 @@ namespace ClipboardAutoProcessor
 
         private void ButtonClipboardTextFetch_Click(object sender, EventArgs e)
         {
-            string clipboard_text = Clipboard.GetText();
+            string clipboardText = Clipboard.GetText();
 
-            SetClipboardText(clipboard_text);
+            SetClipboardText(clipboardText);
         }
 
         private void ButtonClipboardTextProcess_Click(object sender, EventArgs e)
@@ -148,6 +148,14 @@ namespace ClipboardAutoProcessor
             Clipboard.SetText(textBoxProcessedResult1.Text);
 
             _currentClipboardText = Clipboard.GetText();
+        }
+
+        private void CheckBoxClipboardTextAutoFetch_CheckedChanged(object sender, EventArgs e)
+        {
+            bool autoFetchChecked = checkBoxClipboardTextAutoFetch.Checked;
+
+            checkBoxClipboardTextAutoProcessAfterAutoFetch.Enabled = autoFetchChecked;
+            checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Enabled = autoFetchChecked;
         }
 
         private void MultilineTextBox_KeyDown(object sender, KeyEventArgs e)

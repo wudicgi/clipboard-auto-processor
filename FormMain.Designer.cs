@@ -337,6 +337,7 @@
             this.checkBoxClipboardTextAutoFetch.TabIndex = 2;
             this.checkBoxClipboardTextAutoFetch.Text = "Auto fetch";
             this.checkBoxClipboardTextAutoFetch.UseVisualStyleBackColor = true;
+            this.checkBoxClipboardTextAutoFetch.CheckedChanged += new System.EventHandler(this.CheckBoxClipboardTextAutoFetch_CheckedChanged);
             // 
             // checkBoxClipboardTextAutoProcessAfterAutoFetch
             // 
