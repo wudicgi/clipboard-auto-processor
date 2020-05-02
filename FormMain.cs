@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using ClipboardAutoProcessor.DataStructure;
 
 namespace ClipboardAutoProcessor
 {
@@ -342,27 +343,5 @@ namespace ClipboardAutoProcessor
 
             _currentClipboardText = Clipboard.GetText();
         }
-    }
-
-    public class ProcessorScript
-    {
-        public string FullPath { get; set; }
-        public string FileName { get; set; }
-        public string ShowTitle { get; set; }
-    }
-
-    public class HistoryState
-    {
-        public string Text { get; set; }
-
-        public string Type { get; set; }
-        public DateTime Time { get; set; }
-        public string SummaryText { get; set; }
-
-        public string ClipboardText { get; set; }
-        public string ProcessResult1 { get; set; }
-        public string ProcessResult2 { get; set; }
-        public string Script1 { get; set; }
-        public string Script2 { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ClipboardAutoProcessor
+namespace ClipboardAutoProcessor.DataStructure
 {
     public class ApplicationConfig
     {
@@ -39,12 +39,5 @@ namespace ClipboardAutoProcessor
         {
             return _scriptInterpreters.ContainsKey(fileExtension);
         }
-    }
-
-    public struct ScriptInterpreterConfig
-    {
-        public string FileExtension;
-        public string ExecutableProgram;
-        public string CommandLineArguments;
     }
 }
