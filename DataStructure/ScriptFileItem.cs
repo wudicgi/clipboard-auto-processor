@@ -2,7 +2,7 @@
 
 namespace ClipboardAutoProcessor.DataStructure
 {
-    public class ProcessorScript
+    public class ScriptFileItem
     {
         /// <summary>
         /// The full path of the script file

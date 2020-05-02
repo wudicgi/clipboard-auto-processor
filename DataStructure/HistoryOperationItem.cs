@@ -2,7 +2,7 @@
 
 namespace ClipboardAutoProcessor.DataStructure
 {
-    public class HistoryState
+    public class HistoryOperationItem
     {
         /// <summary>
         /// The item text to display in combo box

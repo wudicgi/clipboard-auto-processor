@@ -7,13 +7,13 @@ namespace ClipboardAutoProcessor.DataStructure
 {
     public class ApplicationConfig
     {
-        private Dictionary<string, ScriptInterpreterConfig> _scriptInterpreters;
+        private Dictionary<string, ScriptInterpreterItem> _scriptInterpreters;
 
         public ApplicationConfig()
         {
-            _scriptInterpreters = new Dictionary<string, ScriptInterpreterConfig>();
+            _scriptInterpreters = new Dictionary<string, ScriptInterpreterItem>();
 
-            ScriptInterpreterConfig item = new ScriptInterpreterConfig()
+            ScriptInterpreterItem item = new ScriptInterpreterItem()
             {
                 FileExtension = "php",
                 ExecutableProgram = @"C:\php\php.exe",
@@ -21,7 +21,7 @@ namespace ClipboardAutoProcessor.DataStructure
             };
             _scriptInterpreters.Add(item.FileExtension.ToLower(), item);
 
-            ScriptInterpreterConfig item2 = new ScriptInterpreterConfig()
+            ScriptInterpreterItem item2 = new ScriptInterpreterItem()
             {
                 FileExtension = "js",
                 ExecutableProgram = @"cscript.exe",
@@ -30,7 +30,7 @@ namespace ClipboardAutoProcessor.DataStructure
             _scriptInterpreters.Add(item2.FileExtension.ToLower(), item2);
         }
 
-        public ScriptInterpreterConfig GetScriptInterpreter(string fileExtension)
+        public ScriptInterpreterItem GetScriptInterpreter(string fileExtension)
         {
             return _scriptInterpreters[fileExtension];
         }

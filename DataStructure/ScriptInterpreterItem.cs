@@ -2,7 +2,7 @@
 
 namespace ClipboardAutoProcessor.DataStructure
 {
-    public class ScriptInterpreterConfig
+    public class ScriptInterpreterItem
     {
         /// <summary>
         /// File extension name (without ".", all lower-case)
