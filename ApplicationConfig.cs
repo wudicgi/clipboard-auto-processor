@@ -7,41 +7,41 @@ namespace ClipboardAutoProcessor
 {
     public class ApplicationConfig
     {
-        private Dictionary<string, ScriptExecuteCommandLine> _scriptExecuteCommandLines;
+        private Dictionary<string, ScriptInterpreterConfig> _scriptInterpreters;
 
         public ApplicationConfig()
         {
-            _scriptExecuteCommandLines = new Dictionary<string, ScriptExecuteCommandLine>();
+            _scriptInterpreters = new Dictionary<string, ScriptInterpreterConfig>();
 
-            ScriptExecuteCommandLine item = new ScriptExecuteCommandLine()
+            ScriptInterpreterConfig item = new ScriptInterpreterConfig()
             {
                 FileExtension = "php",
                 ExecutableProgram = @"C:\php\php.exe",
                 CommandLineArguments = "-f \"<filename>\" --"
             };
-            _scriptExecuteCommandLines.Add(item.FileExtension.ToLower(), item);
+            _scriptInterpreters.Add(item.FileExtension.ToLower(), item);
 
-            ScriptExecuteCommandLine item2 = new ScriptExecuteCommandLine()
+            ScriptInterpreterConfig item2 = new ScriptInterpreterConfig()
             {
                 FileExtension = "js",
                 ExecutableProgram = @"cscript.exe",
                 CommandLineArguments = "//E:jscript //Nologo \"<filename>\""
             };
-            _scriptExecuteCommandLines.Add(item2.FileExtension.ToLower(), item2);
+            _scriptInterpreters.Add(item2.FileExtension.ToLower(), item2);
         }
 
-        public ScriptExecuteCommandLine GetScriptExecuteCommandLine(string fileExtension)
+        public ScriptInterpreterConfig GetScriptInterpreter(string fileExtension)
         {
-            return _scriptExecuteCommandLines[fileExtension];
+            return _scriptInterpreters[fileExtension];
         }
 
         public bool IsSupportedFileExtension(string fileExtension)
         {
-            return _scriptExecuteCommandLines.ContainsKey(fileExtension);
+            return _scriptInterpreters.ContainsKey(fileExtension);
         }
     }
 
-    public struct ScriptExecuteCommandLine
+    public struct ScriptInterpreterConfig
     {
         public string FileExtension;
         public string ExecutableProgram;

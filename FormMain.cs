@@ -188,11 +188,11 @@ namespace ClipboardAutoProcessor
             }
 
             string scriptFileExtension = Path.GetExtension(scriptFileFullpath).TrimStart('.').ToLower();
-            ScriptExecuteCommandLine script_cmd = _applicationConfig.GetScriptExecuteCommandLine(scriptFileExtension);
+            ScriptInterpreterConfig scriptInterpreterConfig = _applicationConfig.GetScriptInterpreter(scriptFileExtension);
 
             Process process = new Process();
-            process.StartInfo.FileName = script_cmd.ExecutableProgram.Replace("<filename>", scriptFileFullpath);
-            process.StartInfo.Arguments = script_cmd.CommandLineArguments.Replace("<filename>", scriptFileFullpath);
+            process.StartInfo.FileName = scriptInterpreterConfig.ExecutableProgram.Replace("<filename>", scriptFileFullpath);
+            process.StartInfo.Arguments = scriptInterpreterConfig.CommandLineArguments.Replace("<filename>", scriptFileFullpath);
             process.StartInfo.CreateNoWindow = true;
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardInput = true;
