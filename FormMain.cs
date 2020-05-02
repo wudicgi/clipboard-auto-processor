@@ -101,7 +101,7 @@ namespace ClipboardAutoProcessor
                 {
                     FullPath = Path.GetFullPath(file),
                     FileName = Path.GetFileName(file),
-                    ShowTitle = Path.GetFileName(file),
+                    DisplayTitle = Path.GetFileName(file),
                 };
 
                 processorScripts.Add(item);
@@ -116,7 +116,7 @@ namespace ClipboardAutoProcessor
             this.Menu = mainMenu;
 
             comboBoxPrimaryScriptFileNames.ValueMember = null;
-            comboBoxPrimaryScriptFileNames.DisplayMember = "ShowTitle";
+            comboBoxPrimaryScriptFileNames.DisplayMember = nameof(ProcessorScript.DisplayTitle);
             comboBoxPrimaryScriptFileNames.DataSource = _processorScripts1;
             
             if (comboBoxPrimaryScriptFileNames.Items.Count > 0)
@@ -127,7 +127,7 @@ namespace ClipboardAutoProcessor
             _historyStates = new BindingList<HistoryState>();
 
             comboBoxHistory.ValueMember = null;
-            comboBoxHistory.DisplayMember = "Text";
+            comboBoxHistory.DisplayMember = nameof(HistoryState.DisplayText);
             comboBoxHistory.DataSource = _historyStates;
         }
 
@@ -286,7 +286,7 @@ namespace ClipboardAutoProcessor
                 SummaryText = summaryText
             };
 
-            historyState.Text = String.Format("[{0}] ({1:H:mm:ss}) {2}",
+            historyState.DisplayText = String.Format("[{0}] ({1:H:mm:ss}) {2}",
                 historyState.Type, historyState.Time, historyState.SummaryText);
 
             _historyStates.Add(historyState);
