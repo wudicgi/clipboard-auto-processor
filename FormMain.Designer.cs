@@ -154,7 +154,7 @@
             this.buttonFetchClipboardText.TabIndex = 1;
             this.buttonFetchClipboardText.Text = "Fetch";
             this.buttonFetchClipboardText.UseVisualStyleBackColor = true;
-            this.buttonFetchClipboardText.Click += new System.EventHandler(this.buttonGetClipboardText_Click);
+            this.buttonFetchClipboardText.Click += new System.EventHandler(this.ButtonGetClipboardText_Click);
             // 
             // checkBoxAppendProcessedResult1ToEnd
             // 
@@ -178,7 +178,7 @@
             this.buttonCopyProcessedResult1.TabIndex = 3;
             this.buttonCopyProcessedResult1.Text = "Copy";
             this.buttonCopyProcessedResult1.UseVisualStyleBackColor = true;
-            this.buttonCopyProcessedResult1.Click += new System.EventHandler(this.buttonCopyPrimaryProcessedResult_Click);
+            this.buttonCopyProcessedResult1.Click += new System.EventHandler(this.ButtonCopyPrimaryProcessedResult_Click);
             // 
             // buttonSaveProcessedResult1AsFile
             // 
@@ -377,7 +377,7 @@
             this.buttonProcessClipboardText.TabIndex = 5;
             this.buttonProcessClipboardText.Text = "Process";
             this.buttonProcessClipboardText.UseVisualStyleBackColor = true;
-            this.buttonProcessClipboardText.Click += new System.EventHandler(this.buttonProcess_Click);
+            this.buttonProcessClipboardText.Click += new System.EventHandler(this.ButtonProcess_Click);
             // 
             // splitContainerSub
             // 

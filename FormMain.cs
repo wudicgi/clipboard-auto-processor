@@ -25,9 +25,9 @@ namespace ClipboardAutoProcessor
         private BindingList<ScriptFileItem> _scriptFileList1;
         private BindingList<ScriptFileItem> _scriptFileList2;
 
-        private string _currentClipboardText = "";
+        private string _currentClipboardText = string.Empty;
 
-        private BindingList<HistoryOperationItem> _historyOperationList;
+        private BindingList<HistoryOperationItem> _historyOperationList = new BindingList<HistoryOperationItem>();
 
         public FormMain()
         {
@@ -119,16 +119,14 @@ namespace ClipboardAutoProcessor
             comboBoxPrimaryScriptFileNames.DisplayMember = nameof(ScriptFileItem.DisplayTitle);
             comboBoxPrimaryScriptFileNames.DataSource = _scriptFileList1;
             
+            comboBoxHistory.ValueMember = null;
+            comboBoxHistory.DisplayMember = nameof(HistoryOperationItem.DisplayText);
+            comboBoxHistory.DataSource = _historyOperationList;
+
             if (comboBoxPrimaryScriptFileNames.Items.Count > 0)
             {
                 comboBoxPrimaryScriptFileNames.SelectedIndex = 0;
             }
-
-            _historyOperationList = new BindingList<HistoryOperationItem>();
-
-            comboBoxHistory.ValueMember = null;
-            comboBoxHistory.DisplayMember = nameof(HistoryOperationItem.DisplayText);
-            comboBoxHistory.DataSource = _historyOperationList;
         }
 
         private void SetClipboardText(string clipboard_text)
@@ -143,14 +141,14 @@ namespace ClipboardAutoProcessor
             textBoxClipboardText.Text = clipboard_text;
         }
 
-        private void buttonGetClipboardText_Click(object sender, EventArgs e)
+        private void ButtonGetClipboardText_Click(object sender, EventArgs e)
         {
             string clipboard_text = Clipboard.GetText();
 
             SetClipboardText(clipboard_text);
         }
 
-        private void buttonProcess_Click(object sender, EventArgs e)
+        private void ButtonProcess_Click(object sender, EventArgs e)
         {
             CallScriptInterpreter();
         }
@@ -240,8 +238,8 @@ namespace ClipboardAutoProcessor
             process.BeginErrorReadLine();
 
             if (process.WaitForExit(timeout) &&
-                outputWaitHandle.WaitOne(timeout) &&
-                errorWaitHandle.WaitOne(timeout))
+                    outputWaitHandle.WaitOne(timeout) &&
+                    errorWaitHandle.WaitOne(timeout))
             {
                 // Process completed. Check process.ExitCode here.
             }
@@ -287,7 +285,7 @@ namespace ClipboardAutoProcessor
             };
 
             historyOperation.DisplayText = String.Format("[{0}] ({1:H:mm:ss}) {2}",
-                historyOperation.Type, historyOperation.Time, historyOperation.SummaryText);
+                    historyOperation.Type, historyOperation.Time, historyOperation.SummaryText);
 
             _historyOperationList.Add(historyOperation);
 
@@ -310,7 +308,7 @@ namespace ClipboardAutoProcessor
         private void FormMain_Activated(object sender, EventArgs e)
         {
             if (!checkBoxOnlyWhenFormIsActivated.Enabled
-                || !checkBoxOnlyWhenFormIsActivated.Checked)
+                    || !checkBoxOnlyWhenFormIsActivated.Checked)
             {
                 return;
             }
@@ -337,7 +335,7 @@ namespace ClipboardAutoProcessor
             }
         }
 
-        private void buttonCopyPrimaryProcessedResult_Click(object sender, EventArgs e)
+        private void ButtonCopyPrimaryProcessedResult_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(textBoxProcessedResult1.Text);
 
