@@ -65,17 +65,17 @@ namespace ClipboardAutoProcessor
             menuItemHelp.Text = I18n._("&Help");
 
             labelClipboardText.Text = I18n._("Clipboard text:");
-            buttonFetchClipboardText.Text = I18n._("Fetch");
-            buttonProcessClipboardText.Text = I18n._("Process");
-            checkBoxAutoFetch.Text = I18n._("Auto fetch");
-            checkBoxAutoProcessAfterCapturing.Text = I18n._("Auto process after fetching");
-            checkBoxOnlyWhenFormIsActivated.Text = I18n._("Only when form is activated");
+            buttonClipboardTextFetch.Text = I18n._("Fetch");
+            buttonClipboardTextProcess.Text = I18n._("Process");
+            checkBoxClipboardTextAutoFetch.Text = I18n._("Auto fetch");
+            checkBoxClipboardTextAutoProcessAfterAutoFetch.Text = I18n._("Auto process after fetching");
+            checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Text = I18n._("Only when form is activated");
 
             labelProcessedResult1.Text = I18n._("Processed result:");
-            buttonCopyProcessedResult1.Text = I18n._("Copy");
-            buttonSaveProcessedResult1AsFile.Text = I18n._("Save as file...");
-            checkBoxAutoCopyProcessedResult1.Text = I18n._("Auto copy to clipboard");
-            checkBoxAppendProcessedResult1ToEnd.Text = I18n._("Append new result");
+            buttonProcessedResult1Copy.Text = I18n._("Copy");
+            buttonProcessedResult1SaveAsFile.Text = I18n._("Save as file...");
+            checkBoxProcessedResult1AutoCopy.Text = I18n._("Auto copy to clipboard");
+            checkBoxProcessedResult1AppendToEnd.Text = I18n._("Append new result");
 
             labelProcessedResult2.Text = I18n._("Secondary processed result:");
 
@@ -95,24 +95,24 @@ namespace ClipboardAutoProcessor
             // To avoid the bug of MainMenu control handling in Visual Studio designer
             this.Menu = mainMenu;
 
-            comboBoxPrimaryScriptFileNames.ValueMember = null;
-            comboBoxPrimaryScriptFileNames.DisplayMember = nameof(ScriptFileItem.DisplayTitle);
-            comboBoxPrimaryScriptFileNames.DataSource = _scriptFileList1;
+            comboBoxScriptFileList1.ValueMember = null;
+            comboBoxScriptFileList1.DisplayMember = nameof(ScriptFileItem.DisplayTitle);
+            comboBoxScriptFileList1.DataSource = _scriptFileList1;
 
-            comboBoxHistory.ValueMember = null;
-            comboBoxHistory.DisplayMember = nameof(HistoryOperationItem.DisplayText);
-            comboBoxHistory.DataSource = _historyOperationList;
+            comboBoxHistoryOperationList.ValueMember = null;
+            comboBoxHistoryOperationList.DisplayMember = nameof(HistoryOperationItem.DisplayText);
+            comboBoxHistoryOperationList.DataSource = _historyOperationList;
 
-            if (comboBoxPrimaryScriptFileNames.Items.Count > 0)
+            if (comboBoxScriptFileList1.Items.Count > 0)
             {
-                comboBoxPrimaryScriptFileNames.SelectedIndex = 0;
+                comboBoxScriptFileList1.SelectedIndex = 0;
             }
         }
 
         private void FormMain_Activated(object sender, EventArgs e)
         {
-            if (!checkBoxOnlyWhenFormIsActivated.Enabled
-                    || !checkBoxOnlyWhenFormIsActivated.Checked)
+            if (!checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Enabled
+                    || !checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Checked)
             {
                 return;
             }
@@ -123,27 +123,27 @@ namespace ClipboardAutoProcessor
             {
                 SetClipboardText(clipboardText);
 
-                if (checkBoxAutoProcessAfterCapturing.Enabled
-                        && checkBoxAutoProcessAfterCapturing.Checked)
+                if (checkBoxClipboardTextAutoProcessAfterAutoFetch.Enabled
+                        && checkBoxClipboardTextAutoProcessAfterAutoFetch.Checked)
                 {
                     ProcessClipboardText();
                 }
             }
         }
 
-        private void ButtonGetClipboardText_Click(object sender, EventArgs e)
+        private void ButtonClipboardTextFetch_Click(object sender, EventArgs e)
         {
             string clipboard_text = Clipboard.GetText();
 
             SetClipboardText(clipboard_text);
         }
 
-        private void ButtonProcess_Click(object sender, EventArgs e)
+        private void ButtonClipboardTextProcess_Click(object sender, EventArgs e)
         {
             ProcessClipboardText();
         }
 
-        private void ButtonCopyPrimaryProcessedResult_Click(object sender, EventArgs e)
+        private void ButtonProcessedResult1Copy_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(textBoxProcessedResult1.Text);
 
@@ -178,7 +178,7 @@ namespace ClipboardAutoProcessor
         {
             string text = textBoxClipboardText.Text;
 
-            string scriptFileName = comboBoxPrimaryScriptFileNames.Text;
+            string scriptFileName = comboBoxScriptFileList1.Text;
             string scriptFileFullpath = Path.GetFullPath(_currentDirectoryPath + "\\processors\\" + scriptFileName);
 
             if (!File.Exists(scriptFileFullpath))
@@ -191,7 +191,7 @@ namespace ClipboardAutoProcessor
 
             string text2 = ScriptUtil.CallScriptInterpreter(scriptInterpreter, scriptFileFullpath, text);
 
-            if (checkBoxAppendProcessedResult1ToEnd.Checked)
+            if (checkBoxProcessedResult1AppendToEnd.Checked)
             {
                 if (textBoxProcessedResult1.Text == "")
                 {
@@ -225,12 +225,12 @@ namespace ClipboardAutoProcessor
 
             _historyOperationList.Add(historyOperation);
 
-            if (comboBoxHistory.Items.Count > 0)
+            if (comboBoxHistoryOperationList.Items.Count > 0)
             {
-                comboBoxHistory.SelectedIndex = comboBoxHistory.Items.Count - 1;
+                comboBoxHistoryOperationList.SelectedIndex = comboBoxHistoryOperationList.Items.Count - 1;
             }
 
-            if (checkBoxAutoCopyProcessedResult1.Checked)
+            if (checkBoxProcessedResult1AutoCopy.Checked)
             {
                 Clipboard.SetText(textBoxProcessedResult1.Text);
 
