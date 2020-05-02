@@ -57,7 +57,7 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="I18n.cs" />
-    <Compile Include="Preferences.cs" />
+    <Compile Include="ApplicationConfig.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormMain.resx">

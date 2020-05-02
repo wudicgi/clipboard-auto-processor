@@ -14,7 +14,7 @@ namespace ClipboardAutoProcessor
 {
     public partial class FormMain : Form
     {
-        private Preferences _preferences = new Preferences();
+        private ApplicationConfig _applicationConfig = new ApplicationConfig();
 
         private string _pathCurrentDirectory;
 
@@ -91,7 +91,7 @@ namespace ClipboardAutoProcessor
             {
                 string extension = Path.GetExtension(file).TrimStart('.').ToLower();
 
-                if (!_preferences.IsSupportedFileExtension(extension))
+                if (!_applicationConfig.IsSupportedFileExtension(extension))
                 {
                     continue;
                 }
@@ -188,7 +188,7 @@ namespace ClipboardAutoProcessor
             }
 
             string scriptFileExtension = Path.GetExtension(scriptFileFullpath).TrimStart('.').ToLower();
-            ScriptExecuteCommandLine script_cmd = _preferences.GetScriptExecuteCommandLine(scriptFileExtension);
+            ScriptExecuteCommandLine script_cmd = _applicationConfig.GetScriptExecuteCommandLine(scriptFileExtension);
 
             Process process = new Process();
             process.StartInfo.FileName = script_cmd.ExecutableProgram.Replace("<filename>", scriptFileFullpath);

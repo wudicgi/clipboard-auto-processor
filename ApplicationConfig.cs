@@ -5,11 +5,11 @@ using System.Text;
 
 namespace ClipboardAutoProcessor
 {
-    public class Preferences
+    public class ApplicationConfig
     {
         private Dictionary<string, ScriptExecuteCommandLine> _scriptExecuteCommandLines;
 
-        public Preferences()
+        public ApplicationConfig()
         {
             _scriptExecuteCommandLines = new Dictionary<string, ScriptExecuteCommandLine>();
 
