@@ -44,8 +44,8 @@ namespace ClipboardAutoProcessor
             _scriptFileDirectoryPath1 = _currentDirectoryPath + "\\processors";
             _scriptFileDirectoryPath2 = _currentDirectoryPath + "\\processors2";
 
-            _scriptFileList1 = GetScriptFileList(_scriptFileDirectoryPath1);
-            _scriptFileList2 = GetScriptFileList(_scriptFileDirectoryPath2);
+            _scriptFileList1 = ScriptUtil.GetScriptFileList(_scriptFileDirectoryPath1);
+            _scriptFileList2 = ScriptUtil.GetScriptFileList(_scriptFileDirectoryPath2);
 
 //            this.Font = SystemFonts.MessageBoxFont;
 
@@ -126,7 +126,7 @@ namespace ClipboardAutoProcessor
                 if (checkBoxAutoProcessAfterCapturing.Enabled
                         && checkBoxAutoProcessAfterCapturing.Checked)
                 {
-                    CallScriptInterpreter();
+                    ProcessClipboardText();
                 }
             }
         }
@@ -140,7 +140,7 @@ namespace ClipboardAutoProcessor
 
         private void ButtonProcess_Click(object sender, EventArgs e)
         {
-            CallScriptInterpreter();
+            ProcessClipboardText();
         }
 
         private void ButtonCopyPrimaryProcessedResult_Click(object sender, EventArgs e)
@@ -174,44 +174,7 @@ namespace ClipboardAutoProcessor
             textBoxClipboardText.Text = clipboard_text;
         }
 
-        #endregion
-
-        #region Script processing
-
-        private BindingList<ScriptFileItem> GetScriptFileList(string path)
-        {
-            BindingList<ScriptFileItem> scriptFileList = new BindingList<ScriptFileItem>();
-
-            if (!Directory.Exists(path))
-            {
-                return scriptFileList;
-            }
-
-            string[] files = Directory.GetFiles(path);
-
-            foreach (string file in files)
-            {
-                string extension = Path.GetExtension(file).TrimStart('.').ToLower();
-
-                if (!ApplicationService.ApplicationConfig.IsSupportedFileExtension(extension))
-                {
-                    continue;
-                }
-
-                ScriptFileItem item = new ScriptFileItem()
-                {
-                    FullPath = Path.GetFullPath(file),
-                    FileName = Path.GetFileName(file),
-                    DisplayTitle = Path.GetFileName(file),
-                };
-
-                scriptFileList.Add(item);
-            }
-
-            return scriptFileList;
-        }
-
-        private void CallScriptInterpreter()
+        private void ProcessClipboardText()
         {
             string text = textBoxClipboardText.Text;
 
@@ -226,66 +189,7 @@ namespace ClipboardAutoProcessor
             string scriptFileExtension = Path.GetExtension(scriptFileFullpath).TrimStart('.').ToLower();
             ScriptInterpreterItem scriptInterpreter = ApplicationService.ApplicationConfig.GetScriptInterpreter(scriptFileExtension);
 
-            Process process = new Process();
-            process.StartInfo.FileName = scriptInterpreter.ExecutableProgram.Replace("<filename>", scriptFileFullpath);
-            process.StartInfo.Arguments = scriptInterpreter.CommandLineArguments.Replace("<filename>", scriptFileFullpath);
-            process.StartInfo.CreateNoWindow = true;
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.RedirectStandardInput = true;
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.RedirectStandardError = true;
-
-            int timeout = 3000;
-
-            StringBuilder stdout = new StringBuilder();
-            StringBuilder stderr = new StringBuilder();
-
-            AutoResetEvent outputWaitHandle = new AutoResetEvent(false);
-            AutoResetEvent errorWaitHandle = new AutoResetEvent(false);
-
-            process.OutputDataReceived += (sender, e) =>
-            {
-                if (e.Data == null)
-                {
-                    outputWaitHandle.Set();
-                }
-                else
-                {
-                    stdout.AppendLine(e.Data);
-                }
-            };
-            process.ErrorDataReceived += (sender, e) =>
-            {
-                if (e.Data == null)
-                {
-                    errorWaitHandle.Set();
-                }
-                else
-                {
-                    stderr.AppendLine(e.Data);
-                }
-            };
-
-            process.Start();
-
-            process.StandardInput.WriteLine(StringUtil.Base64Encode(text));
-            process.StandardInput.Close();
-
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-
-            if (process.WaitForExit(timeout) &&
-                    outputWaitHandle.WaitOne(timeout) &&
-                    errorWaitHandle.WaitOne(timeout))
-            {
-                // Process completed. Check process.ExitCode here.
-            }
-            else
-            {
-                // Timed out.
-            }
-
-            string text2 = StringUtil.Base64Decode(stdout.ToString());
+            string text2 = ScriptUtil.CallScriptInterpreter(scriptInterpreter, scriptFileFullpath, text);
 
             if (checkBoxAppendProcessedResult1ToEnd.Checked)
             {
@@ -301,11 +205,6 @@ namespace ClipboardAutoProcessor
             else
             {
                 textBoxProcessedResult1.Text = text2;
-            }
-
-            if (!process.HasExited)
-            {
-                process.Kill();
             }
 
             string summaryText = Regex.Replace(text, "/[\\t\\r\\n]/", " ").Trim();
