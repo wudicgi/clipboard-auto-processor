@@ -9,37 +9,43 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using ClipboardAutoProcessor.DataStructure;
+using ClipboardAutoProcessor.Util;
 
 namespace ClipboardAutoProcessor
 {
     public partial class FormMain : Form
     {
-        private Preferences _preferences = new Preferences();
+        #region Members
 
-        private string _pathCurrentDirectory;
+        private string _currentDirectoryPath;
 
-        private string _pathProcessors1;
-        private string _pathProcessors2;
+        private string _scriptFileDirectoryPath1;
+        private string _scriptFileDirectoryPath2;
 
-        private BindingList<ProcessorScript> _processorScripts1;
-        private BindingList<ProcessorScript> _processorScripts2;
+        private BindingList<ScriptFileItem> _scriptFileList1;
+        private BindingList<ScriptFileItem> _scriptFileList2;
 
-        private string _currentClipboardText = "";
+        private string _currentClipboardText = string.Empty;
 
-        private BindingList<HistoryState> _historyStates;
+        private BindingList<HistoryOperationItem> _historyOperationList = new BindingList<HistoryOperationItem>();
+
+        #endregion
+
+        #region Constructor
 
         public FormMain()
         {
 //            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
 //            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("zh-CN");
 
-            _pathCurrentDirectory = Path.GetFullPath(".");
+            _currentDirectoryPath = Path.GetFullPath(".");
 
-            _pathProcessors1 = _pathCurrentDirectory + "\\processors";
-            _pathProcessors2 = _pathCurrentDirectory + "\\processors2";
+            _scriptFileDirectoryPath1 = _currentDirectoryPath + "\\processors";
+            _scriptFileDirectoryPath2 = _currentDirectoryPath + "\\processors2";
 
-            _processorScripts1 = GetProcessorScripts(_pathProcessors1);
-            _processorScripts2 = GetProcessorScripts(_pathProcessors2);
+            _scriptFileList1 = ScriptUtil.GetScriptFileList(_scriptFileDirectoryPath1);
+            _scriptFileList2 = ScriptUtil.GetScriptFileList(_scriptFileDirectoryPath2);
 
 //            this.Font = SystemFonts.MessageBoxFont;
 
@@ -48,6 +54,10 @@ namespace ClipboardAutoProcessor
             UpdateTexts();
         }
 
+        #endregion
+
+        #region I18n
+
         private void UpdateTexts()
         {
             menuItemFile.Text = I18n._("&File");
@@ -55,17 +65,17 @@ namespace ClipboardAutoProcessor
             menuItemHelp.Text = I18n._("&Help");
 
             labelClipboardText.Text = I18n._("Clipboard text:");
-            buttonFetchClipboardText.Text = I18n._("Fetch");
-            buttonProcessClipboardText.Text = I18n._("Process");
-            checkBoxAutoFetch.Text = I18n._("Auto fetch");
-            checkBoxAutoProcessAfterCapturing.Text = I18n._("Auto process after fetching");
-            checkBoxOnlyWhenFormIsActivated.Text = I18n._("Only when form is activated");
+            buttonClipboardTextFetch.Text = I18n._("Fetch");
+            buttonClipboardTextProcess.Text = I18n._("Process");
+            checkBoxClipboardTextAutoFetch.Text = I18n._("Auto fetch");
+            checkBoxClipboardTextAutoProcessAfterAutoFetch.Text = I18n._("Auto process after fetching");
+            checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Text = I18n._("Only when form is activated");
 
             labelProcessedResult1.Text = I18n._("Processed result:");
-            buttonCopyProcessedResult1.Text = I18n._("Copy");
-            buttonSaveProcessedResult1AsFile.Text = I18n._("Save as file...");
-            checkBoxAutoCopyProcessedResult1.Text = I18n._("Auto copy to clipboard");
-            checkBoxAppendProcessedResult1ToEnd.Text = I18n._("Append new result");
+            buttonProcessedResult1Copy.Text = I18n._("Copy");
+            buttonProcessedResult1SaveAsFile.Text = I18n._("Save as file...");
+            checkBoxProcessedResult1AutoCopy.Text = I18n._("Auto copy to clipboard");
+            checkBoxProcessedResult1AppendToEnd.Text = I18n._("Append new result");
 
             labelProcessedResult2.Text = I18n._("Secondary processed result:");
 
@@ -76,59 +86,81 @@ namespace ClipboardAutoProcessor
             this.Text = I18n._("Clipboard Auto Processor");
         }
 
-        private BindingList<ProcessorScript> GetProcessorScripts(string path)
-        {
-            BindingList<ProcessorScript> processorScripts = new BindingList<ProcessorScript>();
+        #endregion
 
-            if (!Directory.Exists(path))
-            {
-                return processorScripts;
-            }
-
-            string[] files = Directory.GetFiles(path);
-
-            foreach (string file in files)
-            {
-                string extension = Path.GetExtension(file).TrimStart('.').ToLower();
-
-                if (!_preferences.IsSupportedFileExtension(extension))
-                {
-                    continue;
-                }
-
-                ProcessorScript item = new ProcessorScript()
-                {
-                    FullPath = Path.GetFullPath(file),
-                    FileName = Path.GetFileName(file),
-                    ShowTitle = Path.GetFileName(file),
-                };
-
-                processorScripts.Add(item);
-            }
-
-            return processorScripts;
-        }
+        #region Control events processing
 
         private void FormMain_Load(object sender, EventArgs e)
         {
             // To avoid the bug of MainMenu control handling in Visual Studio designer
             this.Menu = mainMenu;
 
-            comboBoxPrimaryScriptFileNames.ValueMember = null;
-            comboBoxPrimaryScriptFileNames.DisplayMember = "ShowTitle";
-            comboBoxPrimaryScriptFileNames.DataSource = _processorScripts1;
-            
-            if (comboBoxPrimaryScriptFileNames.Items.Count > 0)
+            comboBoxScriptFileList1.ValueMember = null;
+            comboBoxScriptFileList1.DisplayMember = nameof(ScriptFileItem.DisplayTitle);
+            comboBoxScriptFileList1.DataSource = _scriptFileList1;
+
+            comboBoxHistoryOperationList.ValueMember = null;
+            comboBoxHistoryOperationList.DisplayMember = nameof(HistoryOperationItem.DisplayText);
+            comboBoxHistoryOperationList.DataSource = _historyOperationList;
+
+            if (comboBoxScriptFileList1.Items.Count > 0)
             {
-                comboBoxPrimaryScriptFileNames.SelectedIndex = 0;
+                comboBoxScriptFileList1.SelectedIndex = 0;
+            }
+        }
+
+        private void FormMain_Activated(object sender, EventArgs e)
+        {
+            if (!checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Enabled
+                    || !checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Checked)
+            {
+                return;
             }
 
-            _historyStates = new BindingList<HistoryState>();
+            string clipboardText = Clipboard.GetText();
 
-            comboBoxHistory.ValueMember = null;
-            comboBoxHistory.DisplayMember = "Text";
-            comboBoxHistory.DataSource = _historyStates;
+            if (clipboardText != _currentClipboardText)
+            {
+                SetClipboardText(clipboardText);
+
+                if (checkBoxClipboardTextAutoProcessAfterAutoFetch.Enabled
+                        && checkBoxClipboardTextAutoProcessAfterAutoFetch.Checked)
+                {
+                    ProcessClipboardText();
+                }
+            }
         }
+
+        private void ButtonClipboardTextFetch_Click(object sender, EventArgs e)
+        {
+            string clipboard_text = Clipboard.GetText();
+
+            SetClipboardText(clipboard_text);
+        }
+
+        private void ButtonClipboardTextProcess_Click(object sender, EventArgs e)
+        {
+            ProcessClipboardText();
+        }
+
+        private void ButtonProcessedResult1Copy_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(textBoxProcessedResult1.Text);
+
+            _currentClipboardText = Clipboard.GetText();
+        }
+
+        private void MultilineTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control & e.KeyCode == Keys.A)
+            {
+                ((TextBox)sender).SelectAll();
+            }
+        }
+
+        #endregion
+
+        #region Clipboard processing
 
         private void SetClipboardText(string clipboard_text)
         {
@@ -142,45 +174,12 @@ namespace ClipboardAutoProcessor
             textBoxClipboardText.Text = clipboard_text;
         }
 
-        private void buttonGetClipboardText_Click(object sender, EventArgs e)
-        {
-            string clipboard_text = Clipboard.GetText();
-
-            SetClipboardText(clipboard_text);
-        }
-
-        private void buttonProcess_Click(object sender, EventArgs e)
-        {
-            CallProcessor();
-        }
-
-        public static string Base64Encode(string text)
-        {
-            byte[] bytes = Encoding.UTF8.GetBytes(text);
-
-            return Convert.ToBase64String(bytes);
-        }
-
-        public static string Base64Decode(string text)
-        {
-            try
-            {
-                byte[] bytes = Convert.FromBase64String(text);
-
-                return Encoding.UTF8.GetString(bytes);
-            }
-            catch (Exception)
-            {
-                return text;
-            }
-        }
-
-        private void CallProcessor()
+        private void ProcessClipboardText()
         {
             string text = textBoxClipboardText.Text;
 
-            string scriptFileName = comboBoxPrimaryScriptFileNames.Text;
-            string scriptFileFullpath = Path.GetFullPath(_pathCurrentDirectory + "\\processors\\" + scriptFileName);
+            string scriptFileName = comboBoxScriptFileList1.Text;
+            string scriptFileFullpath = Path.GetFullPath(_currentDirectoryPath + "\\processors\\" + scriptFileName);
 
             if (!File.Exists(scriptFileFullpath))
             {
@@ -188,70 +187,11 @@ namespace ClipboardAutoProcessor
             }
 
             string scriptFileExtension = Path.GetExtension(scriptFileFullpath).TrimStart('.').ToLower();
-            ScriptExecuteCommandLine script_cmd = _preferences.GetScriptExecuteCommandLine(scriptFileExtension);
+            ScriptInterpreterItem scriptInterpreter = ApplicationService.ApplicationConfig.GetScriptInterpreter(scriptFileExtension);
 
-            Process process = new Process();
-            process.StartInfo.FileName = script_cmd.ExecutableProgram.Replace("<filename>", scriptFileFullpath);
-            process.StartInfo.Arguments = script_cmd.CommandLineArguments.Replace("<filename>", scriptFileFullpath);
-            process.StartInfo.CreateNoWindow = true;
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.RedirectStandardInput = true;
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.RedirectStandardError = true;
+            string text2 = ScriptUtil.CallScriptInterpreter(scriptInterpreter, scriptFileFullpath, text);
 
-            int timeout = 3000;
-
-            StringBuilder stdout = new StringBuilder();
-            StringBuilder stderr = new StringBuilder();
-
-            AutoResetEvent outputWaitHandle = new AutoResetEvent(false);
-            AutoResetEvent errorWaitHandle = new AutoResetEvent(false);
-
-            process.OutputDataReceived += (sender, e) =>
-            {
-                if (e.Data == null)
-                {
-                    outputWaitHandle.Set();
-                }
-                else
-                {
-                    stdout.AppendLine(e.Data);
-                }
-            };
-            process.ErrorDataReceived += (sender, e) =>
-            {
-                if (e.Data == null)
-                {
-                    errorWaitHandle.Set();
-                }
-                else
-                {
-                    stderr.AppendLine(e.Data);
-                }
-            };
-
-            process.Start();
-
-            process.StandardInput.WriteLine(Base64Encode(text));
-            process.StandardInput.Close();
-
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-
-            if (process.WaitForExit(timeout) &&
-                outputWaitHandle.WaitOne(timeout) &&
-                errorWaitHandle.WaitOne(timeout))
-            {
-                // Process completed. Check process.ExitCode here.
-            }
-            else
-            {
-                // Timed out.
-            }
-
-            string text2 = Base64Decode(stdout.ToString());
-
-            if (checkBoxAppendProcessedResult1ToEnd.Checked)
+            if (checkBoxProcessedResult1AppendToEnd.Checked)
             {
                 if (textBoxProcessedResult1.Text == "")
                 {
@@ -267,35 +207,30 @@ namespace ClipboardAutoProcessor
                 textBoxProcessedResult1.Text = text2;
             }
 
-            if (!process.HasExited)
-            {
-                process.Kill();
-            }
-
             string summaryText = Regex.Replace(text, "/[\\t\\r\\n]/", " ").Trim();
             if (summaryText.Length > 50)
             {
                 summaryText = summaryText.Substring(0, 47) + "...";
             }
 
-            HistoryState historyState = new HistoryState()
+            HistoryOperationItem historyOperation = new HistoryOperationItem()
             {
                 Type = I18n._("Auto"),
                 Time = DateTime.Now,
                 SummaryText = summaryText
             };
 
-            historyState.Text = String.Format("[{0}] ({1:H:mm:ss}) {2}",
-                historyState.Type, historyState.Time, historyState.SummaryText);
+            historyOperation.DisplayText = String.Format("[{0}] ({1:H:mm:ss}) {2}",
+                    historyOperation.Type, historyOperation.Time, historyOperation.SummaryText);
 
-            _historyStates.Add(historyState);
+            _historyOperationList.Add(historyOperation);
 
-            if (comboBoxHistory.Items.Count > 0)
+            if (comboBoxHistoryOperationList.Items.Count > 0)
             {
-                comboBoxHistory.SelectedIndex = comboBoxHistory.Items.Count - 1;
+                comboBoxHistoryOperationList.SelectedIndex = comboBoxHistoryOperationList.Items.Count - 1;
             }
 
-            if (checkBoxAutoCopyProcessedResult1.Checked)
+            if (checkBoxProcessedResult1AutoCopy.Checked)
             {
                 Clipboard.SetText(textBoxProcessedResult1.Text);
 
@@ -306,63 +241,6 @@ namespace ClipboardAutoProcessor
             textBoxProcessedResult1.Focus();
         }
 
-        private void FormMain_Activated(object sender, EventArgs e)
-        {
-            if (!checkBoxOnlyWhenFormIsActivated.Enabled
-                || !checkBoxOnlyWhenFormIsActivated.Checked)
-            {
-                return;
-            }
-
-            string clipboardText = Clipboard.GetText();
-
-            if (clipboardText != _currentClipboardText)
-            {
-                SetClipboardText(clipboardText);
-
-                if (checkBoxAutoProcessAfterCapturing.Enabled
-                    && checkBoxAutoProcessAfterCapturing.Checked)
-                {
-                    CallProcessor();
-                }
-            }
-        }
-
-        private void MultilineTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control & e.KeyCode == Keys.A)
-            {
-                ((TextBox)sender).SelectAll();
-            }
-        }
-
-        private void buttonCopyPrimaryProcessedResult_Click(object sender, EventArgs e)
-        {
-            Clipboard.SetText(textBoxProcessedResult1.Text);
-
-            _currentClipboardText = Clipboard.GetText();
-        }
-    }
-
-    public class ProcessorScript
-    {
-        public string FullPath { get; set; }
-        public string FileName { get; set; }
-        public string ShowTitle { get; set; }
-    }
-
-    public class HistoryState
-    {
-        public string Text { get; set; }
-
-        public string Type { get; set; }
-        public DateTime Time { get; set; }
-        public string SummaryText { get; set; }
-
-        public string ClipboardText { get; set; }
-        public string ProcessResult1 { get; set; }
-        public string ProcessResult2 { get; set; }
-        public string Script1 { get; set; }
-        public string Script2 { get; set; }
+        #endregion
     }
 }
