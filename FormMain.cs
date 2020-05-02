@@ -18,8 +18,6 @@ namespace ClipboardAutoProcessor
     {
         #region Members
 
-        private ApplicationConfig _applicationConfig = new ApplicationConfig();
-
         private string _currentDirectoryPath;
 
         private string _scriptFileDirectoryPath1;
@@ -195,7 +193,7 @@ namespace ClipboardAutoProcessor
             {
                 string extension = Path.GetExtension(file).TrimStart('.').ToLower();
 
-                if (!_applicationConfig.IsSupportedFileExtension(extension))
+                if (!ApplicationService.ApplicationConfig.IsSupportedFileExtension(extension))
                 {
                     continue;
                 }
@@ -226,7 +224,7 @@ namespace ClipboardAutoProcessor
             }
 
             string scriptFileExtension = Path.GetExtension(scriptFileFullpath).TrimStart('.').ToLower();
-            ScriptInterpreterItem scriptInterpreter = _applicationConfig.GetScriptInterpreter(scriptFileExtension);
+            ScriptInterpreterItem scriptInterpreter = ApplicationService.ApplicationConfig.GetScriptInterpreter(scriptFileExtension);
 
             Process process = new Process();
             process.StartInfo.FileName = scriptInterpreter.ExecutableProgram.Replace("<filename>", scriptFileFullpath);
