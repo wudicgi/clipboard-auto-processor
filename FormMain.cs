@@ -75,8 +75,8 @@ namespace ClipboardAutoProcessor
             buttonClipboardTextFetch.Text = I18n._("Fetch");
             buttonClipboardTextProcess.Text = I18n._("Process");
             checkBoxClipboardTextAutoFetch.Text = I18n._("Auto fetch");
+            checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Text = I18n._("Only when switched to this window");
             checkBoxClipboardTextAutoProcessAfterAutoFetch.Text = I18n._("Auto process after fetching");
-            checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Text = I18n._("Only when form is activated");
 
             labelProcessedResult1.Text = I18n._("Processed result:");
             buttonProcessedResult1Copy.Text = I18n._("Copy");
@@ -122,7 +122,7 @@ namespace ClipboardAutoProcessor
                 return;
             }
 
-            if (!checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Checked)
+            if (!checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Checked)
             {
                 return;
             }
@@ -139,7 +139,7 @@ namespace ClipboardAutoProcessor
                 return;
             }
 
-            if (checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Checked)
+            if (checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Checked)
             {
                 return;
             }
@@ -178,7 +178,7 @@ namespace ClipboardAutoProcessor
             bool autoFetchChecked = checkBoxClipboardTextAutoFetch.Checked;
 
             checkBoxClipboardTextAutoProcessAfterAutoFetch.Enabled = autoFetchChecked;
-            checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Enabled = autoFetchChecked;
+            checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Enabled = autoFetchChecked;
         }
 
         private void MultilineTextBox_KeyDown(object sender, KeyEventArgs e)

@@ -48,8 +48,8 @@
             this.tableLayoutPanelClipboardText = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelClipboardTextControls = new System.Windows.Forms.TableLayoutPanel();
             this.checkBoxClipboardTextAutoFetch = new System.Windows.Forms.CheckBox();
+            this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm = new System.Windows.Forms.CheckBox();
             this.checkBoxClipboardTextAutoProcessAfterAutoFetch = new System.Windows.Forms.CheckBox();
-            this.checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated = new System.Windows.Forms.CheckBox();
             this.buttonClipboardTextProcess = new System.Windows.Forms.Button();
             this.splitContainerSub = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanelProcessedResult1 = new System.Windows.Forms.TableLayoutPanel();
@@ -307,8 +307,8 @@
             this.tableLayoutPanelClipboardTextControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43F));
             this.tableLayoutPanelClipboardTextControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 57F));
             this.tableLayoutPanelClipboardTextControls.Controls.Add(this.checkBoxClipboardTextAutoFetch, 0, 2);
-            this.tableLayoutPanelClipboardTextControls.Controls.Add(this.checkBoxClipboardTextAutoProcessAfterAutoFetch, 0, 3);
-            this.tableLayoutPanelClipboardTextControls.Controls.Add(this.checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated, 0, 4);
+            this.tableLayoutPanelClipboardTextControls.Controls.Add(this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm, 0, 3);
+            this.tableLayoutPanelClipboardTextControls.Controls.Add(this.checkBoxClipboardTextAutoProcessAfterAutoFetch, 0, 4);
             this.tableLayoutPanelClipboardTextControls.Controls.Add(this.buttonClipboardTextFetch, 0, 0);
             this.tableLayoutPanelClipboardTextControls.Controls.Add(this.buttonClipboardTextProcess, 1, 0);
             this.tableLayoutPanelClipboardTextControls.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -339,33 +339,33 @@
             this.checkBoxClipboardTextAutoFetch.UseVisualStyleBackColor = true;
             this.checkBoxClipboardTextAutoFetch.CheckedChanged += new System.EventHandler(this.CheckBoxClipboardTextAutoFetch_CheckedChanged);
             // 
+            // checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm
+            // 
+            this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.AutoSize = true;
+            this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Checked = true;
+            this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tableLayoutPanelClipboardTextControls.SetColumnSpan(this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm, 2);
+            this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Location = new System.Drawing.Point(30, 75);
+            this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Margin = new System.Windows.Forms.Padding(30, 3, 2, 3);
+            this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Name = "checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm";
+            this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Size = new System.Drawing.Size(203, 21);
+            this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.TabIndex = 4;
+            this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Text = "Only when switched to this window";
+            this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.UseVisualStyleBackColor = true;
+            // 
             // checkBoxClipboardTextAutoProcessAfterAutoFetch
             // 
             this.checkBoxClipboardTextAutoProcessAfterAutoFetch.AutoSize = true;
             this.checkBoxClipboardTextAutoProcessAfterAutoFetch.Checked = true;
             this.checkBoxClipboardTextAutoProcessAfterAutoFetch.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tableLayoutPanelClipboardTextControls.SetColumnSpan(this.checkBoxClipboardTextAutoProcessAfterAutoFetch, 2);
-            this.checkBoxClipboardTextAutoProcessAfterAutoFetch.Location = new System.Drawing.Point(30, 75);
+            this.checkBoxClipboardTextAutoProcessAfterAutoFetch.Location = new System.Drawing.Point(30, 103);
             this.checkBoxClipboardTextAutoProcessAfterAutoFetch.Margin = new System.Windows.Forms.Padding(30, 3, 2, 3);
             this.checkBoxClipboardTextAutoProcessAfterAutoFetch.Name = "checkBoxClipboardTextAutoProcessAfterAutoFetch";
             this.checkBoxClipboardTextAutoProcessAfterAutoFetch.Size = new System.Drawing.Size(200, 21);
             this.checkBoxClipboardTextAutoProcessAfterAutoFetch.TabIndex = 3;
             this.checkBoxClipboardTextAutoProcessAfterAutoFetch.Text = "Auto process after fetching";
             this.checkBoxClipboardTextAutoProcessAfterAutoFetch.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated
-            // 
-            this.checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.AutoSize = true;
-            this.checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Checked = true;
-            this.checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.tableLayoutPanelClipboardTextControls.SetColumnSpan(this.checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated, 2);
-            this.checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Location = new System.Drawing.Point(30, 103);
-            this.checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Margin = new System.Windows.Forms.Padding(30, 3, 2, 3);
-            this.checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Name = "checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated";
-            this.checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Size = new System.Drawing.Size(203, 21);
-            this.checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.TabIndex = 4;
-            this.checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Text = "Only when form is activated";
-            this.checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.UseVisualStyleBackColor = true;
             // 
             // buttonClipboardTextProcess
             // 
@@ -626,7 +626,7 @@
         private System.Windows.Forms.Label labelHistory;
         private System.Windows.Forms.CheckBox checkBoxClipboardTextAutoProcessAfterAutoFetch;
         private System.Windows.Forms.CheckBox checkBoxClipboardTextAutoFetch;
-        private System.Windows.Forms.CheckBox checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated;
+        private System.Windows.Forms.CheckBox checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm;
         private System.Windows.Forms.CheckBox checkBoxProcessedResult1AutoCopy;
         private System.Windows.Forms.Button buttonClipboardTextProcess;
         private System.Windows.Forms.StatusBar statusBar;
