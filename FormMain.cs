@@ -238,7 +238,7 @@ namespace ClipboardAutoProcessor
             }
 
             string scriptFileExtension = Path.GetExtension(scriptFileFullPath).TrimStart('.').ToLower();
-            ScriptInterpreterItem scriptInterpreter = ApplicationService.ApplicationConfig.GetScriptInterpreter(scriptFileExtension);
+            ScriptInterpreterItem scriptInterpreter = ApplicationService.Config.GetScriptInterpreter(scriptFileExtension);
 
             string text2 = ScriptUtil.CallScriptInterpreter(scriptInterpreter, scriptFileFullPath, text);
 

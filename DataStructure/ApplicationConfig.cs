@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using ClipboardAutoProcessor.Util;
+using IniParser;
+using IniParser.Model;
 
 namespace ClipboardAutoProcessor.DataStructure
 {
@@ -9,27 +13,46 @@ namespace ClipboardAutoProcessor.DataStructure
     {
         public const int CLIPBOARD_TEXT_MAX_SUPPORTED_LENGTH = (1024 * 1024);   // 1 MiB
 
-        private Dictionary<string, ScriptInterpreterItem> _scriptInterpreters;
+        private const string _SCRIPT_INTERPRETERS_INI_FILE_NAME = "script_interpreters.ini";
+
+        private Dictionary<string, ScriptInterpreterItem> _scriptInterpreters = new Dictionary<string, ScriptInterpreterItem>();
 
         public ApplicationConfig()
         {
-            _scriptInterpreters = new Dictionary<string, ScriptInterpreterItem>();
+            LoadScriptInterpreters();
+        }
 
-            ScriptInterpreterItem item = new ScriptInterpreterItem()
+        public void LoadScriptInterpreters()
+        {
+            string iniFileFullPath = FileSystemUtil.GetFullPathBasedOnProgramFile(_SCRIPT_INTERPRETERS_INI_FILE_NAME);
+            if (!File.Exists(iniFileFullPath))
             {
-                FileExtension = "php",
-                ExecutableProgram = @"C:\php\php.exe",
-                CommandLineArguments = "-f \"<filename>\" --"
-            };
-            _scriptInterpreters.Add(item.FileExtension.ToLower(), item);
+                File.WriteAllText(iniFileFullPath, string.Empty);
+            }
 
-            ScriptInterpreterItem item2 = new ScriptInterpreterItem()
+            FileIniDataParser parser = new FileIniDataParser();
+            IniData parsedIniData = parser.ReadFile(iniFileFullPath, Encoding.UTF8);
+
+            foreach (SectionData sectionData in parsedIniData.Sections)
             {
-                FileExtension = "js",
-                ExecutableProgram = @"cscript.exe",
-                CommandLineArguments = "//E:jscript //Nologo \"<filename>\""
-            };
-            _scriptInterpreters.Add(item2.FileExtension.ToLower(), item2);
+                string extension = sectionData.Keys["extension"];
+                string program = sectionData.Keys["program"];
+                string arguments = sectionData.Keys["arguments"];
+
+                if (extension == null || program == null || arguments == null)
+                {
+                    continue;
+                }
+
+                ScriptInterpreterItem item = new ScriptInterpreterItem()
+                {
+                    FileExtension = extension,
+                    ExecutableProgram = program,
+                    CommandLineArguments = arguments
+                };
+
+                _scriptInterpreters.Add(item.FileExtension.ToLower(), item);
+            }
         }
 
         public ScriptInterpreterItem GetScriptInterpreter(string fileExtension)

@@ -28,7 +28,7 @@ namespace ClipboardAutoProcessor.Util
             {
                 string extension = Path.GetExtension(file).TrimStart('.').ToLower();
 
-                if (!ApplicationService.ApplicationConfig.IsSupportedFileExtension(extension))
+                if (!ApplicationService.Config.IsSupportedFileExtension(extension))
                 {
                     continue;
                 }

@@ -9,6 +9,6 @@ namespace ClipboardAutoProcessor
 {
     public static class ApplicationService
     {
-        public static ApplicationConfig ApplicationConfig = new ApplicationConfig();
+        public static ApplicationConfig Config = new ApplicationConfig();
     }
 }
