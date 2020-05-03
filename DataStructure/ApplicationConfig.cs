@@ -38,6 +38,7 @@ namespace ClipboardAutoProcessor.DataStructure
                 string extension = sectionData.Keys["extension"];
                 string program = sectionData.Keys["program"];
                 string arguments = sectionData.Keys["arguments"];
+                string additionalPath = sectionData.Keys["additionalPath"];
 
                 if (extension == null || program == null || arguments == null)
                 {
@@ -48,7 +49,8 @@ namespace ClipboardAutoProcessor.DataStructure
                 {
                     FileExtension = extension,
                     ExecutableProgram = program,
-                    CommandLineArguments = arguments
+                    CommandLineArguments = arguments,
+                    AdditionalPath = additionalPath
                 };
 
                 _scriptInterpreters.Add(item.FileExtension.ToLower(), item);

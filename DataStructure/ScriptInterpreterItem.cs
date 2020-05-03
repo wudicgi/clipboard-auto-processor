@@ -18,5 +18,10 @@ namespace ClipboardAutoProcessor.DataStructure
         /// Command line arguments
         /// </summary>
         public string CommandLineArguments { get; set; }
+
+        /// <summary>
+        /// Extra paths to appended to environment variable PATH (semicolon ";" separated)
+        /// </summary>
+        public string AdditionalPath { get; set; }
     }
 }

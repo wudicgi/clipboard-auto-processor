@@ -57,6 +57,13 @@ namespace ClipboardAutoProcessor.Util
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardError = true;
 
+            if (scriptInterpreter.AdditionalPath != null)
+            {
+                string environmentVariablePath = (process.StartInfo.EnvironmentVariables.ContainsKey("PATH") ?
+                        (process.StartInfo.EnvironmentVariables["PATH"] + ";") : "") + scriptInterpreter.AdditionalPath;
+                process.StartInfo.EnvironmentVariables["PATH"] = environmentVariablePath;
+            }
+
             int timeout = 3000;
 
             StringBuilder stdout = new StringBuilder();
