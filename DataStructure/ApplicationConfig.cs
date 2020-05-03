@@ -7,6 +7,8 @@ namespace ClipboardAutoProcessor.DataStructure
 {
     public class ApplicationConfig
     {
+        public const int CLIPBOARD_TEXT_MAX_SUPPORTED_LENGTH = (1024 * 1024);   // 1 MiB
+
         private Dictionary<string, ScriptInterpreterItem> _scriptInterpreters;
 
         public ApplicationConfig()

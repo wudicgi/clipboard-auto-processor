@@ -11,6 +11,7 @@ using System.Threading;
 using System.Windows.Forms;
 using ClipboardAutoProcessor.DataStructure;
 using ClipboardAutoProcessor.Util;
+using WK.Libraries.SharpClipboardNS;
 
 namespace ClipboardAutoProcessor
 {
@@ -25,6 +26,8 @@ namespace ClipboardAutoProcessor
 
         private BindingList<ScriptFileItem> _scriptFileList1;
         private BindingList<ScriptFileItem> _scriptFileList2;
+
+        private SharpClipboard _sharpClipboard = new SharpClipboard();
 
         private string _currentClipboardText = string.Empty;
 
@@ -52,6 +55,10 @@ namespace ClipboardAutoProcessor
             InitializeComponent();
 
             UpdateTexts();
+
+            _sharpClipboard.ObservableFormats.All = false;
+            _sharpClipboard.ObservableFormats.Texts = true;
+            _sharpClipboard.ClipboardChanged += SharpClipboard_ClipboardChanged;
         }
 
         #endregion
@@ -111,24 +118,40 @@ namespace ClipboardAutoProcessor
 
         private void FormMain_Activated(object sender, EventArgs e)
         {
-            if (!checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Enabled
-                    || !checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Checked)
+            if (!checkBoxClipboardTextAutoFetch.Checked) {
+                return;
+            }
+
+            if (!checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Checked)
             {
                 return;
             }
 
             string clipboardText = Clipboard.GetText();
 
-            if (clipboardText != _currentClipboardText)
-            {
-                SetClipboardText(clipboardText);
+            OnNewClipboardTextDetected(clipboardText);
+        }
 
-                if (checkBoxClipboardTextAutoProcessAfterAutoFetch.Enabled
-                        && checkBoxClipboardTextAutoProcessAfterAutoFetch.Checked)
-                {
-                    ProcessClipboardText();
-                }
+        private void SharpClipboard_ClipboardChanged(object sender, SharpClipboard.ClipboardChangedEventArgs e)
+        {
+            if (!checkBoxClipboardTextAutoFetch.Checked)
+            {
+                return;
             }
+
+            if (checkBoxClipboardTextAutoFetchOnlyWhenFormIsActivated.Checked)
+            {
+                return;
+            }
+
+            if (e.ContentType != SharpClipboard.ContentTypes.Text)
+            {
+                return;
+            }
+
+            string clipboardText = _sharpClipboard.ClipboardText;
+
+            OnNewClipboardTextDetected(clipboardText);
         }
 
         private void ButtonClipboardTextFetch_Click(object sender, EventArgs e)
@@ -170,16 +193,40 @@ namespace ClipboardAutoProcessor
 
         #region Clipboard processing
 
-        private void SetClipboardText(string clipboard_text)
+        private void OnNewClipboardTextDetected(string newClipboardText)
         {
-            if (clipboard_text.Length > (1024 * 1024))
+            if (newClipboardText == _currentClipboardText)
             {
                 return;
             }
 
-            _currentClipboardText = clipboard_text;
+            bool succeeded = SetClipboardText(newClipboardText);
+            if (!succeeded)
+            {
+                return;
+            }
 
-            textBoxClipboardText.Text = clipboard_text;
+            if (!checkBoxClipboardTextAutoFetch.Checked
+                    || !checkBoxClipboardTextAutoProcessAfterAutoFetch.Checked)
+            {
+                return;
+            }
+
+            ProcessClipboardText();
+        }
+
+        private bool SetClipboardText(string clipboardText)
+        {
+            if (clipboardText.Length > ApplicationConfig.CLIPBOARD_TEXT_MAX_SUPPORTED_LENGTH)
+            {
+                return false;
+            }
+
+            _currentClipboardText = clipboardText;
+
+            textBoxClipboardText.Text = clipboardText;
+
+            return true;
         }
 
         private void ProcessClipboardText()
