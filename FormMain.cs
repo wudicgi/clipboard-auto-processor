@@ -19,10 +19,8 @@ namespace ClipboardAutoProcessor
     {
         #region Members
 
-        private string _currentDirectoryPath;
-
-        private string _scriptFileDirectoryPath1;
-        private string _scriptFileDirectoryPath2;
+        private string _scriptFileDirectoryFullPath1;
+        private string _scriptFileDirectoryFullPath2;
 
         private BindingList<ScriptFileItem> _scriptFileList1;
         private BindingList<ScriptFileItem> _scriptFileList2;
@@ -42,13 +40,11 @@ namespace ClipboardAutoProcessor
 //            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
 //            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("zh-CN");
 
-            _currentDirectoryPath = Path.GetFullPath(".");
+            _scriptFileDirectoryFullPath1 = FileSystemUtil.GetFullPathBasedOnProgramFile("processors");
+            _scriptFileDirectoryFullPath2 = FileSystemUtil.GetFullPathBasedOnProgramFile("processors2");
 
-            _scriptFileDirectoryPath1 = _currentDirectoryPath + "\\processors";
-            _scriptFileDirectoryPath2 = _currentDirectoryPath + "\\processors2";
-
-            _scriptFileList1 = ScriptUtil.GetScriptFileList(_scriptFileDirectoryPath1);
-            _scriptFileList2 = ScriptUtil.GetScriptFileList(_scriptFileDirectoryPath2);
+            _scriptFileList1 = ScriptUtil.GetScriptFileList(_scriptFileDirectoryFullPath1);
+            _scriptFileList2 = ScriptUtil.GetScriptFileList(_scriptFileDirectoryFullPath2);
 
 //            this.Font = SystemFonts.MessageBoxFont;
 
@@ -234,17 +230,17 @@ namespace ClipboardAutoProcessor
             string text = textBoxClipboardText.Text;
 
             string scriptFileName = comboBoxScriptFileList1.Text;
-            string scriptFileFullpath = Path.GetFullPath(_currentDirectoryPath + "\\processors\\" + scriptFileName);
+            string scriptFileFullPath = Path.Combine(_scriptFileDirectoryFullPath1, scriptFileName);
 
-            if (!File.Exists(scriptFileFullpath))
+            if (!File.Exists(scriptFileFullPath))
             {
                 return;
             }
 
-            string scriptFileExtension = Path.GetExtension(scriptFileFullpath).TrimStart('.').ToLower();
+            string scriptFileExtension = Path.GetExtension(scriptFileFullPath).TrimStart('.').ToLower();
             ScriptInterpreterItem scriptInterpreter = ApplicationService.ApplicationConfig.GetScriptInterpreter(scriptFileExtension);
 
-            string text2 = ScriptUtil.CallScriptInterpreter(scriptInterpreter, scriptFileFullpath, text);
+            string text2 = ScriptUtil.CallScriptInterpreter(scriptInterpreter, scriptFileFullPath, text);
 
             if (checkBoxProcessedResult1AppendToEnd.Checked)
             {
