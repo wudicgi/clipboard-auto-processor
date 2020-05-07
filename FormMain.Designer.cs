@@ -348,7 +348,7 @@
             this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Location = new System.Drawing.Point(30, 75);
             this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Margin = new System.Windows.Forms.Padding(30, 3, 2, 3);
             this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Name = "checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm";
-            this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Size = new System.Drawing.Size(203, 21);
+            this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Size = new System.Drawing.Size(242, 21);
             this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.TabIndex = 4;
             this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Text = "Only when switched to this window";
             this.checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.UseVisualStyleBackColor = true;
@@ -573,6 +573,7 @@
             this.Name = "FormMain";
             this.Text = "Clipboard Auto Processor";
             this.Activated += new System.EventHandler(this.FormMain_Activated);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.splitContainerMain.Panel1.ResumeLayout(false);
             this.splitContainerMain.Panel2.ResumeLayout(false);

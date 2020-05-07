@@ -98,6 +98,30 @@ namespace ClipboardAutoProcessor
             // To avoid the bug of MainMenu control handling in Visual Studio designer
             this.Menu = mainMenu;
 
+            ApplicationService.Init();
+
+            ApplicationState state = ApplicationService.State;
+
+            if ((state.WindowLeft >= 0) && (state.WindowTop >= 0)
+                    && (state.WindowWidth > 0) && (state.WindowHeight > 0))
+            {
+                this.SetBounds(state.WindowLeft, state.WindowTop,
+                        state.WindowWidth, state.WindowHeight);
+            }
+
+            if ((state.LayoutSplitterDistance1 > 0) && (state.LayoutSplitterDistance2 > 0))
+            {
+                this.splitContainerSub.SplitterDistance = state.LayoutSplitterDistance2;
+                this.splitContainerMain.SplitterDistance = state.LayoutSplitterDistance1;
+            }
+
+            checkBoxClipboardTextAutoFetch.Checked = state.ControlAutoFetch;
+            checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Checked = state.ControlAutoFetchOnlyWhenActivatingForm;
+            checkBoxClipboardTextAutoProcessAfterAutoFetch.Checked = state.ControlAutoProcessAfterAutoFetch;
+
+            checkBoxProcessedResult1AutoCopy.Checked = state.ControlProcessedResult1AutoCopy;
+            checkBoxProcessedResult1AppendToEnd.Checked = state.ControlProcessedResult1AppendToEnd;
+
             comboBoxScriptFileList1.ValueMember = null;
             comboBoxScriptFileList1.DisplayMember = nameof(ScriptFileItem.DisplayTitle);
             comboBoxScriptFileList1.DataSource = _scriptFileList1;
@@ -110,6 +134,29 @@ namespace ClipboardAutoProcessor
             {
                 comboBoxScriptFileList1.SelectedIndex = 0;
             }
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ApplicationState state = ApplicationService.State;
+
+            Rectangle bounds = this.Bounds;
+            state.WindowLeft = bounds.Left;
+            state.WindowTop = bounds.Top;
+            state.WindowWidth = bounds.Width;
+            state.WindowHeight = bounds.Height;
+
+            state.LayoutSplitterDistance1 = this.splitContainerMain.SplitterDistance;
+            state.LayoutSplitterDistance2 = this.splitContainerSub.SplitterDistance;
+
+            state.ControlAutoFetch = checkBoxClipboardTextAutoFetch.Checked;
+            state.ControlAutoFetchOnlyWhenActivatingForm = checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Checked;
+            state.ControlAutoProcessAfterAutoFetch = checkBoxClipboardTextAutoProcessAfterAutoFetch.Checked;
+
+            state.ControlProcessedResult1AutoCopy = checkBoxProcessedResult1AutoCopy.Checked;
+            state.ControlProcessedResult1AppendToEnd = checkBoxProcessedResult1AppendToEnd.Checked;
+
+            state.Save();
         }
 
         private void FormMain_Activated(object sender, EventArgs e)

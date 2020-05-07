@@ -59,6 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationService.cs" />
+    <Compile Include="DataStructure\ApplicationState.cs" />
+    <Compile Include="DataStructure\IniEntry.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +75,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataStructure\ScriptInterpreterItem.cs" />
     <Compile Include="Util\FileSystemUtil.cs" />
+    <Compile Include="Util\IniFileUtil.cs" />
     <Compile Include="Util\ScriptUtil.cs" />
     <Compile Include="Util\StringUtil.cs" />
     <EmbeddedResource Include="FormMain.resx">

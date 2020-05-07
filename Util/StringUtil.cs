@@ -28,5 +28,36 @@ namespace ClipboardAutoProcessor.Util
                 return text;
             }
         }
+
+        public static bool TryParseBool(string s, out bool result)
+        {
+            if (bool.TryParse(s, out result))
+            {
+                return true;
+            }
+            else
+            {
+                s = s.Trim();
+
+                if (s == "1")
+                {
+                    result = true;
+                }
+                else if (s == "0")
+                {
+                    result = false;
+                }
+                else if (s != "")
+                {
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
+
+                return true;
+            }
+        }
     }
 }
