@@ -37,11 +37,31 @@ namespace ClipboardAutoProcessor
 
         public FormMain()
         {
-//            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
-//            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("zh-CN");
+            ApplicationService.Init();
 
-            _scriptFileDirectoryFullPath1 = FileSystemUtil.GetFullPathBasedOnProgramFile("processors");
-            _scriptFileDirectoryFullPath2 = FileSystemUtil.GetFullPathBasedOnProgramFile("processors2");
+            ApplicationConfig config = ApplicationService.Config;
+
+            switch (config.UserInterface_DisplayLanguage.ToLower()) {
+                case "auto":
+                case "":
+                    break;
+
+                case "en-us":
+                case "en":
+                    Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
+                    break;
+
+                case "zh-cn":
+                case "cn":
+                    Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("zh-CN");
+                    break;
+
+                default:
+                    break;
+            }
+
+            _scriptFileDirectoryFullPath1 = FileSystemUtil.GetFullPathBasedOnProgramFile(config.DirPath_ScriptDir1);
+            _scriptFileDirectoryFullPath2 = FileSystemUtil.GetFullPathBasedOnProgramFile(config.DirPath_ScriptDir2);
 
             _scriptFileList1 = ScriptUtil.GetScriptFileList(_scriptFileDirectoryFullPath1);
             _scriptFileList2 = ScriptUtil.GetScriptFileList(_scriptFileDirectoryFullPath2);
@@ -51,6 +71,34 @@ namespace ClipboardAutoProcessor
             InitializeComponent();
 
             UpdateTexts();
+
+            string newFontFamily = config.UserInterface_TextareaFontName;
+
+            float newFontSize;
+            if ((config.UserInterface_TextareaFontSize == string.Empty)
+                    || !float.TryParse(config.UserInterface_TextareaFontSize, out newFontSize)) {
+                newFontSize = -1;
+            }
+
+            if ((newFontFamily != string.Empty) || (newFontSize > 0))
+            {
+                Font oldFont = textBoxClipboardText.Font;
+
+                if (newFontFamily == string.Empty) {
+                    newFontFamily = oldFont.Name;
+                }
+
+                if (newFontSize <= 0)
+                {
+                    newFontSize = oldFont.Size;
+                }
+
+                Font newFont = new Font(newFontFamily, newFontSize);
+
+                textBoxClipboardText.Font = newFont;
+                textBoxProcessedResult1.Font = newFont;
+                textBoxProcessedResult2.Font = newFont;
+            }
 
             _sharpClipboard.ObservableFormats.All = false;
             _sharpClipboard.ObservableFormats.Texts = true;
@@ -97,8 +145,6 @@ namespace ClipboardAutoProcessor
         {
             // To avoid the bug of MainMenu control handling in Visual Studio designer
             this.Menu = mainMenu;
-
-            ApplicationService.Init();
 
             ApplicationState state = ApplicationService.State;
 

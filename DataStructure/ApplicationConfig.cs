@@ -16,11 +16,11 @@ namespace ClipboardAutoProcessor.DataStructure
         [IniEntry(SectionName = "userInterface", KeyName = "displayLanguage")]
         public string UserInterface_DisplayLanguage { get; set; } = "auto";
 
-        [IniEntry(SectionName = "userInterface", KeyName = "clipboardTextFontName")]
-        public string UserInterface_ClipboardTextFontName { get; set; } = string.Empty;
+        [IniEntry(SectionName = "userInterface", KeyName = "textareaFontName")]
+        public string UserInterface_TextareaFontName { get; set; } = string.Empty;
 
-        [IniEntry(SectionName = "userInterface", KeyName = "clipboardTextFontSize")]
-        public string UserInterface_ClipboardTextFontSize { get; set; } = string.Empty;
+        [IniEntry(SectionName = "userInterface", KeyName = "textareaFontSize")]
+        public string UserInterface_TextareaFontSize { get; set; } = string.Empty;
 
         #endregion
 
