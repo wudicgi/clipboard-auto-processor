@@ -260,7 +260,7 @@ namespace ClipboardAutoProcessor
 
         private bool SetClipboardText(string clipboardText)
         {
-            if (clipboardText.Length > ApplicationConfig.CLIPBOARD_TEXT_MAX_SUPPORTED_LENGTH)
+            if (clipboardText.Length > ApplicationService.CLIPBOARD_TEXT_MAX_SUPPORTED_LENGTH)
             {
                 return false;
             }

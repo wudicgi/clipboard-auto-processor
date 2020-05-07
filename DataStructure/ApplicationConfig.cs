@@ -11,60 +11,84 @@ namespace ClipboardAutoProcessor.DataStructure
 {
     public class ApplicationConfig
     {
-        public const int CLIPBOARD_TEXT_MAX_SUPPORTED_LENGTH = (1024 * 1024);   // 1 MiB
+        #region User Interface
 
-        private const string _SCRIPT_INTERPRETERS_INI_FILE_NAME = "script_interpreters.ini";
+        [IniEntry(SectionName = "userInterface", KeyName = "displayLanguage")]
+        public string UserInterface_DisplayLanguage { get; set; } = "auto";
 
-        private Dictionary<string, ScriptInterpreterItem> _scriptInterpreters = new Dictionary<string, ScriptInterpreterItem>();
+        [IniEntry(SectionName = "userInterface", KeyName = "clipboardTextFontName")]
+        public string UserInterface_ClipboardTextFontName { get; set; } = string.Empty;
 
-        public ApplicationConfig()
+        [IniEntry(SectionName = "userInterface", KeyName = "clipboardTextFontSize")]
+        public string UserInterface_ClipboardTextFontSize { get; set; } = string.Empty;
+
+        #endregion
+
+        #region Dir Path
+
+        [IniEntry(SectionName = "dirPath", KeyName = "scriptDir1")]
+        public string DirPath_ScriptDir1 { get; set; } = string.Empty;
+
+        [IniEntry(SectionName = "dirPath", KeyName = "scriptDir2")]
+        public string DirPath_ScriptDir2 { get; set; } = string.Empty;
+
+        #endregion
+
+        private const string _INI_FILE_NAME = "application_config.ini";
+
+        public Dictionary<string, ScriptInterpreterItem> ScriptInterpreters = new Dictionary<string, ScriptInterpreterItem>();
+
+        public static ApplicationConfig LoadFromFile()
         {
-            LoadScriptInterpreters();
-        }
-
-        public void LoadScriptInterpreters()
-        {
-            string iniFileFullPath = FileSystemUtil.GetFullPathBasedOnProgramFile(_SCRIPT_INTERPRETERS_INI_FILE_NAME);
+            string iniFileFullPath = FileSystemUtil.GetFullPathBasedOnProgramFile(_INI_FILE_NAME);
             if (!File.Exists(iniFileFullPath))
             {
                 File.WriteAllText(iniFileFullPath, string.Empty);
             }
 
-            FileIniDataParser parser = new FileIniDataParser();
-            IniData parsedIniData = parser.ReadFile(iniFileFullPath, Encoding.UTF8);
-
-            foreach (SectionData sectionData in parsedIniData.Sections)
+            ApplicationConfig applicationConfig = new ApplicationConfig();
+            IniFileUtil.ParseIniFile(iniFileFullPath, applicationConfig, (parsedIniData) =>
             {
-                string extension = sectionData.Keys["extension"];
-                string program = sectionData.Keys["program"];
-                string arguments = sectionData.Keys["arguments"];
-                string additionalPath = sectionData.Keys["additionalPath"];
-
-                if (extension == null || program == null || arguments == null)
+                foreach (SectionData sectionData in parsedIniData.Sections)
                 {
-                    continue;
+                    if (!sectionData.SectionName.StartsWith("scriptInterpreter."))
+                    {
+                        continue;
+                    }
+
+                    string extension = sectionData.Keys["extension"];
+                    string program = sectionData.Keys["program"];
+                    string arguments = sectionData.Keys["arguments"];
+                    string additionalPath = sectionData.Keys["additionalPath"];
+
+                    if (extension == null || program == null || arguments == null)
+                    {
+                        continue;
+                    }
+
+                    ScriptInterpreterItem item = new ScriptInterpreterItem()
+                    {
+                        FileExtension = extension,
+                        ExecutableProgram = program,
+                        CommandLineArguments = arguments,
+                        AdditionalPath = additionalPath
+                    };
+
+                    applicationConfig.ScriptInterpreters.Add(item.FileExtension.ToLower(), item);
                 }
+            });
 
-                ScriptInterpreterItem item = new ScriptInterpreterItem()
-                {
-                    FileExtension = extension,
-                    ExecutableProgram = program,
-                    CommandLineArguments = arguments,
-                    AdditionalPath = additionalPath
-                };
-
-                _scriptInterpreters.Add(item.FileExtension.ToLower(), item);
-            }
+            return applicationConfig;
         }
 
         public ScriptInterpreterItem GetScriptInterpreter(string fileExtension)
         {
-            return _scriptInterpreters[fileExtension];
+            return ScriptInterpreters[fileExtension];
         }
 
         public bool IsSupportedFileExtension(string fileExtension)
         {
-            return _scriptInterpreters.ContainsKey(fileExtension);
+            return ScriptInterpreters.ContainsKey(fileExtension);
         }
     }
 }

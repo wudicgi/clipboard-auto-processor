@@ -10,7 +10,9 @@ namespace ClipboardAutoProcessor
 {
     public static class ApplicationService
     {
-        public static ApplicationConfig Config = new ApplicationConfig();
+        public const int CLIPBOARD_TEXT_MAX_SUPPORTED_LENGTH = (1024 * 1024);   // 1 MiB
+
+        public static ApplicationConfig Config = ApplicationConfig.LoadFromFile();
 
         public static ApplicationState State = ApplicationState.LoadFromFile();
 

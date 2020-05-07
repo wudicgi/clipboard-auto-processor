@@ -61,7 +61,8 @@ namespace ClipboardAutoProcessor.DataStructure
                 return new ApplicationState();
             }
 
-            ApplicationState applicationState = IniFileUtil.ParseIniFile<ApplicationState>(iniFileFullPath);
+            ApplicationState applicationState = new ApplicationState();
+            IniFileUtil.ParseIniFile(iniFileFullPath, applicationState);
 
             return applicationState;
         }
@@ -70,7 +71,7 @@ namespace ClipboardAutoProcessor.DataStructure
         {
             string iniFileFullPath = FileSystemUtil.GetFullPathBasedOnProgramFile(_INI_FILE_NAME);
 
-            bool succeeded = IniFileUtil.WriteIniFile<ApplicationState>(iniFileFullPath, this);
+            bool succeeded = IniFileUtil.WriteIniFile(iniFileFullPath, this);
 
             return succeeded;
         }
