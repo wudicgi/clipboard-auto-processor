@@ -368,7 +368,7 @@ namespace ClipboardAutoProcessor
                 return;
             }
 
-            string processedResult2 = ProcessUsingScriptFile2(clipboardText);
+            string processedResult2 = ProcessUsingScriptFile2(processedResult1);
 
             AddHistoryItem(clipboardText);
 
