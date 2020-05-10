@@ -27,10 +27,10 @@ namespace ClipboardAutoProcessor.DataStructure
         #region Dir Path
 
         [IniEntry(SectionName = "dirPath", KeyName = "scriptDir1")]
-        public string DirPath_ScriptDir1 { get; set; } = "processors";
+        public string DirPath_ScriptDir1 { get; set; } = "scripts";
 
         [IniEntry(SectionName = "dirPath", KeyName = "scriptDir2")]
-        public string DirPath_ScriptDir2 { get; set; } = "processors2";
+        public string DirPath_ScriptDir2 { get; set; } = "scripts2";
 
         #endregion
 

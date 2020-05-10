@@ -4,6 +4,6 @@
 # Except this file
 !.gitignore
 
-# And script files
+# Except script files
 !*.php
 !*.js
