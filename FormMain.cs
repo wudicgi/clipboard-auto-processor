@@ -148,25 +148,25 @@ namespace ClipboardAutoProcessor
 
             ApplicationState state = ApplicationService.State;
 
-            if ((state.WindowLeft >= 0) && (state.WindowTop >= 0)
-                    && (state.WindowWidth > 0) && (state.WindowHeight > 0))
+            if ((state.Window_Left >= 0) && (state.Window_Top >= 0)
+                    && (state.Window_Width > 0) && (state.Window_Height > 0))
             {
-                this.SetBounds(state.WindowLeft, state.WindowTop,
-                        state.WindowWidth, state.WindowHeight);
+                this.SetBounds(state.Window_Left, state.Window_Top,
+                        state.Window_Width, state.Window_Height);
             }
 
-            if ((state.LayoutSplitterDistance1 > 0) && (state.LayoutSplitterDistance2 > 0))
+            if ((state.Layout_SplitterDistance1 > 0) && (state.Layout_SplitterDistance2 > 0))
             {
-                this.splitContainerSub.SplitterDistance = state.LayoutSplitterDistance2;
-                this.splitContainerMain.SplitterDistance = state.LayoutSplitterDistance1;
+                this.splitContainerSub.SplitterDistance = state.Layout_SplitterDistance2;
+                this.splitContainerMain.SplitterDistance = state.Layout_SplitterDistance1;
             }
 
-            checkBoxClipboardTextAutoFetch.Checked = state.ControlAutoFetch;
-            checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Checked = state.ControlAutoFetchOnlyWhenActivatingForm;
-            checkBoxClipboardTextAutoProcessAfterAutoFetch.Checked = state.ControlAutoProcessAfterAutoFetch;
+            checkBoxClipboardTextAutoFetch.Checked = state.Control_AutoFetch;
+            checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Checked = state.Control_AutoFetchOnlyWhenActivatingForm;
+            checkBoxClipboardTextAutoProcessAfterAutoFetch.Checked = state.Control_AutoProcessAfterAutoFetch;
 
-            checkBoxProcessedResult1AutoCopy.Checked = state.ControlProcessedResult1AutoCopy;
-            checkBoxProcessedResult1AppendToEnd.Checked = state.ControlProcessedResult1AppendToEnd;
+            checkBoxProcessedResult1AutoCopy.Checked = state.Control_ProcessedResult1AutoCopy;
+            checkBoxProcessedResult1AppendToEnd.Checked = state.Control_ProcessedResult1AppendToEnd;
 
             comboBoxScriptFileList1.ValueMember = null;
             comboBoxScriptFileList1.DisplayMember = nameof(ScriptFileItem.DisplayTitle);
@@ -187,20 +187,20 @@ namespace ClipboardAutoProcessor
             ApplicationState state = ApplicationService.State;
 
             Rectangle bounds = this.Bounds;
-            state.WindowLeft = bounds.Left;
-            state.WindowTop = bounds.Top;
-            state.WindowWidth = bounds.Width;
-            state.WindowHeight = bounds.Height;
+            state.Window_Left = bounds.Left;
+            state.Window_Top = bounds.Top;
+            state.Window_Width = bounds.Width;
+            state.Window_Height = bounds.Height;
 
-            state.LayoutSplitterDistance1 = this.splitContainerMain.SplitterDistance;
-            state.LayoutSplitterDistance2 = this.splitContainerSub.SplitterDistance;
+            state.Layout_SplitterDistance1 = this.splitContainerMain.SplitterDistance;
+            state.Layout_SplitterDistance2 = this.splitContainerSub.SplitterDistance;
 
-            state.ControlAutoFetch = checkBoxClipboardTextAutoFetch.Checked;
-            state.ControlAutoFetchOnlyWhenActivatingForm = checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Checked;
-            state.ControlAutoProcessAfterAutoFetch = checkBoxClipboardTextAutoProcessAfterAutoFetch.Checked;
+            state.Control_AutoFetch = checkBoxClipboardTextAutoFetch.Checked;
+            state.Control_AutoFetchOnlyWhenActivatingForm = checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Checked;
+            state.Control_AutoProcessAfterAutoFetch = checkBoxClipboardTextAutoProcessAfterAutoFetch.Checked;
 
-            state.ControlProcessedResult1AutoCopy = checkBoxProcessedResult1AutoCopy.Checked;
-            state.ControlProcessedResult1AppendToEnd = checkBoxProcessedResult1AppendToEnd.Checked;
+            state.Control_ProcessedResult1AutoCopy = checkBoxProcessedResult1AutoCopy.Checked;
+            state.Control_ProcessedResult1AppendToEnd = checkBoxProcessedResult1AppendToEnd.Checked;
 
             state.Save();
         }
