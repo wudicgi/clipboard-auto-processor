@@ -129,6 +129,10 @@ namespace ClipboardAutoProcessor
             checkBoxProcessedResult1AppendToEnd.Text = I18n._("Append new result");
 
             labelProcessedResult2.Text = I18n._("Secondary processed result:");
+            buttonProcessedResult2Copy.Text = I18n._("Copy");
+            buttonProcessedResult2SaveAsFile.Text = I18n._("Save as file...");
+            checkBoxProcessedResult2AutoCopy.Text = I18n._("Auto copy to clipboard");
+            checkBoxProcessedResult2AppendToEnd.Text = I18n._("Append new result");
 
             labelHistory.Text = I18n._("History:");
             buttonHistoryPrevious.Text = I18n._("<");
@@ -172,6 +176,10 @@ namespace ClipboardAutoProcessor
             comboBoxScriptFileList1.DisplayMember = nameof(ScriptFileItem.DisplayTitle);
             comboBoxScriptFileList1.DataSource = _scriptFileList1;
 
+            comboBoxScriptFileList2.ValueMember = nameof(ScriptFileItem.FileName);
+            comboBoxScriptFileList2.DisplayMember = nameof(ScriptFileItem.DisplayTitle);
+            comboBoxScriptFileList2.DataSource = _scriptFileList2;
+
             comboBoxHistoryOperationList.ValueMember = null;
             comboBoxHistoryOperationList.DisplayMember = nameof(HistoryOperationItem.DisplayText);
             comboBoxHistoryOperationList.DataSource = _historyOperationList;
@@ -179,6 +187,11 @@ namespace ClipboardAutoProcessor
             if (comboBoxScriptFileList1.Items.Count > 0)
             {
                 comboBoxScriptFileList1.SelectedIndex = 0;
+            }
+
+            if (comboBoxScriptFileList2.Items.Count > 0)
+            {
+                comboBoxScriptFileList2.SelectedIndex = 0;
             }
         }
 
@@ -325,26 +338,59 @@ namespace ClipboardAutoProcessor
             string processedResult1 = ProcessUsingScriptFile1(clipboardText);
             if (processedResult1 == null)
             {
+                textBoxProcessedResult1.Text = string.Empty;
+                textBoxProcessedResult2.Text = string.Empty;
                 return;
             }
 
+            string processedResult2 = ProcessUsingScriptFile2(clipboardText);
+
             AddHistoryItem(clipboardText);
 
-            textBoxProcessedResult1.Select(textBoxProcessedResult1.Text.Length, 0);
-            textBoxProcessedResult1.Focus();
+            if (processedResult2 != null)
+            {
+                textBoxProcessedResult2.Focus();
+            }
+            else
+            {
+                textBoxProcessedResult1.Focus();
+            }
         }
 
         private string ProcessUsingScriptFile1(string clipboardText)
         {
-            string scriptFileName = comboBoxScriptFileList1.SelectedValue as string;
+            return ProcessUsingScriptFile(clipboardText,
+                    _scriptFileDirectoryFullPath1,
+                    comboBoxScriptFileList1,
+                    (checkBoxProcessedResult1AutoCopy.Checked && !checkBoxProcessedResult2AutoCopy.Checked),
+                    checkBoxProcessedResult1AppendToEnd.Checked,
+                    textBoxProcessedResult1);
+        }
+
+        private string ProcessUsingScriptFile2(string clipboardText)
+        {
+            return ProcessUsingScriptFile(clipboardText,
+                    _scriptFileDirectoryFullPath2,
+                    comboBoxScriptFileList2,
+                    checkBoxProcessedResult2AutoCopy.Checked,
+                    checkBoxProcessedResult2AppendToEnd.Checked,
+                    textBoxProcessedResult2);
+        }
+
+        private string ProcessUsingScriptFile(string clipboardText, string scriptFileDirectoryFullPath, ComboBox comboBoxScriptFileList,
+                bool processedResultAutoCopy, bool processedResultAppendToEnd, TextBox textBoxProcessedResult)
+        {
+            string scriptFileName = comboBoxScriptFileList.SelectedValue as string;
             if (scriptFileName == null)
             {
+                textBoxProcessedResult.Text = string.Empty;
                 return null;
             }
 
-            string scriptFileFullPath = Path.Combine(_scriptFileDirectoryFullPath1, scriptFileName);
+            string scriptFileFullPath = Path.Combine(scriptFileDirectoryFullPath, scriptFileName);
             if (!File.Exists(scriptFileFullPath))
             {
+                textBoxProcessedResult.Text = string.Empty;
                 return null;
             }
 
@@ -353,28 +399,30 @@ namespace ClipboardAutoProcessor
 
             string processedResult = ScriptUtil.CallScriptInterpreter(scriptInterpreter, scriptFileFullPath, clipboardText);
 
-            if (checkBoxProcessedResult1AppendToEnd.Checked)
+            if (processedResultAppendToEnd)
             {
-                if (textBoxProcessedResult1.Text == "")
+                if (textBoxProcessedResult.Text == "")
                 {
-                    textBoxProcessedResult1.Text = processedResult;
+                    textBoxProcessedResult.Text = processedResult;
                 }
                 else
                 {
-                    textBoxProcessedResult1.Text += "\r\n" + processedResult;
+                    textBoxProcessedResult.Text += "\r\n" + processedResult;
                 }
             }
             else
             {
-                textBoxProcessedResult1.Text = processedResult;
+                textBoxProcessedResult.Text = processedResult;
             }
 
-            if (checkBoxProcessedResult1AutoCopy.Checked)
+            if (processedResultAutoCopy)
             {
-                Clipboard.SetText(textBoxProcessedResult1.Text);
+                Clipboard.SetText(textBoxProcessedResult.Text);
 
                 _currentClipboardText = Clipboard.GetText();
             }
+
+            textBoxProcessedResult.Select(textBoxProcessedResult.Text.Length, 0);
 
             return processedResult;
         }

@@ -56,6 +56,11 @@
             this.tableLayoutPanelProcessedResult1Controls = new System.Windows.Forms.TableLayoutPanel();
             this.checkBoxProcessedResult1AutoCopy = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanelProcessedResult2 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelProcessedResult2Controls = new System.Windows.Forms.TableLayoutPanel();
+            this.checkBoxProcessedResult2AppendToEnd = new System.Windows.Forms.CheckBox();
+            this.checkBoxProcessedResult2AutoCopy = new System.Windows.Forms.CheckBox();
+            this.buttonProcessedResult2Copy = new System.Windows.Forms.Button();
+            this.buttonProcessedResult2SaveAsFile = new System.Windows.Forms.Button();
             this.mainMenu = new System.Windows.Forms.MainMenu(this.components);
             this.menuItemFile = new System.Windows.Forms.MenuItem();
             this.menuItemOptions = new System.Windows.Forms.MenuItem();
@@ -78,6 +83,7 @@
             this.tableLayoutPanelProcessedResult1.SuspendLayout();
             this.tableLayoutPanelProcessedResult1Controls.SuspendLayout();
             this.tableLayoutPanelProcessedResult2.SuspendLayout();
+            this.tableLayoutPanelProcessedResult2Controls.SuspendLayout();
             this.tableLayoutPanelMain.SuspendLayout();
             this.tableLayoutPanelHistory.SuspendLayout();
             this.tableLayoutPanelHistoryControls.SuspendLayout();
@@ -117,7 +123,7 @@
             this.textBoxProcessedResult1.Multiline = true;
             this.textBoxProcessedResult1.Name = "textBoxProcessedResult1";
             this.textBoxProcessedResult1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxProcessedResult1.Size = new System.Drawing.Size(639, 200);
+            this.textBoxProcessedResult1.Size = new System.Drawing.Size(639, 180);
             this.textBoxProcessedResult1.TabIndex = 2;
             this.textBoxProcessedResult1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MultilineTextBox_KeyDown);
             // 
@@ -258,7 +264,7 @@
             this.textBoxProcessedResult2.Multiline = true;
             this.textBoxProcessedResult2.Name = "textBoxProcessedResult2";
             this.textBoxProcessedResult2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxProcessedResult2.Size = new System.Drawing.Size(639, 133);
+            this.textBoxProcessedResult2.Size = new System.Drawing.Size(639, 153);
             this.textBoxProcessedResult2.TabIndex = 5;
             this.textBoxProcessedResult2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MultilineTextBox_KeyDown);
             // 
@@ -396,7 +402,7 @@
             // 
             this.splitContainerSub.Panel2.Controls.Add(this.tableLayoutPanelProcessedResult2);
             this.splitContainerSub.Size = new System.Drawing.Size(928, 416);
-            this.splitContainerSub.SplitterDistance = 240;
+            this.splitContainerSub.SplitterDistance = 220;
             this.splitContainerSub.SplitterWidth = 3;
             this.splitContainerSub.TabIndex = 0;
             // 
@@ -417,7 +423,7 @@
             this.tableLayoutPanelProcessedResult1.RowCount = 2;
             this.tableLayoutPanelProcessedResult1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanelProcessedResult1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelProcessedResult1.Size = new System.Drawing.Size(928, 240);
+            this.tableLayoutPanelProcessedResult1.Size = new System.Drawing.Size(928, 220);
             this.tableLayoutPanelProcessedResult1.TabIndex = 9;
             // 
             // tableLayoutPanelProcessedResult1Controls
@@ -438,7 +444,7 @@
             this.tableLayoutPanelProcessedResult1Controls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanelProcessedResult1Controls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanelProcessedResult1Controls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelProcessedResult1Controls.Size = new System.Drawing.Size(274, 200);
+            this.tableLayoutPanelProcessedResult1Controls.Size = new System.Drawing.Size(274, 180);
             this.tableLayoutPanelProcessedResult1Controls.TabIndex = 7;
             // 
             // checkBoxProcessedResult1AutoCopy
@@ -459,6 +465,7 @@
             this.tableLayoutPanelProcessedResult2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelProcessedResult2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 5F));
             this.tableLayoutPanelProcessedResult2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 280F));
+            this.tableLayoutPanelProcessedResult2.Controls.Add(this.tableLayoutPanelProcessedResult2Controls, 3, 1);
             this.tableLayoutPanelProcessedResult2.Controls.Add(this.labelProcessedResult2, 0, 0);
             this.tableLayoutPanelProcessedResult2.Controls.Add(this.comboBoxScriptFileList2, 1, 0);
             this.tableLayoutPanelProcessedResult2.Controls.Add(this.textBoxProcessedResult2, 0, 1);
@@ -468,8 +475,75 @@
             this.tableLayoutPanelProcessedResult2.RowCount = 2;
             this.tableLayoutPanelProcessedResult2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanelProcessedResult2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelProcessedResult2.Size = new System.Drawing.Size(928, 173);
+            this.tableLayoutPanelProcessedResult2.Size = new System.Drawing.Size(928, 193);
             this.tableLayoutPanelProcessedResult2.TabIndex = 15;
+            // 
+            // tableLayoutPanelProcessedResult2Controls
+            // 
+            this.tableLayoutPanelProcessedResult2Controls.ColumnCount = 1;
+            this.tableLayoutPanelProcessedResult2Controls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelProcessedResult2Controls.Controls.Add(this.checkBoxProcessedResult2AppendToEnd, 0, 4);
+            this.tableLayoutPanelProcessedResult2Controls.Controls.Add(this.checkBoxProcessedResult2AutoCopy, 0, 3);
+            this.tableLayoutPanelProcessedResult2Controls.Controls.Add(this.buttonProcessedResult2Copy, 0, 0);
+            this.tableLayoutPanelProcessedResult2Controls.Controls.Add(this.buttonProcessedResult2SaveAsFile, 0, 1);
+            this.tableLayoutPanelProcessedResult2Controls.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelProcessedResult2Controls.Location = new System.Drawing.Point(651, 37);
+            this.tableLayoutPanelProcessedResult2Controls.Name = "tableLayoutPanelProcessedResult2Controls";
+            this.tableLayoutPanelProcessedResult2Controls.RowCount = 6;
+            this.tableLayoutPanelProcessedResult2Controls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanelProcessedResult2Controls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanelProcessedResult2Controls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanelProcessedResult2Controls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanelProcessedResult2Controls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanelProcessedResult2Controls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelProcessedResult2Controls.Size = new System.Drawing.Size(274, 153);
+            this.tableLayoutPanelProcessedResult2Controls.TabIndex = 14;
+            // 
+            // checkBoxProcessedResult2AppendToEnd
+            // 
+            this.checkBoxProcessedResult2AppendToEnd.AutoSize = true;
+            this.checkBoxProcessedResult2AppendToEnd.Location = new System.Drawing.Point(4, 109);
+            this.checkBoxProcessedResult2AppendToEnd.Margin = new System.Windows.Forms.Padding(4, 3, 2, 3);
+            this.checkBoxProcessedResult2AppendToEnd.Name = "checkBoxProcessedResult2AppendToEnd";
+            this.checkBoxProcessedResult2AppendToEnd.Size = new System.Drawing.Size(191, 21);
+            this.checkBoxProcessedResult2AppendToEnd.TabIndex = 5;
+            this.checkBoxProcessedResult2AppendToEnd.Text = "Append new result to end";
+            this.checkBoxProcessedResult2AppendToEnd.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxProcessedResult2AutoCopy
+            // 
+            this.checkBoxProcessedResult2AutoCopy.AutoSize = true;
+            this.checkBoxProcessedResult2AutoCopy.Location = new System.Drawing.Point(4, 81);
+            this.checkBoxProcessedResult2AutoCopy.Margin = new System.Windows.Forms.Padding(4, 3, 2, 3);
+            this.checkBoxProcessedResult2AutoCopy.Name = "checkBoxProcessedResult2AutoCopy";
+            this.checkBoxProcessedResult2AutoCopy.Size = new System.Drawing.Size(171, 21);
+            this.checkBoxProcessedResult2AutoCopy.TabIndex = 7;
+            this.checkBoxProcessedResult2AutoCopy.Text = "Auto copy to clipboard";
+            this.checkBoxProcessedResult2AutoCopy.UseVisualStyleBackColor = true;
+            // 
+            // buttonProcessedResult2Copy
+            // 
+            this.buttonProcessedResult2Copy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonProcessedResult2Copy.Location = new System.Drawing.Point(2, 3);
+            this.buttonProcessedResult2Copy.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.buttonProcessedResult2Copy.Name = "buttonProcessedResult2Copy";
+            this.buttonProcessedResult2Copy.Size = new System.Drawing.Size(270, 28);
+            this.buttonProcessedResult2Copy.TabIndex = 3;
+            this.buttonProcessedResult2Copy.Text = "Copy";
+            this.buttonProcessedResult2Copy.UseVisualStyleBackColor = true;
+            // 
+            // buttonProcessedResult2SaveAsFile
+            // 
+            this.buttonProcessedResult2SaveAsFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonProcessedResult2SaveAsFile.Location = new System.Drawing.Point(2, 37);
+            this.buttonProcessedResult2SaveAsFile.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.buttonProcessedResult2SaveAsFile.Name = "buttonProcessedResult2SaveAsFile";
+            this.buttonProcessedResult2SaveAsFile.Size = new System.Drawing.Size(270, 28);
+            this.buttonProcessedResult2SaveAsFile.TabIndex = 4;
+            this.buttonProcessedResult2SaveAsFile.Text = "Save as file...";
+            this.buttonProcessedResult2SaveAsFile.UseVisualStyleBackColor = true;
             // 
             // mainMenu
             // 
@@ -593,6 +667,8 @@
             this.tableLayoutPanelProcessedResult1Controls.PerformLayout();
             this.tableLayoutPanelProcessedResult2.ResumeLayout(false);
             this.tableLayoutPanelProcessedResult2.PerformLayout();
+            this.tableLayoutPanelProcessedResult2Controls.ResumeLayout(false);
+            this.tableLayoutPanelProcessedResult2Controls.PerformLayout();
             this.tableLayoutPanelMain.ResumeLayout(false);
             this.tableLayoutPanelHistory.ResumeLayout(false);
             this.tableLayoutPanelHistory.PerformLayout();
@@ -639,6 +715,11 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelMain;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelHistory;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelHistoryControls;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelProcessedResult2Controls;
+        private System.Windows.Forms.CheckBox checkBoxProcessedResult2AppendToEnd;
+        private System.Windows.Forms.CheckBox checkBoxProcessedResult2AutoCopy;
+        private System.Windows.Forms.Button buttonProcessedResult2Copy;
+        private System.Windows.Forms.Button buttonProcessedResult2SaveAsFile;
     }
 }
 
