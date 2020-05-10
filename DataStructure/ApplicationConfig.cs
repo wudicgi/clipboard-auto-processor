@@ -27,10 +27,10 @@ namespace ClipboardAutoProcessor.DataStructure
         #region Dir Path
 
         [IniEntry(SectionName = "dirPath", KeyName = "scriptDir1")]
-        public string DirPath_ScriptDir1 { get; set; } = string.Empty;
+        public string DirPath_ScriptDir1 { get; set; } = "processors";
 
         [IniEntry(SectionName = "dirPath", KeyName = "scriptDir2")]
-        public string DirPath_ScriptDir2 { get; set; } = string.Empty;
+        public string DirPath_ScriptDir2 { get; set; } = "processors2";
 
         #endregion
 
@@ -43,7 +43,7 @@ namespace ClipboardAutoProcessor.DataStructure
             string iniFileFullPath = FileSystemUtil.GetFullPathBasedOnProgramFile(_INI_FILE_NAME);
             if (!File.Exists(iniFileFullPath))
             {
-                File.WriteAllText(iniFileFullPath, string.Empty);
+                CreateDefault(iniFileFullPath);
             }
 
             ApplicationConfig applicationConfig = new ApplicationConfig();
@@ -79,6 +79,51 @@ namespace ClipboardAutoProcessor.DataStructure
             });
 
             return applicationConfig;
+        }
+
+        private static void CreateDefault(string iniFileFullPath)
+        {
+            ApplicationConfig applicationConfig = new ApplicationConfig();
+
+            ScriptInterpreterItem defaultScriptInterpreterItem = new ScriptInterpreterItem()
+            {
+                FileExtension = "php",
+                ExecutableProgram = @"C:\php\php.exe",
+                CommandLineArguments = "-f \"<filename>\" --",
+                AdditionalPath = @"C:\php"
+            };
+            applicationConfig.ScriptInterpreters.Add(defaultScriptInterpreterItem.FileExtension.ToLower(), defaultScriptInterpreterItem);
+
+            IniFileUtil.WriteIniFile(iniFileFullPath, applicationConfig, (parsedIniData) =>
+            {
+                foreach (string key in applicationConfig.ScriptInterpreters.Keys)
+                {
+                    ScriptInterpreterItem item = applicationConfig.ScriptInterpreters[key];
+                    if (item.FileExtension == null)
+                    {
+                        continue;
+                    }
+
+                    string iniSectionName = "scriptInterpreter." + item.FileExtension.ToLower();
+
+                    if (item.FileExtension != null)
+                    {
+                        parsedIniData[iniSectionName]["extension"] = item.FileExtension;
+                    }
+                    if (item.ExecutableProgram != null)
+                    {
+                        parsedIniData[iniSectionName]["program"] = item.ExecutableProgram;
+                    }
+                    if (item.CommandLineArguments != null)
+                    {
+                        parsedIniData[iniSectionName]["arguments"] = item.CommandLineArguments;
+                    }
+                    if (item.AdditionalPath != null)
+                    {
+                        parsedIniData[iniSectionName]["additionalPath"] = item.AdditionalPath;
+                    }
+                }
+            });
         }
 
         public ScriptInterpreterItem GetScriptInterpreter(string fileExtension)
