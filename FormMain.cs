@@ -168,7 +168,7 @@ namespace ClipboardAutoProcessor
             checkBoxProcessedResult1AutoCopy.Checked = state.Control_ProcessedResult1AutoCopy;
             checkBoxProcessedResult1AppendToEnd.Checked = state.Control_ProcessedResult1AppendToEnd;
 
-            comboBoxScriptFileList1.ValueMember = null;
+            comboBoxScriptFileList1.ValueMember = nameof(ScriptFileItem.FileName);
             comboBoxScriptFileList1.DisplayMember = nameof(ScriptFileItem.DisplayTitle);
             comboBoxScriptFileList1.DataSource = _scriptFileList1;
 
@@ -320,38 +320,68 @@ namespace ClipboardAutoProcessor
 
         private void ProcessClipboardText()
         {
-            string text = textBoxClipboardText.Text;
+            string clipboardText = textBoxClipboardText.Text;
 
-            string scriptFileName = comboBoxScriptFileList1.Text;
-            string scriptFileFullPath = Path.Combine(_scriptFileDirectoryFullPath1, scriptFileName);
-
-            if (!File.Exists(scriptFileFullPath))
+            string processedResult1 = ProcessUsingScriptFile1(clipboardText);
+            if (processedResult1 == null)
             {
                 return;
+            }
+
+            AddHistoryItem(clipboardText);
+
+            textBoxProcessedResult1.Select(textBoxProcessedResult1.Text.Length, 0);
+            textBoxProcessedResult1.Focus();
+        }
+
+        private string ProcessUsingScriptFile1(string clipboardText)
+        {
+            string scriptFileName = comboBoxScriptFileList1.SelectedValue as string;
+            if (scriptFileName == null)
+            {
+                return null;
+            }
+
+            string scriptFileFullPath = Path.Combine(_scriptFileDirectoryFullPath1, scriptFileName);
+            if (!File.Exists(scriptFileFullPath))
+            {
+                return null;
             }
 
             string scriptFileExtension = Path.GetExtension(scriptFileFullPath).TrimStart('.').ToLower();
             ScriptInterpreterItem scriptInterpreter = ApplicationService.Config.GetScriptInterpreter(scriptFileExtension);
 
-            string text2 = ScriptUtil.CallScriptInterpreter(scriptInterpreter, scriptFileFullPath, text);
+            string processedResult = ScriptUtil.CallScriptInterpreter(scriptInterpreter, scriptFileFullPath, clipboardText);
 
             if (checkBoxProcessedResult1AppendToEnd.Checked)
             {
                 if (textBoxProcessedResult1.Text == "")
                 {
-                    textBoxProcessedResult1.Text = text2;
+                    textBoxProcessedResult1.Text = processedResult;
                 }
                 else
                 {
-                    textBoxProcessedResult1.Text += "\r\n" + text2;
+                    textBoxProcessedResult1.Text += "\r\n" + processedResult;
                 }
             }
             else
             {
-                textBoxProcessedResult1.Text = text2;
+                textBoxProcessedResult1.Text = processedResult;
             }
 
-            string summaryText = Regex.Replace(text, "/[\\t\\r\\n]/", " ").Trim();
+            if (checkBoxProcessedResult1AutoCopy.Checked)
+            {
+                Clipboard.SetText(textBoxProcessedResult1.Text);
+
+                _currentClipboardText = Clipboard.GetText();
+            }
+
+            return processedResult;
+        }
+
+        private void AddHistoryItem(string clipboardText)
+        {
+            string summaryText = Regex.Replace(clipboardText, "/[\\t\\r\\n]/", " ").Trim();
             if (summaryText.Length > 50)
             {
                 summaryText = summaryText.Substring(0, 47) + "...";
@@ -373,16 +403,6 @@ namespace ClipboardAutoProcessor
             {
                 comboBoxHistoryOperationList.SelectedIndex = comboBoxHistoryOperationList.Items.Count - 1;
             }
-
-            if (checkBoxProcessedResult1AutoCopy.Checked)
-            {
-                Clipboard.SetText(textBoxProcessedResult1.Text);
-
-                _currentClipboardText = Clipboard.GetText();
-            }
-
-            textBoxProcessedResult1.Select(textBoxProcessedResult1.Text.Length, 0);
-            textBoxProcessedResult1.Focus();
         }
 
         #endregion

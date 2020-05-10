@@ -17,6 +17,16 @@ namespace ClipboardAutoProcessor.Util
         {
             BindingList<ScriptFileItem> scriptFileList = new BindingList<ScriptFileItem>();
 
+            {
+                ScriptFileItem item = new ScriptFileItem()
+                {
+                    FileName = null,
+                    DisplayTitle = I18n._("(Select a script file to use)")
+                };
+
+                scriptFileList.Add(item);
+            }
+
             if (!Directory.Exists(path))
             {
                 return scriptFileList;
@@ -35,9 +45,8 @@ namespace ClipboardAutoProcessor.Util
 
                 ScriptFileItem item = new ScriptFileItem()
                 {
-                    FullPath = Path.GetFullPath(file),
                     FileName = Path.GetFileName(file),
-                    DisplayTitle = Path.GetFileName(file),
+                    DisplayTitle = Path.GetFileName(file)
                 };
 
                 scriptFileList.Add(item);
