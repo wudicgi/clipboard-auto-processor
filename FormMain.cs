@@ -172,6 +172,9 @@ namespace ClipboardAutoProcessor
             checkBoxProcessedResult1AutoCopy.Checked = state.Control_ProcessedResult1AutoCopy;
             checkBoxProcessedResult1AppendToEnd.Checked = state.Control_ProcessedResult1AppendToEnd;
 
+            checkBoxProcessedResult2AutoCopy.Checked = state.Control_ProcessedResult2AutoCopy;
+            checkBoxProcessedResult2AppendToEnd.Checked = state.Control_ProcessedResult2AppendToEnd;
+
             comboBoxScriptFileList1.ValueMember = nameof(ScriptFileItem.FileName);
             comboBoxScriptFileList1.DisplayMember = nameof(ScriptFileItem.DisplayTitle);
             comboBoxScriptFileList1.DataSource = _scriptFileList1;
@@ -186,12 +189,28 @@ namespace ClipboardAutoProcessor
 
             if (comboBoxScriptFileList1.Items.Count > 0)
             {
-                comboBoxScriptFileList1.SelectedIndex = 0;
+                if (!string.IsNullOrEmpty(state.Control_SelectedScriptFileName1))
+                {
+                    comboBoxScriptFileList1.SelectedValue = state.Control_SelectedScriptFileName1;
+                }
+
+                if (comboBoxScriptFileList1.SelectedValue == null)
+                {
+                    comboBoxScriptFileList1.SelectedIndex = 0;
+                }
             }
 
             if (comboBoxScriptFileList2.Items.Count > 0)
             {
-                comboBoxScriptFileList2.SelectedIndex = 0;
+                if (!string.IsNullOrEmpty(state.Control_SelectedScriptFileName2))
+                {
+                    comboBoxScriptFileList2.SelectedValue = state.Control_SelectedScriptFileName2;
+                }
+
+                if (comboBoxScriptFileList2.SelectedValue == null)
+                {
+                    comboBoxScriptFileList2.SelectedIndex = 0;
+                }
             }
         }
 
@@ -208,12 +227,18 @@ namespace ClipboardAutoProcessor
             state.Layout_SplitterDistance1 = this.splitContainerMain.SplitterDistance;
             state.Layout_SplitterDistance2 = this.splitContainerSub.SplitterDistance;
 
+            state.Control_SelectedScriptFileName1 = (comboBoxScriptFileList1.SelectedValue as string) ?? string.Empty;
+            state.Control_SelectedScriptFileName2 = (comboBoxScriptFileList2.SelectedValue as string) ?? string.Empty;
+
             state.Control_AutoFetch = checkBoxClipboardTextAutoFetch.Checked;
             state.Control_AutoFetchOnlyWhenActivatingForm = checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Checked;
             state.Control_AutoProcessAfterAutoFetch = checkBoxClipboardTextAutoProcessAfterAutoFetch.Checked;
 
             state.Control_ProcessedResult1AutoCopy = checkBoxProcessedResult1AutoCopy.Checked;
             state.Control_ProcessedResult1AppendToEnd = checkBoxProcessedResult1AppendToEnd.Checked;
+
+            state.Control_ProcessedResult2AutoCopy = checkBoxProcessedResult2AutoCopy.Checked;
+            state.Control_ProcessedResult2AppendToEnd = checkBoxProcessedResult2AppendToEnd.Checked;
 
             state.Save();
         }

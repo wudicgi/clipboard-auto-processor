@@ -34,6 +34,12 @@ namespace ClipboardAutoProcessor.DataStructure
 
         #region Control
 
+        [IniEntry(SectionName = "control", KeyName = "selectedScriptFileName1")]
+        public string Control_SelectedScriptFileName1 { get; set; } = string.Empty;
+
+        [IniEntry(SectionName = "control", KeyName = "selectedScriptFileName2")]
+        public string Control_SelectedScriptFileName2 { get; set; } = string.Empty;
+
         [IniEntry(SectionName = "control", KeyName = "autoFetch")]
         public bool Control_AutoFetch { get; set; } = false;
 
@@ -48,6 +54,12 @@ namespace ClipboardAutoProcessor.DataStructure
 
         [IniEntry(SectionName = "control", KeyName = "processedResult1AppendToEnd")]
         public bool Control_ProcessedResult1AppendToEnd { get; set; } = false;
+
+        [IniEntry(SectionName = "control", KeyName = "processedResult2AutoCopy")]
+        public bool Control_ProcessedResult2AutoCopy { get; set; } = false;
+
+        [IniEntry(SectionName = "control", KeyName = "processedResult2AppendToEnd")]
+        public bool Control_ProcessedResult2AppendToEnd { get; set; } = false;
 
         #endregion
 
