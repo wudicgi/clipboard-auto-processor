@@ -55,11 +55,11 @@ namespace ClipboardAutoProcessor.Util
             return scriptFileList;
         }
 
-        public static string CallScriptInterpreter(ScriptInterpreterItem scriptInterpreter, string scriptFileFullpath, string inputText)
+        public static string CallScriptInterpreter(ScriptInterpreterItem scriptInterpreter, string scriptFileFullPath, string inputText)
         {
             Process process = new Process();
-            process.StartInfo.FileName = scriptInterpreter.ExecutableProgram.Replace("<filename>", scriptFileFullpath);
-            process.StartInfo.Arguments = scriptInterpreter.CommandLineArguments.Replace("<filename>", scriptFileFullpath);
+            process.StartInfo.FileName = ReplaceVariables(scriptInterpreter.ExecutableProgram, scriptFileFullPath);
+            process.StartInfo.Arguments = ReplaceVariables(scriptInterpreter.CommandLineArguments, scriptFileFullPath);
             process.StartInfo.CreateNoWindow = true;
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardInput = true;
@@ -69,7 +69,8 @@ namespace ClipboardAutoProcessor.Util
             if (scriptInterpreter.AdditionalPath != null)
             {
                 string environmentVariablePath = (process.StartInfo.EnvironmentVariables.ContainsKey("PATH") ?
-                        (process.StartInfo.EnvironmentVariables["PATH"] + ";") : "") + scriptInterpreter.AdditionalPath;
+                        (process.StartInfo.EnvironmentVariables["PATH"] + ";") : "")
+                        + ReplaceVariables(scriptInterpreter.AdditionalPath, scriptFileFullPath);
                 process.StartInfo.EnvironmentVariables["PATH"] = environmentVariablePath;
             }
 
@@ -132,6 +133,25 @@ namespace ClipboardAutoProcessor.Util
             string outputText = StringUtil.Base64Decode(stdout.ToString());
 
             return outputText;
+        }
+
+        private static string ReplaceVariables(string str, string scriptFileFullPath)
+        {
+            string scriptFullPath = scriptFileFullPath;
+            string scriptBaseName = Path.GetFileName(scriptFileFullPath);
+            string scriptExtension = Path.GetExtension(scriptFileFullPath).TrimStart('.');
+            string scriptDir = Path.GetDirectoryName(scriptFileFullPath);
+
+            string capDir = FileSystemUtil.GetProgramDirectoryFullPath();
+
+            str = str.Replace("<scriptFullPath>", scriptFileFullPath);
+            str = str.Replace("<scriptBaseName>", scriptBaseName);
+            str = str.Replace("<scriptExtension>", scriptExtension);
+            str = str.Replace("<scriptDir>", scriptDir);
+
+            str = str.Replace("<capDir>", capDir);
+
+            return str;
         }
     }
 }
