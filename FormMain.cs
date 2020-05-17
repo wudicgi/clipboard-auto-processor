@@ -31,6 +31,10 @@ namespace ClipboardAutoProcessor
 
         private BindingList<HistoryOperationItem> _historyOperationList = new BindingList<HistoryOperationItem>();
 
+        private bool _textareaLineEndingNormalizeToCrLf = true;
+
+        private bool _duringSetMultilineTextBoxText = false;
+
         #endregion
 
         #region Constructor
@@ -98,6 +102,15 @@ namespace ClipboardAutoProcessor
                 textBoxClipboardText.Font = newFont;
                 textBoxProcessedResult1.Font = newFont;
                 textBoxProcessedResult2.Font = newFont;
+            }
+
+            if (config.UserInterface_TextareaLineEnding.ToLower() == "normalizetocrlf")
+            {
+                _textareaLineEndingNormalizeToCrLf = true;
+            }
+            else
+            {
+                _textareaLineEndingNormalizeToCrLf = false;
             }
 
             _sharpClipboard.ObservableFormats.All = false;
@@ -295,7 +308,7 @@ namespace ClipboardAutoProcessor
 
         private void ButtonProcessedResult1Copy_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(textBoxProcessedResult1.Text);
+            Clipboard.SetText(GetMultilineTextBoxText(textBoxProcessedResult1));
 
             _currentClipboardText = Clipboard.GetText();
         }
@@ -314,6 +327,67 @@ namespace ClipboardAutoProcessor
             {
                 ((TextBox)sender).SelectAll();
             }
+        }
+
+        private void MultilineTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (!_textareaLineEndingNormalizeToCrLf)
+            {
+                return;
+            }
+
+            if (_duringSetMultilineTextBoxText)
+            {
+                return;
+            }
+
+            TextBox textBox = sender as TextBox;
+            if (textBox == null)
+            {
+                return;
+            }
+
+            string text = GetMultilineTextBoxText(textBox);
+
+            if (StringUtil.HasLfLineEnding(text))
+            {
+                int selectionStart = textBox.SelectionStart;
+                string textBeforeCaret = text.Substring(0, selectionStart);
+
+                string newText = StringUtil.NormalizeLineEndingToCrLf(text);
+                string newTextBeforeCaret = StringUtil.NormalizeLineEndingToCrLf(textBeforeCaret);
+                int newSelectionStart = selectionStart + (newTextBeforeCaret.Length - textBeforeCaret.Length);
+
+                textBox.Text = newText;
+                textBox.SelectionStart = newSelectionStart;
+                textBox.ScrollToCaret();
+            }
+        }
+
+        #endregion
+
+        #region Text processing
+
+        private void SetMultilineTextBoxText(TextBox textBox, string text)
+        {
+            _duringSetMultilineTextBoxText = true;
+
+            if (_textareaLineEndingNormalizeToCrLf)
+            {
+                if (StringUtil.HasLfLineEnding(text))
+                {
+                    text = StringUtil.NormalizeLineEndingToCrLf(text);
+                }
+            }
+
+            textBox.Text = text;
+
+            _duringSetMultilineTextBoxText = false;
+        }
+
+        private string GetMultilineTextBoxText(TextBox textBox)
+        {
+            return textBox.Text;
         }
 
         #endregion
@@ -351,20 +425,20 @@ namespace ClipboardAutoProcessor
 
             _currentClipboardText = clipboardText;
 
-            textBoxClipboardText.Text = clipboardText;
+            SetMultilineTextBoxText(textBoxClipboardText, clipboardText);
 
             return true;
         }
 
         private void ProcessClipboardText()
         {
-            string clipboardText = textBoxClipboardText.Text;
+            string clipboardText = GetMultilineTextBoxText(textBoxClipboardText);
 
             string processedResult1 = ProcessUsingScriptFile1(clipboardText);
             if (processedResult1 == null)
             {
-                textBoxProcessedResult1.Text = string.Empty;
-                textBoxProcessedResult2.Text = string.Empty;
+                SetMultilineTextBoxText(textBoxProcessedResult1, string.Empty);
+                SetMultilineTextBoxText(textBoxProcessedResult2, string.Empty);
                 return;
             }
 
@@ -408,14 +482,14 @@ namespace ClipboardAutoProcessor
             string scriptFileName = comboBoxScriptFileList.SelectedValue as string;
             if (scriptFileName == null)
             {
-                textBoxProcessedResult.Text = string.Empty;
+                SetMultilineTextBoxText(textBoxProcessedResult, string.Empty);
                 return null;
             }
 
             string scriptFileFullPath = Path.Combine(scriptFileDirectoryFullPath, scriptFileName);
             if (!File.Exists(scriptFileFullPath))
             {
-                textBoxProcessedResult.Text = string.Empty;
+                SetMultilineTextBoxText(textBoxProcessedResult, string.Empty);
                 return null;
             }
 
@@ -426,23 +500,27 @@ namespace ClipboardAutoProcessor
 
             if (processedResultAppendToEnd)
             {
-                if (textBoxProcessedResult.Text == "")
+                string originalProcessedResult = GetMultilineTextBoxText(textBoxProcessedResult);
+
+                if (originalProcessedResult == string.Empty)
                 {
-                    textBoxProcessedResult.Text = processedResult;
+                    SetMultilineTextBoxText(textBoxProcessedResult, processedResult);
                 }
                 else
                 {
-                    textBoxProcessedResult.Text += "\r\n" + processedResult;
+                    SetMultilineTextBoxText(textBoxProcessedResult, originalProcessedResult
+                            + (_textareaLineEndingNormalizeToCrLf ? "\r\n" : Environment.NewLine)
+                            + processedResult);
                 }
             }
             else
             {
-                textBoxProcessedResult.Text = processedResult;
+                SetMultilineTextBoxText(textBoxProcessedResult, processedResult);
             }
 
             if (processedResultAutoCopy)
             {
-                Clipboard.SetText(textBoxProcessedResult.Text);
+                Clipboard.SetText(GetMultilineTextBoxText(textBoxProcessedResult));
 
                 _currentClipboardText = Clipboard.GetText();
             }

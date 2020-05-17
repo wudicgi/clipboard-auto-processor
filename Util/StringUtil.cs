@@ -59,5 +59,39 @@ namespace ClipboardAutoProcessor.Util
                 return true;
             }
         }
+
+        public static bool HasLfLineEnding(string text)
+        {
+            if (text.Length == 0)
+            {
+                return false;
+            }
+
+            if (text.Length == 1)
+            {
+                return (text == "\n");
+            }
+
+            int startIndex = 1;
+            int lfIndex;
+            while ((lfIndex = text.IndexOf('\n', startIndex)) > 0)
+            {
+                if (text[lfIndex - 1] != '\r')
+                {
+                    return true;
+                }
+
+                startIndex = lfIndex + 1;
+            }
+
+            return false;
+        }
+
+        public static string NormalizeLineEndingToCrLf(string text)
+        {
+            string newText = text.Replace("\r\n", "\n").Replace("\n", "\r\n");
+
+            return newText;
+        }
     }
 }

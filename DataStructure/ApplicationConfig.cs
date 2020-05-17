@@ -22,6 +22,9 @@ namespace ClipboardAutoProcessor.DataStructure
         [IniEntry(SectionName = "userInterface", KeyName = "textareaFontSize")]
         public string UserInterface_TextareaFontSize { get; set; } = string.Empty;
 
+        [IniEntry(SectionName = "userInterface", KeyName = "textareaLineEnding")]
+        public string UserInterface_TextareaLineEnding { get; set; } = "normalizeToCrLf";
+
         #endregion
 
         #region Dir Path
