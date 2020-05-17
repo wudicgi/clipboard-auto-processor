@@ -498,6 +498,13 @@ namespace ClipboardAutoProcessor
 
             string processedResult = ScriptUtil.CallScriptInterpreter(scriptInterpreter, scriptFileFullPath, clipboardText);
 
+            if (processedResultAutoCopy)
+            {
+                Clipboard.SetText(processedResult);
+
+                _currentClipboardText = Clipboard.GetText();
+            }
+
             if (processedResultAppendToEnd)
             {
                 string originalProcessedResult = GetMultilineTextBoxText(textBoxProcessedResult);
@@ -516,13 +523,6 @@ namespace ClipboardAutoProcessor
             else
             {
                 SetMultilineTextBoxText(textBoxProcessedResult, processedResult);
-            }
-
-            if (processedResultAutoCopy)
-            {
-                Clipboard.SetText(GetMultilineTextBoxText(textBoxProcessedResult));
-
-                _currentClipboardText = Clipboard.GetText();
             }
 
             textBoxProcessedResult.Select(textBoxProcessedResult.Text.Length, 0);
