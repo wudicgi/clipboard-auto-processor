@@ -305,7 +305,7 @@ namespace ClipboardAutoProcessor
                 return;
             }
 
-            string clipboardText = Clipboard.GetText();
+            string clipboardText = GetClipboardText();
 
             OnNewClipboardTextDetected(clipboardText);
         }
@@ -334,9 +334,9 @@ namespace ClipboardAutoProcessor
 
         private void ButtonClipboardTextFetch_Click(object sender, EventArgs e)
         {
-            string clipboardText = Clipboard.GetText();
+            string clipboardText = GetClipboardText();
 
-            SetClipboardText(clipboardText);
+            SetClipboardTextBoxText(clipboardText);
         }
 
         private void ButtonClipboardTextProcess_Click(object sender, EventArgs e)
@@ -346,9 +346,9 @@ namespace ClipboardAutoProcessor
 
         private void ButtonProcessedResult1Copy_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(GetMultilineTextBoxText(textBoxProcessedResult1));
+            string text = GetMultilineTextBoxText(textBoxProcessedResult1);
 
-            _currentClipboardText = Clipboard.GetText();
+            SetClipboardText(text);
         }
 
         private void CheckBoxClipboardTextAutoFetch_CheckedChanged(object sender, EventArgs e)
@@ -462,7 +462,7 @@ namespace ClipboardAutoProcessor
                 return;
             }
 
-            bool succeeded = SetClipboardText(newClipboardText);
+            bool succeeded = SetClipboardTextBoxText(newClipboardText);
             if (!succeeded)
             {
                 return;
@@ -477,18 +477,37 @@ namespace ClipboardAutoProcessor
             ProcessClipboardText();
         }
 
-        private bool SetClipboardText(string clipboardText)
+        private bool SetClipboardTextBoxText(string text)
         {
-            if (clipboardText.Length > ApplicationService.CLIPBOARD_TEXT_MAX_SUPPORTED_LENGTH)
+            if (text.Length > ApplicationService.CLIPBOARD_TEXT_MAX_SUPPORTED_LENGTH)
             {
                 return false;
             }
 
-            _currentClipboardText = clipboardText;
+            _currentClipboardText = text;
 
-            SetMultilineTextBoxText(textBoxClipboardText, clipboardText);
+            SetMultilineTextBoxText(textBoxClipboardText, text);
 
             return true;
+        }
+
+        private void SetClipboardText(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                Clipboard.Clear();
+            }
+            else
+            {
+                Clipboard.SetText(text);
+            }
+
+            _currentClipboardText = GetClipboardText();
+        }
+
+        private string GetClipboardText()
+        {
+            return Clipboard.GetText();
         }
 
         private void ProcessClipboardText()
@@ -561,9 +580,7 @@ namespace ClipboardAutoProcessor
 
             if (processedResultAutoCopy)
             {
-                Clipboard.SetText(processedResult);
-
-                _currentClipboardText = Clipboard.GetText();
+                SetClipboardText(processedResult);
             }
 
             if (processedResultAppendToEnd)
