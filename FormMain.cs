@@ -169,34 +169,6 @@ namespace ClipboardAutoProcessor
 
             ApplicationState state = ApplicationService.State;
 
-            switch (state.Window_State.ToLower())
-            {
-                case "normal":
-                case "minimized":
-                    this.WindowState = FormWindowState.Normal;
-                    break;
-
-                case "maximized":
-                    this.WindowState = FormWindowState.Maximized;
-                    break;
-
-                default:
-                    break;
-            }
-
-            if ((state.Window_Left >= 0) && (state.Window_Top >= 0)
-                    && (state.Window_Width > 0) && (state.Window_Height > 0))
-            {
-                this.SetBounds(state.Window_Left, state.Window_Top,
-                        state.Window_Width, state.Window_Height);
-            }
-
-            if ((state.Layout_SplitterDistance1 > 0) && (state.Layout_SplitterDistance2 > 0))
-            {
-                this.splitContainerMain.SplitterDistance = state.Layout_SplitterDistance1;
-                this.splitContainerSub.SplitterDistance = state.Layout_SplitterDistance2;
-            }
-
             checkBoxClipboardTextAutoFetch.Checked = state.Control_AutoFetch;
             checkBoxClipboardTextAutoFetchOnlyWhenActivatingForm.Checked = state.Control_AutoFetchOnlyWhenActivatingForm;
             checkBoxClipboardTextAutoProcessAfterAutoFetch.Checked = state.Control_AutoProcessAfterAutoFetch;
@@ -243,6 +215,34 @@ namespace ClipboardAutoProcessor
                 {
                     comboBoxScriptFileList2.SelectedIndex = 0;
                 }
+            }
+
+            switch (state.Window_State.ToLower())
+            {
+                case "normal":
+                case "minimized":
+                    this.WindowState = FormWindowState.Normal;
+                    break;
+
+                case "maximized":
+                    this.WindowState = FormWindowState.Maximized;
+                    break;
+
+                default:
+                    break;
+            }
+
+            if ((state.Window_Left >= 0) && (state.Window_Top >= 0)
+                    && (state.Window_Width > 0) && (state.Window_Height > 0))
+            {
+                this.SetBounds(state.Window_Left, state.Window_Top,
+                        state.Window_Width, state.Window_Height);
+            }
+
+            if ((state.Layout_SplitterDistance1 > 0) && (state.Layout_SplitterDistance2 > 0))
+            {
+                this.splitContainerMain.SplitterDistance = state.Layout_SplitterDistance1;
+                this.splitContainerSub.SplitterDistance = state.Layout_SplitterDistance2;
             }
         }
 
@@ -295,7 +295,8 @@ namespace ClipboardAutoProcessor
 
         private void FormMain_Activated(object sender, EventArgs e)
         {
-            if (!checkBoxClipboardTextAutoFetch.Checked) {
+            if (!checkBoxClipboardTextAutoFetch.Checked)
+            {
                 return;
             }
 
