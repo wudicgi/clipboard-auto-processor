@@ -8,6 +8,9 @@ namespace ClipboardAutoProcessor.DataStructure
     {
         #region Window
 
+        [IniEntry(SectionName = "window", KeyName = "state")]
+        public string Window_State { get; set; } = string.Empty;
+
         [IniEntry(SectionName = "window", KeyName = "left")]
         public int Window_Left { get; set; } = -1;
 

@@ -169,6 +169,21 @@ namespace ClipboardAutoProcessor
 
             ApplicationState state = ApplicationService.State;
 
+            switch (state.Window_State.ToLower())
+            {
+                case "normal":
+                case "minimized":
+                    this.WindowState = FormWindowState.Normal;
+                    break;
+
+                case "maximized":
+                    this.WindowState = FormWindowState.Maximized;
+                    break;
+
+                default:
+                    break;
+            }
+
             if ((state.Window_Left >= 0) && (state.Window_Top >= 0)
                     && (state.Window_Width > 0) && (state.Window_Height > 0))
             {
@@ -178,8 +193,8 @@ namespace ClipboardAutoProcessor
 
             if ((state.Layout_SplitterDistance1 > 0) && (state.Layout_SplitterDistance2 > 0))
             {
-                this.splitContainerSub.SplitterDistance = state.Layout_SplitterDistance2;
                 this.splitContainerMain.SplitterDistance = state.Layout_SplitterDistance1;
+                this.splitContainerSub.SplitterDistance = state.Layout_SplitterDistance2;
             }
 
             checkBoxClipboardTextAutoFetch.Checked = state.Control_AutoFetch;
@@ -234,6 +249,24 @@ namespace ClipboardAutoProcessor
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             ApplicationState state = ApplicationService.State;
+
+            switch (this.WindowState)
+            {
+                case FormWindowState.Normal:
+                    state.Window_State = "normal";
+                    break;
+
+                case FormWindowState.Minimized:
+                    state.Window_State = "minimized";
+                    break;
+
+                case FormWindowState.Maximized:
+                    state.Window_State = "maximized";
+                    break;
+
+                default:
+                    break;
+            }
 
             Rectangle bounds = this.Bounds;
             state.Window_Left = bounds.Left;
