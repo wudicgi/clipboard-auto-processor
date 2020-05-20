@@ -61,6 +61,12 @@
     <Compile Include="ApplicationService.cs" />
     <Compile Include="DataStructure\ApplicationState.cs" />
     <Compile Include="DataStructure\IniEntry.cs" />
+    <Compile Include="FormAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAbout.Designer.cs">
+      <DependentUpon>FormAbout.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +84,9 @@
     <Compile Include="Util\IniFileUtil.cs" />
     <Compile Include="Util\ScriptUtil.cs" />
     <Compile Include="Util\StringUtil.cs" />
+    <EmbeddedResource Include="FormAbout.resx">
+      <DependentUpon>FormAbout.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>

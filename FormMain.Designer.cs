@@ -63,8 +63,11 @@
             this.buttonProcessedResult2SaveAsFile = new System.Windows.Forms.Button();
             this.mainMenu = new System.Windows.Forms.MainMenu(this.components);
             this.menuItemFile = new System.Windows.Forms.MenuItem();
-            this.menuItemOptions = new System.Windows.Forms.MenuItem();
+            this.menuItemFileExit = new System.Windows.Forms.MenuItem();
+            this.menuItemTools = new System.Windows.Forms.MenuItem();
+            this.menuItemToolsOptions = new System.Windows.Forms.MenuItem();
             this.menuItemHelp = new System.Windows.Forms.MenuItem();
+            this.menuItemHelpAbout = new System.Windows.Forms.MenuItem();
             this.labelHistory = new System.Windows.Forms.Label();
             this.statusBar = new System.Windows.Forms.StatusBar();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
@@ -552,23 +555,49 @@
             // 
             this.mainMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItemFile,
-            this.menuItemOptions,
+            this.menuItemTools,
             this.menuItemHelp});
             // 
             // menuItemFile
             // 
             this.menuItemFile.Index = 0;
+            this.menuItemFile.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItemFileExit});
             this.menuItemFile.Text = "&File";
             // 
-            // menuItemOptions
+            // menuItemFileExit
             // 
-            this.menuItemOptions.Index = 1;
-            this.menuItemOptions.Text = "&Options";
+            this.menuItemFileExit.Index = 0;
+            this.menuItemFileExit.Shortcut = System.Windows.Forms.Shortcut.AltF4;
+            this.menuItemFileExit.Text = "E&xit";
+            this.menuItemFileExit.Click += new System.EventHandler(this.MenuItemFileExit_Click);
+            // 
+            // menuItemTools
+            // 
+            this.menuItemTools.Index = 1;
+            this.menuItemTools.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItemToolsOptions});
+            this.menuItemTools.Text = "&Tools";
+            // 
+            // menuItemToolsOptions
+            // 
+            this.menuItemToolsOptions.Index = 0;
+            this.menuItemToolsOptions.Shortcut = System.Windows.Forms.Shortcut.CtrlO;
+            this.menuItemToolsOptions.Text = "&Options";
+            this.menuItemToolsOptions.Click += new System.EventHandler(this.MenuItemToolsOptions_Click);
             // 
             // menuItemHelp
             // 
             this.menuItemHelp.Index = 2;
+            this.menuItemHelp.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItemHelpAbout});
             this.menuItemHelp.Text = "&Help";
+            // 
+            // menuItemHelpAbout
+            // 
+            this.menuItemHelpAbout.Index = 0;
+            this.menuItemHelpAbout.Text = "&About";
+            this.menuItemHelpAbout.Click += new System.EventHandler(this.MenuItemHelpAbout_Click);
             // 
             // labelHistory
             // 
@@ -701,7 +730,7 @@
         private System.Windows.Forms.SplitContainer splitContainerSub;
         private System.Windows.Forms.MainMenu mainMenu;
         private System.Windows.Forms.MenuItem menuItemFile;
-        private System.Windows.Forms.MenuItem menuItemOptions;
+        private System.Windows.Forms.MenuItem menuItemTools;
         private System.Windows.Forms.MenuItem menuItemHelp;
         private System.Windows.Forms.Label labelHistory;
         private System.Windows.Forms.CheckBox checkBoxClipboardTextAutoProcessAfterAutoFetch;
@@ -723,6 +752,9 @@
         private System.Windows.Forms.CheckBox checkBoxProcessedResult2AutoCopy;
         private System.Windows.Forms.Button buttonProcessedResult2Copy;
         private System.Windows.Forms.Button buttonProcessedResult2SaveAsFile;
+        private System.Windows.Forms.MenuItem menuItemFileExit;
+        private System.Windows.Forms.MenuItem menuItemToolsOptions;
+        private System.Windows.Forms.MenuItem menuItemHelpAbout;
     }
 }
 

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ClipboardAutoProcessor\n"
-"POT-Creation-Date: 2020-05-10 11:19+0800\n"
-"PO-Revision-Date: 2020-05-10 11:19+0800\n"
+"POT-Creation-Date: 2020-05-20 22:49+0800\n"
+"PO-Revision-Date: 2020-05-20 22:49+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -16,83 +16,107 @@ msgstr ""
 "X-Poedit-KeywordsList: I18n._\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: FormMain.cs:114
+#: FormAbout.cs:30
+msgid "About Clipboard Auto Processor"
+msgstr "关于 Clipboard Auto Processor"
+
+#: FormMain.cs:127
 msgid "&File"
 msgstr "文件(&F)"
 
-#: FormMain.cs:115
-msgid "&Options"
-msgstr "选项(&O)"
+#: FormMain.cs:128
+msgid "&Tools"
+msgstr "工具(&T)"
 
-#: FormMain.cs:116
+#: FormMain.cs:129
 msgid "&Help"
 msgstr "帮助(&H)"
 
-#: FormMain.cs:118
+#: FormMain.cs:131
+msgid "E&xit"
+msgstr "退出(&X)"
+
+#: FormMain.cs:132
+msgid "&Options"
+msgstr "选项(&O)"
+
+#: FormMain.cs:133
+msgid "&About"
+msgstr "关于(&A)"
+
+#: FormMain.cs:135
 msgid "Clipboard text:"
 msgstr "剪贴板内容:"
 
-#: FormMain.cs:119
+#: FormMain.cs:136
 msgid "Fetch"
 msgstr "获取"
 
-#: FormMain.cs:120
+#: FormMain.cs:137
 msgid "Process"
 msgstr "处理"
 
-#: FormMain.cs:121
+#: FormMain.cs:138
 msgid "Auto fetch"
 msgstr "自动获取"
 
-#: FormMain.cs:122
+#: FormMain.cs:139
 msgid "Only when switched to this window"
 msgstr "仅在切换到此窗口时"
 
-#: FormMain.cs:123
+#: FormMain.cs:140
 msgid "Auto process after fetching"
 msgstr "获取后自动处理"
 
-#: FormMain.cs:125
+#: FormMain.cs:142
 msgid "Processed result:"
 msgstr "处理后内容:"
 
-#: FormMain.cs:126
+#: FormMain.cs:143 FormMain.cs:149
 msgid "Copy"
 msgstr "复制"
 
-#: FormMain.cs:127
+#: FormMain.cs:144 FormMain.cs:150
 msgid "Save as file..."
 msgstr "另存为文件..."
 
-#: FormMain.cs:128
+#: FormMain.cs:145 FormMain.cs:151
 msgid "Auto copy to clipboard"
 msgstr "自动复制到剪贴板"
 
-#: FormMain.cs:129
+#: FormMain.cs:146 FormMain.cs:152
 msgid "Append new result"
 msgstr "新结果附加到尾部"
 
-#: FormMain.cs:131
+#: FormMain.cs:148
 msgid "Secondary processed result:"
 msgstr "二次处理后内容:"
 
-#: FormMain.cs:133
+#: FormMain.cs:154
 msgid "History:"
 msgstr "历史:"
 
-#: FormMain.cs:134
+#: FormMain.cs:155
 msgid "<"
 msgstr "<"
 
-#: FormMain.cs:135
+#: FormMain.cs:156
 msgid ">"
 msgstr ">"
 
-#: FormMain.cs:137
+#: FormMain.cs:158
 msgid "Clipboard Auto Processor"
 msgstr "Clipboard Auto Processor"
 
-#: FormMain.cs:392
+#: FormMain.cs:382
+msgid "Please modify the application_config.ini file manually to set options."
+msgstr "请手动修改 application_config.ini 文件设置选项。"
+
+#: FormMain.cs:383
+msgid "Graphical interface is not implemented yet"
+msgstr "图形界面尚未实现"
+
+#: FormMain.cs:570
 msgid "Auto"
 msgstr "自动"
 

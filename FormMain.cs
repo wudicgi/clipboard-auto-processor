@@ -125,8 +125,12 @@ namespace ClipboardAutoProcessor
         private void UpdateTexts()
         {
             menuItemFile.Text = I18n._("&File");
-            menuItemOptions.Text = I18n._("&Options");
+            menuItemTools.Text = I18n._("&Tools");
             menuItemHelp.Text = I18n._("&Help");
+
+            menuItemFileExit.Text = I18n._("E&xit");
+            menuItemToolsOptions.Text = I18n._("&Options");
+            menuItemHelpAbout.Text = I18n._("&About");
 
             labelClipboardText.Text = I18n._("Clipboard text:");
             buttonClipboardTextFetch.Text = I18n._("Fetch");
@@ -362,6 +366,29 @@ namespace ClipboardAutoProcessor
                 textBox.SelectionStart = newSelectionStart;
                 textBox.ScrollToCaret();
             }
+        }
+
+        #endregion
+
+        #region Menu items processing
+
+        private void MenuItemFileExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void MenuItemToolsOptions_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(I18n._("Please modify the application_config.ini file manually to set options."),
+                I18n._("Graphical interface is not implemented yet"),
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void MenuItemHelpAbout_Click(object sender, EventArgs e)
+        {
+            FormAbout formAbout = new FormAbout();
+
+            formAbout.ShowDialog();
         }
 
         #endregion
