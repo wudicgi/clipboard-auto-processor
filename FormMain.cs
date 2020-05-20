@@ -351,6 +351,23 @@ namespace ClipboardAutoProcessor
             SetClipboardText(text);
         }
 
+        private void ButtonProcessedResult2Copy_Click(object sender, EventArgs e)
+        {
+            string text = GetMultilineTextBoxText(textBoxProcessedResult2);
+
+            SetClipboardText(text);
+        }
+
+        private void ButtonProcessedResult1SaveAsFile_Click(object sender, EventArgs e)
+        {
+            ProcessedResultSaveAsFile(textBoxProcessedResult1);
+        }
+
+        private void ButtonProcessedResult2SaveAsFile_Click(object sender, EventArgs e)
+        {
+            ProcessedResultSaveAsFile(textBoxProcessedResult2);
+        }
+
         private void CheckBoxClipboardTextAutoFetch_CheckedChanged(object sender, EventArgs e)
         {
             bool autoFetchChecked = checkBoxClipboardTextAutoFetch.Checked;
@@ -449,6 +466,24 @@ namespace ClipboardAutoProcessor
         private string GetMultilineTextBoxText(TextBox textBox)
         {
             return textBox.Text;
+        }
+
+        private void ProcessedResultSaveAsFile(TextBox textBoxProcessedResult)
+        {
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Title = I18n._("Save as file");
+            dlg.InitialDirectory = System.Environment.CurrentDirectory;
+            dlg.RestoreDirectory = false;
+            dlg.Filter = I18n._("All files(*.*)|*.*|Text files(*.txt)|*.txt|Markdown files(*.md)|*.md");
+            dlg.FilterIndex = 2;
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                string path = dlg.FileName;
+                string text = GetMultilineTextBoxText(textBoxProcessedResult);
+
+                File.WriteAllText(path, text, Encoding.UTF8);
+            }
         }
 
         #endregion

@@ -202,6 +202,7 @@
             this.buttonProcessedResult1SaveAsFile.TabIndex = 4;
             this.buttonProcessedResult1SaveAsFile.Text = "Save as file...";
             this.buttonProcessedResult1SaveAsFile.UseVisualStyleBackColor = true;
+            this.buttonProcessedResult1SaveAsFile.Click += new System.EventHandler(this.ButtonProcessedResult1SaveAsFile_Click);
             // 
             // comboBoxHistoryOperationList
             // 
@@ -538,6 +539,7 @@
             this.buttonProcessedResult2Copy.TabIndex = 3;
             this.buttonProcessedResult2Copy.Text = "Copy";
             this.buttonProcessedResult2Copy.UseVisualStyleBackColor = true;
+            this.buttonProcessedResult2Copy.Click += new System.EventHandler(this.ButtonProcessedResult2Copy_Click);
             // 
             // buttonProcessedResult2SaveAsFile
             // 
@@ -550,6 +552,7 @@
             this.buttonProcessedResult2SaveAsFile.TabIndex = 4;
             this.buttonProcessedResult2SaveAsFile.Text = "Save as file...";
             this.buttonProcessedResult2SaveAsFile.UseVisualStyleBackColor = true;
+            this.buttonProcessedResult2SaveAsFile.Click += new System.EventHandler(this.ButtonProcessedResult2SaveAsFile_Click);
             // 
             // mainMenu
             // 
