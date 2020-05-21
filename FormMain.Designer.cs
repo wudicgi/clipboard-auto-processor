@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.textBoxClipboardText = new System.Windows.Forms.TextBox();
             this.labelClipboardText = new System.Windows.Forms.Label();
             this.textBoxProcessedResult1 = new System.Windows.Forms.TextBox();
@@ -677,6 +678,7 @@
             this.ClientSize = new System.Drawing.Size(942, 713);
             this.Controls.Add(this.tableLayoutPanelMain);
             this.Controls.Add(this.statusBar);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MinimumSize = new System.Drawing.Size(453, 480);
             this.Name = "FormMain";
