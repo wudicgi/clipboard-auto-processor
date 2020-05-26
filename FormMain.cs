@@ -35,6 +35,8 @@ namespace ClipboardAutoProcessor
 
         private bool _duringSetMultilineTextBoxText = false;
 
+        private bool _duringSetClipboardText = false;
+
         #endregion
 
         #region Constructor
@@ -492,6 +494,11 @@ namespace ClipboardAutoProcessor
 
         private void OnNewClipboardTextDetected(string newClipboardText)
         {
+            if (_duringSetClipboardText)
+            {
+                return;
+            }
+
             if (newClipboardText == _currentClipboardText)
             {
                 return;
@@ -528,6 +535,8 @@ namespace ClipboardAutoProcessor
 
         private void SetClipboardText(string text)
         {
+            _duringSetClipboardText = true;
+
             if (string.IsNullOrEmpty(text))
             {
                 Clipboard.Clear();
@@ -536,6 +545,8 @@ namespace ClipboardAutoProcessor
             {
                 Clipboard.SetText(text);
             }
+
+            _duringSetClipboardText = false;
 
             _currentClipboardText = GetClipboardText();
         }
