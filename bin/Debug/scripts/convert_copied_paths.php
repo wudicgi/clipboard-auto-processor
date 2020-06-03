@@ -1,11 +1,7 @@
 <?php
 // 读取输入
 
-$fp = fopen('php://stdin', 'r');
-$input = stream_get_contents($fp);
-fclose($fp);
-
-$input = base64_decode($input);
+$input = base64_decode(file_get_contents('php://stdin'));
 
 // 开始处理
 

@@ -76,8 +76,7 @@ namespace ClipboardAutoProcessor.Util
 
             int timeout = 3000;
 
-            StringBuilder stdout = new StringBuilder();
-            StringBuilder stderr = new StringBuilder();
+            StringBuilder rawOutputString = new StringBuilder();
 
             AutoResetEvent outputWaitHandle = new AutoResetEvent(false);
             AutoResetEvent errorWaitHandle = new AutoResetEvent(false);
@@ -90,7 +89,7 @@ namespace ClipboardAutoProcessor.Util
                 }
                 else
                 {
-                    stdout.AppendLine(e.Data);
+                    rawOutputString.AppendLine(e.Data);
                 }
             };
 
@@ -102,7 +101,7 @@ namespace ClipboardAutoProcessor.Util
                 }
                 else
                 {
-                    stderr.AppendLine(e.Data);
+                    rawOutputString.AppendLine(e.Data);
                 }
             };
 
@@ -130,7 +129,7 @@ namespace ClipboardAutoProcessor.Util
                 process.Kill();
             }
 
-            string outputText = StringUtil.Base64Decode(stdout.ToString());
+            string outputText = StringUtil.Base64Decode(rawOutputString.ToString());
 
             return outputText;
         }
@@ -143,6 +142,8 @@ namespace ClipboardAutoProcessor.Util
             string scriptDir = Path.GetDirectoryName(scriptFileFullPath);
 
             string capDir = FileSystemUtil.GetProgramDirectoryFullPath();
+
+            str = Environment.ExpandEnvironmentVariables(str);
 
             str = str.Replace("<scriptFullPath>", scriptFileFullPath);
             str = str.Replace("<scriptBaseName>", scriptBaseName);

@@ -106,7 +106,8 @@ namespace ClipboardAutoProcessor.Util
             IniOptions iniOptions = new IniOptions()
             {
                 Encoding = Encoding.UTF8,
-                KeySpaceAroundDelimiter = true
+                KeySpaceAroundDelimiter = true,
+                CommentStarter = IniCommentStarter.Hash     // to prevent MadMilkman.Ini from treating value after semicolon as comment
             };
 
             IniFile iniFile = new IniFile(iniOptions);
