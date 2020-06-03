@@ -6,57 +6,64 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ClipboardAutoProcessor.DataStructure;
-using IniParser;
-using IniParser.Model;
+using MadMilkman.Ini;
 
 namespace ClipboardAutoProcessor.Util
 {
     public static class IniFileUtil
     {
-        public static void ParseIniFile<T>(string iniFilePath, T destClassInstance, Action<IniData> extraAction = null)
+        public static void ParseIniFile<T>(string iniFilePath, T destClassInstance, Action<IniFile> extraAction = null)
         {
-            FileIniDataParser parser = new FileIniDataParser();
-            IniData parsedIniData = ParseIniFile(iniFilePath, parser);
+            IniFile iniFile = LoadIniFile(iniFilePath);
 
-            foreach (PropertyInfo propertyInfo in typeof(T).GetProperties())
+            foreach (IniSection iniSection in iniFile.Sections)
             {
-                IniEntry attribute = propertyInfo.GetCustomAttribute(typeof(IniEntry)) as IniEntry;
-                if (attribute == null)
-                {
-                    continue;
-                }
+                string sectionName = iniSection.Name;
 
-                string stringValue = parsedIniData[attribute.SectionName][attribute.KeyName];
-                if (stringValue != null)
+                foreach (IniKey iniKey in iniSection.Keys)
                 {
-                    if (propertyInfo.PropertyType == typeof(string))
+                    string keyName = iniKey.Name;
+                    string keyValue = iniKey.Value;
+
+                    foreach (PropertyInfo propertyInfo in typeof(T).GetProperties())
                     {
-                        propertyInfo.SetValue(destClassInstance, stringValue);
-                    }
-                    else if (propertyInfo.PropertyType == typeof(int))
-                    {
-                        if (int.TryParse(stringValue, out int intValue))
+                        IniEntry attribute = propertyInfo.GetCustomAttribute(typeof(IniEntry)) as IniEntry;
+                        if (attribute == null)
                         {
-                            propertyInfo.SetValue(destClassInstance, intValue);
+                            continue;
                         }
-                    }
-                    else if (propertyInfo.PropertyType == typeof(bool))
-                    {
-                        if (StringUtil.TryParseBool(stringValue, out bool boolValue))
+
+                        if ((attribute.SectionName == sectionName) && (attribute.KeyName == keyName))
                         {
-                            propertyInfo.SetValue(destClassInstance, boolValue);
+                            if (propertyInfo.PropertyType == typeof(string))
+                            {
+                                propertyInfo.SetValue(destClassInstance, keyValue);
+                            }
+                            else if (propertyInfo.PropertyType == typeof(int))
+                            {
+                                if (int.TryParse(keyValue, out int intValue))
+                                {
+                                    propertyInfo.SetValue(destClassInstance, intValue);
+                                }
+                            }
+                            else if (propertyInfo.PropertyType == typeof(bool))
+                            {
+                                if (StringUtil.TryParseBool(keyValue, out bool boolValue))
+                                {
+                                    propertyInfo.SetValue(destClassInstance, boolValue);
+                                }
+                            }
                         }
                     }
                 }
             }
 
-            extraAction?.Invoke(parsedIniData);
+            extraAction?.Invoke(iniFile);
         }
 
-        public static bool WriteIniFile<T>(string iniFilePath, T sourceClassInstance, Action<IniData> extraAction = null)
+        public static bool WriteIniFile<T>(string iniFilePath, T sourceClassInstance, Action<IniFile> extraAction = null)
         {
-            FileIniDataParser parser = new FileIniDataParser();
-            IniData parsedIniData = ParseIniFile(iniFilePath, parser);
+            IniFile iniFile = LoadIniFile(iniFilePath);
 
             foreach (PropertyInfo propertyInfo in typeof(T).GetProperties())
             {
@@ -83,27 +90,70 @@ namespace ClipboardAutoProcessor.Util
                 }
 
                 if (stringValue != null) {
-                    parsedIniData[attribute.SectionName][attribute.KeyName] = stringValue;
+                    SetKeyValue(iniFile, attribute.SectionName, attribute.KeyName, stringValue);
                 }
             }
 
-            extraAction?.Invoke(parsedIniData);
+            extraAction?.Invoke(iniFile);
 
-            parser.WriteFile(iniFilePath, parsedIniData, Encoding.UTF8);
+            iniFile.Save(iniFilePath);
 
             return true;
         }
 
-        private static IniData ParseIniFile(string iniFilePath, FileIniDataParser parser)
+        private static IniFile LoadIniFile(string iniFilePath)
         {
-            if (!File.Exists(iniFilePath))
+            IniOptions iniOptions = new IniOptions()
             {
-                return new IniData();
+                Encoding = Encoding.UTF8,
+                KeySpaceAroundDelimiter = true
+            };
+
+            IniFile iniFile = new IniFile(iniOptions);
+
+            if (File.Exists(iniFilePath))
+            {
+                iniFile.Load(iniFilePath);
             }
 
-            IniData parsedIniData = parser.ReadFile(iniFilePath, Encoding.UTF8);
+            return iniFile;
+        }
 
-            return parsedIniData;
+        public static IniSection AddSection(IniFile iniFile, string sectionName)
+        {
+            IniSection iniSection = new IniSection(iniFile, sectionName);
+
+            if (iniFile.Sections.Count != 0)
+            {
+                iniSection.LeadingComment.EmptyLinesBefore = 1;
+            }
+
+            iniFile.Sections.Add(iniSection);
+
+            return iniSection;
+        }
+
+        public static void SetKeyValue(IniFile iniFile, string sectionName, string keyName, string keyValue)
+        {
+            IniSection iniSection;
+            if (iniFile.Sections.Contains(sectionName))
+            {
+                iniSection = iniFile.Sections[sectionName];
+            } else {
+                iniSection = AddSection(iniFile, sectionName);
+            }
+
+            SetKeyValue(iniSection, keyName, keyValue);
+        }
+
+        public static void SetKeyValue(IniSection iniSection, string keyName, string keyValue)
+        {
+            if (iniSection.Keys.Contains(keyName))
+            {
+                iniSection.Keys[keyName].Value = keyValue;
+            } else {
+                iniSection.Keys.Add(keyName, keyValue);
+            }
         }
     }
 }

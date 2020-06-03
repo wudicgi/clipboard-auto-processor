@@ -4,13 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using ClipboardAutoProcessor.Util;
-using IniParser;
-using IniParser.Model;
+using MadMilkman.Ini;
 
 namespace ClipboardAutoProcessor.DataStructure
 {
     public class ApplicationConfig
     {
+        private const string _INI_SECTION_NAME_SCRIPT_INTERPRETER = "scriptInterpreter";
+
         #region User Interface
 
         [IniEntry(SectionName = "userInterface", KeyName = "displayLanguage")]
@@ -50,19 +51,20 @@ namespace ClipboardAutoProcessor.DataStructure
             }
 
             ApplicationConfig applicationConfig = new ApplicationConfig();
-            IniFileUtil.ParseIniFile(iniFileFullPath, applicationConfig, (parsedIniData) =>
+            IniFileUtil.ParseIniFile(iniFileFullPath, applicationConfig, (iniFile) =>
             {
-                foreach (SectionData sectionData in parsedIniData.Sections)
+                foreach (IniSection iniSection in iniFile.Sections)
                 {
-                    if (!sectionData.SectionName.StartsWith("scriptInterpreter."))
+                    string sectionName = iniSection.Name;
+                    if (sectionName != _INI_SECTION_NAME_SCRIPT_INTERPRETER)
                     {
                         continue;
                     }
 
-                    string extension = sectionData.Keys["extension"];
-                    string program = sectionData.Keys["program"];
-                    string arguments = sectionData.Keys["arguments"];
-                    string additionalPath = sectionData.Keys["additionalPath"];
+                    string extension = iniSection.Keys["extension"]?.Value;
+                    string program = iniSection.Keys["program"]?.Value;
+                    string arguments = iniSection.Keys["arguments"]?.Value;
+                    string additionalPath = iniSection.Keys["additionalPath"]?.Value;
 
                     if (extension == null || program == null || arguments == null)
                     {
@@ -97,7 +99,7 @@ namespace ClipboardAutoProcessor.DataStructure
             };
             applicationConfig.ScriptInterpreters.Add(defaultScriptInterpreterItem.FileExtension.ToLower(), defaultScriptInterpreterItem);
 
-            IniFileUtil.WriteIniFile(iniFileFullPath, applicationConfig, (parsedIniData) =>
+            IniFileUtil.WriteIniFile(iniFileFullPath, applicationConfig, (iniFile) =>
             {
                 foreach (string key in applicationConfig.ScriptInterpreters.Keys)
                 {
@@ -107,23 +109,37 @@ namespace ClipboardAutoProcessor.DataStructure
                         continue;
                     }
 
-                    string iniSectionName = "scriptInterpreter." + item.FileExtension.ToLower();
+                    IniSection iniSection = null;
+                    foreach (IniSection iteratedIniSection in iniFile.Sections)
+                    {
+                        if ((iteratedIniSection.Name == _INI_SECTION_NAME_SCRIPT_INTERPRETER)
+                                && iteratedIniSection.Keys.Contains("extension")
+                                && (iteratedIniSection.Keys["extension"].Value == item.FileExtension)) {
+                            iniSection = iteratedIniSection;
+                            break;
+                        }
+                    }
+
+                    if (iniSection == null)
+                    {
+                        iniSection = IniFileUtil.AddSection(iniFile, _INI_SECTION_NAME_SCRIPT_INTERPRETER);
+                    }
 
                     if (item.FileExtension != null)
                     {
-                        parsedIniData[iniSectionName]["extension"] = item.FileExtension;
+                        IniFileUtil.SetKeyValue(iniSection, "extension", item.FileExtension);
                     }
                     if (item.ExecutableProgram != null)
                     {
-                        parsedIniData[iniSectionName]["program"] = item.ExecutableProgram;
+                        IniFileUtil.SetKeyValue(iniSection, "program", item.ExecutableProgram);
                     }
                     if (item.CommandLineArguments != null)
                     {
-                        parsedIniData[iniSectionName]["arguments"] = item.CommandLineArguments;
+                        IniFileUtil.SetKeyValue(iniSection, "arguments", item.CommandLineArguments);
                     }
                     if (item.AdditionalPath != null)
                     {
-                        parsedIniData[iniSectionName]["additionalPath"] = item.AdditionalPath;
+                        IniFileUtil.SetKeyValue(iniSection, "additionalPath", item.AdditionalPath);
                     }
                 }
             });
