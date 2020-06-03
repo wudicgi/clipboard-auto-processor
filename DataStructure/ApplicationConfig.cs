@@ -64,7 +64,7 @@ namespace ClipboardAutoProcessor.DataStructure
                     string extension = iniSection.Keys["extension"]?.Value;
                     string program = iniSection.Keys["program"]?.Value;
                     string arguments = iniSection.Keys["arguments"]?.Value;
-                    string additionalPath = iniSection.Keys["additionalPath"]?.Value;
+                    string setPath = iniSection.Keys["setPath"]?.Value;
 
                     if (extension == null || program == null || arguments == null)
                     {
@@ -76,7 +76,7 @@ namespace ClipboardAutoProcessor.DataStructure
                         FileExtension = extension,
                         ExecutableProgram = program,
                         CommandLineArguments = arguments,
-                        AdditionalPath = additionalPath
+                        SetPath = setPath
                     };
 
                     applicationConfig.ScriptInterpreters.Add(item.FileExtension.ToLower(), item);
@@ -95,7 +95,7 @@ namespace ClipboardAutoProcessor.DataStructure
                 FileExtension = "php",
                 ExecutableProgram = @"C:\php\php.exe",
                 CommandLineArguments = "-f \"<filename>\" --",
-                AdditionalPath = @"C:\php"
+                SetPath = @"C:\php;%PATH%"
             };
             applicationConfig.ScriptInterpreters.Add(defaultScriptInterpreterItem.FileExtension.ToLower(), defaultScriptInterpreterItem);
 
@@ -137,9 +137,9 @@ namespace ClipboardAutoProcessor.DataStructure
                     {
                         IniFileUtil.SetKeyValue(iniSection, "arguments", item.CommandLineArguments);
                     }
-                    if (item.AdditionalPath != null)
+                    if (item.SetPath != null)
                     {
-                        IniFileUtil.SetKeyValue(iniSection, "additionalPath", item.AdditionalPath);
+                        IniFileUtil.SetKeyValue(iniSection, "setPath", item.SetPath);
                     }
                 }
             });

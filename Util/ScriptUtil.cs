@@ -66,11 +66,9 @@ namespace ClipboardAutoProcessor.Util
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardError = true;
 
-            if (scriptInterpreter.AdditionalPath != null)
+            if (scriptInterpreter.SetPath != null)
             {
-                string environmentVariablePath = (process.StartInfo.EnvironmentVariables.ContainsKey("PATH") ?
-                        (process.StartInfo.EnvironmentVariables["PATH"] + ";") : "")
-                        + ReplaceVariables(scriptInterpreter.AdditionalPath, scriptFileFullPath);
+                string environmentVariablePath = ReplaceVariables(scriptInterpreter.SetPath, scriptFileFullPath);
                 process.StartInfo.EnvironmentVariables["PATH"] = environmentVariablePath;
             }
 

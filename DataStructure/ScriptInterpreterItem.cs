@@ -20,8 +20,8 @@ namespace ClipboardAutoProcessor.DataStructure
         public string CommandLineArguments { get; set; }
 
         /// <summary>
-        /// Extra paths to appended to environment variable PATH (semicolon ";" separated)
+        /// New PATH environment variable value to set (usually something like C:\php;%PATH%)
         /// </summary>
-        public string AdditionalPath { get; set; }
+        public string SetPath { get; set; }
     }
 }
