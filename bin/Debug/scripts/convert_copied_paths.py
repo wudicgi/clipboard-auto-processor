@@ -1,9 +1,15 @@
 import sys
 import base64
 
+# encodingType = "base64_utf8"
+encodingType = "systemDefault"
+
 # 读取输入
 
-inputText = base64.b64decode(sys.stdin.read()).decode('utf-8')
+if encodingType == "base64_utf8":
+    inputText = base64.b64decode(sys.stdin.read()).decode('utf-8')
+else:
+    inputText = sys.stdin.read()
 
 # 开始处理
 
@@ -16,4 +22,7 @@ for line in lines:
 
 # 输出结果
 
-print(base64.b64encode(outputText.encode('utf-8')).decode('ascii'))
+if encodingType == "base64_utf8":
+    print(base64.b64encode(outputText.encode('utf-8')).decode('ascii'))
+else:
+    print(outputText.replace("\r\n", "\n"), end = '')

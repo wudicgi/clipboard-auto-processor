@@ -57,9 +57,17 @@ namespace ClipboardAutoProcessor.Util
 
         public static string CallScriptInterpreter(ScriptInterpreterItem scriptInterpreter, string scriptFileFullPath, string inputText)
         {
+            string programFullPath = ReplaceVariables(scriptInterpreter.ExecutableProgram, scriptFileFullPath);
+            if (!File.Exists(programFullPath))
+            {
+                throw new Exception(String.Format(I18n._("Executable program \"{0}\" does not exist"), programFullPath));
+            }
+
+            string programArguments = ReplaceVariables(scriptInterpreter.CommandLineArguments, scriptFileFullPath);
+
             Process process = new Process();
-            process.StartInfo.FileName = ReplaceVariables(scriptInterpreter.ExecutableProgram, scriptFileFullPath);
-            process.StartInfo.Arguments = ReplaceVariables(scriptInterpreter.CommandLineArguments, scriptFileFullPath);
+            process.StartInfo.FileName = programFullPath;
+            process.StartInfo.Arguments = programArguments;
             process.StartInfo.CreateNoWindow = true;
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardInput = true;
@@ -72,9 +80,13 @@ namespace ClipboardAutoProcessor.Util
                 process.StartInfo.EnvironmentVariables["PATH"] = environmentVariablePath;
             }
 
+            EncodingType inputEncodingType = StringUtil.GetEfficientEncodingType(scriptInterpreter.InputEncoding, null, "inputEncoding");
+
+            EncodingType outputEncodingType = StringUtil.GetEfficientEncodingType(scriptInterpreter.OutputEncoding, null, "outputEncoding");
+
             int timeout = 3000;
 
-            StringBuilder rawOutputString = new StringBuilder();
+            StringBuilder rawOutputStringBuilder = new StringBuilder();
 
             AutoResetEvent outputWaitHandle = new AutoResetEvent(false);
             AutoResetEvent errorWaitHandle = new AutoResetEvent(false);
@@ -87,7 +99,10 @@ namespace ClipboardAutoProcessor.Util
                 }
                 else
                 {
-                    rawOutputString.AppendLine(e.Data);
+                    lock (rawOutputStringBuilder)
+                    {
+                        rawOutputStringBuilder.AppendLine(e.Data);
+                    }
                 }
             };
 
@@ -99,21 +114,26 @@ namespace ClipboardAutoProcessor.Util
                 }
                 else
                 {
-                    rawOutputString.AppendLine(e.Data);
+                    lock (rawOutputStringBuilder)
+                    {
+                        rawOutputStringBuilder.AppendLine(e.Data);
+                    }
                 }
             };
 
+            string stdinString = StringUtil.Encode(inputText, inputEncodingType);
+
             process.Start();
 
-            process.StandardInput.WriteLine(StringUtil.Base64Encode(inputText));
+            process.StandardInput.WriteLine(stdinString);
             process.StandardInput.Close();
 
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
 
-            if (process.WaitForExit(timeout) &&
-                    outputWaitHandle.WaitOne(timeout) &&
-                    errorWaitHandle.WaitOne(timeout))
+            if (process.WaitForExit(timeout)
+                    && outputWaitHandle.WaitOne(timeout)
+                    && errorWaitHandle.WaitOne(timeout))
             {
                 // Process completed. Check process.ExitCode here.
             }
@@ -127,7 +147,7 @@ namespace ClipboardAutoProcessor.Util
                 process.Kill();
             }
 
-            string outputText = StringUtil.Base64Decode(rawOutputString.ToString());
+            string outputText = StringUtil.Decode(rawOutputStringBuilder.ToString(), outputEncodingType);
 
             return outputText;
         }

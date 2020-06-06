@@ -65,6 +65,8 @@ namespace ClipboardAutoProcessor.DataStructure
                     string program = iniSection.Keys["program"]?.Value;
                     string arguments = iniSection.Keys["arguments"]?.Value;
                     string setPath = iniSection.Keys["setPath"]?.Value;
+                    string inputEncoding = iniSection.Keys["inputEncoding"]?.Value;
+                    string outputEncoding = iniSection.Keys["outputEncoding"]?.Value;
 
                     if (extension == null || program == null || arguments == null)
                     {
@@ -76,7 +78,9 @@ namespace ClipboardAutoProcessor.DataStructure
                         FileExtension = extension,
                         ExecutableProgram = program,
                         CommandLineArguments = arguments,
-                        SetPath = setPath
+                        SetPath = setPath,
+                        InputEncoding = inputEncoding,
+                        OutputEncoding = outputEncoding
                     };
 
                     applicationConfig.ScriptInterpreters.Add(item.FileExtension.ToLower(), item);

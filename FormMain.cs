@@ -558,27 +558,35 @@ namespace ClipboardAutoProcessor
 
         private void ProcessClipboardText()
         {
-            string clipboardText = GetMultilineTextBoxText(textBoxClipboardText);
-
-            string processedResult1 = ProcessUsingScriptFile1(clipboardText);
-            if (processedResult1 == null)
+            try
             {
-                SetMultilineTextBoxText(textBoxProcessedResult1, string.Empty);
-                SetMultilineTextBoxText(textBoxProcessedResult2, string.Empty);
-                return;
+                string clipboardText = GetMultilineTextBoxText(textBoxClipboardText);
+
+                string processedResult1 = ProcessUsingScriptFile1(clipboardText);
+                if (processedResult1 == null)
+                {
+                    SetMultilineTextBoxText(textBoxProcessedResult1, string.Empty);
+                    SetMultilineTextBoxText(textBoxProcessedResult2, string.Empty);
+                    return;
+                }
+
+                string processedResult2 = ProcessUsingScriptFile2(processedResult1);
+
+                AddHistoryItem(clipboardText);
+
+                if (processedResult2 != null)
+                {
+                    textBoxProcessedResult2.Focus();
+                }
+                else
+                {
+                    textBoxProcessedResult1.Focus();
+                }
             }
-
-            string processedResult2 = ProcessUsingScriptFile2(processedResult1);
-
-            AddHistoryItem(clipboardText);
-
-            if (processedResult2 != null)
+            catch (Exception ex)
             {
-                textBoxProcessedResult2.Focus();
-            }
-            else
-            {
-                textBoxProcessedResult1.Focus();
+                MessageBox.Show(ex.Message, String.Format(I18n._("Error")),
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

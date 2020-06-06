@@ -3,29 +3,112 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClipboardAutoProcessor.DataStructure;
 
 namespace ClipboardAutoProcessor.Util
 {
     public static class StringUtil
     {
-        public static string Base64Encode(string text)
+        public static string Encode(string text, EncodingType encodingType)
         {
-            byte[] bytes = Encoding.UTF8.GetBytes(text);
+            switch (encodingType)
+            {
+                case EncodingType.SystemDefault:
+                    return text;
 
-            return Convert.ToBase64String(bytes);
+                case EncodingType.Base64_SystemDefault:
+                    return Convert.ToBase64String(Encoding.Default.GetBytes(text));
+
+                case EncodingType.Base64_UTF8:
+                    return Convert.ToBase64String(Encoding.UTF8.GetBytes(text));
+
+                default:
+                    return text;
+            }
         }
 
-        public static string Base64Decode(string text)
+        public static string Decode(string text, EncodingType encodingType)
         {
-            try
+            switch (encodingType)
             {
-                byte[] bytes = Convert.FromBase64String(text);
+                case EncodingType.SystemDefault:
+                    return text;
 
-                return Encoding.UTF8.GetString(bytes);
+                case EncodingType.Base64_SystemDefault:
+                    try
+                    {
+                        byte[] bytes = Convert.FromBase64String(text);
+                        return Encoding.Default.GetString(bytes);
+                    }
+                    catch (Exception)
+                    {
+                        return text;
+                    }
+
+                case EncodingType.Base64_UTF8:
+                    try
+                    {
+                        byte[] bytes = Convert.FromBase64String(text);
+                        return Encoding.UTF8.GetString(bytes);
+                    }
+                    catch (Exception)
+                    {
+                        return text;
+                    }
+
+                default:
+                    return text;
             }
-            catch (Exception)
+        }
+
+        public static EncodingType GetEfficientEncodingType(string scriptInterpreterEncodingTypeString, string fileEncodingTypeString, string parameterName)
+        {
+            if (!string.IsNullOrEmpty(fileEncodingTypeString))
             {
-                return text;
+                EncodingType result = ParseEncodingType(fileEncodingTypeString);
+
+                if (result == EncodingType.Unknown)
+                {
+                    throw new Exception(String.Format(I18n._("Invalid {0} value in script file embedded config: \"{1}\""),
+                            parameterName, fileEncodingTypeString));
+                }
+
+                return result;
+            }
+
+            if (!string.IsNullOrEmpty(scriptInterpreterEncodingTypeString))
+            {
+                EncodingType result = ParseEncodingType(scriptInterpreterEncodingTypeString);
+
+                if (result == EncodingType.Unknown)
+                {
+                    throw new Exception(String.Format(I18n._("Invalid {0} value in script interpreter config: \"{1}\""),
+                            parameterName, scriptInterpreterEncodingTypeString));
+                }
+
+                return result;
+            }
+
+            return EncodingType.SystemDefault;
+        }
+
+        public static EncodingType ParseEncodingType(string str)
+        {
+            switch (str.Trim().ToLower())
+            {
+                case "systemdefault":
+                case "default":
+                    return EncodingType.SystemDefault;
+
+                case "base64_systemdefault":
+                case "base64_default":
+                    return EncodingType.Base64_SystemDefault;
+
+                case "base64_utf8":
+                    return EncodingType.Base64_UTF8;
+
+                default:
+                    return EncodingType.Unknown;
             }
         }
 

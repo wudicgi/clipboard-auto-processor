@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="ApplicationService.cs" />
     <Compile Include="DataStructure\ApplicationState.cs" />
+    <Compile Include="DataStructure\EncodingType.cs" />
     <Compile Include="DataStructure\IniEntry.cs" />
     <Compile Include="FormAbout.cs">
       <SubType>Form</SubType>
