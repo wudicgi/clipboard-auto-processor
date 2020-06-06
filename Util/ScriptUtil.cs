@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ClipboardAutoProcessor.DataStructure;
+using MadMilkman.Ini;
 
 namespace ClipboardAutoProcessor.Util
 {
@@ -65,6 +66,14 @@ namespace ClipboardAutoProcessor.Util
 
             string programArguments = ReplaceVariables(scriptInterpreter.CommandLineArguments, scriptFileFullPath);
 
+            ScriptFileEmbeddedConfig scriptFileEmbeddedConfig = ParseScriptFileEmbeddedConfig(scriptFileFullPath);
+
+            EncodingType inputEncodingType = StringUtil.GetEfficientEncodingType(scriptInterpreter.InputEncoding, scriptFileEmbeddedConfig.InputEncoding,
+                    "inputEncoding");
+
+            EncodingType outputEncodingType = StringUtil.GetEfficientEncodingType(scriptInterpreter.OutputEncoding, scriptFileEmbeddedConfig.OutputEncoding,
+                    "outputEncoding");
+
             Process process = new Process();
             process.StartInfo.FileName = programFullPath;
             process.StartInfo.Arguments = programArguments;
@@ -79,10 +88,6 @@ namespace ClipboardAutoProcessor.Util
                 string environmentVariablePath = ReplaceVariables(scriptInterpreter.SetPath, scriptFileFullPath);
                 process.StartInfo.EnvironmentVariables["PATH"] = environmentVariablePath;
             }
-
-            EncodingType inputEncodingType = StringUtil.GetEfficientEncodingType(scriptInterpreter.InputEncoding, null, "inputEncoding");
-
-            EncodingType outputEncodingType = StringUtil.GetEfficientEncodingType(scriptInterpreter.OutputEncoding, null, "outputEncoding");
 
             int timeout = 3000;
 
@@ -171,6 +176,127 @@ namespace ClipboardAutoProcessor.Util
             str = str.Replace("<capDir>", capDir);
 
             return str;
+        }
+
+        private static ScriptFileEmbeddedConfig ParseScriptFileEmbeddedConfig(string scriptFileFullPath)
+        {
+            ScriptFileEmbeddedConfig result = new ScriptFileEmbeddedConfig();
+
+            // File encoding detect code from http://blog.wudilabs.org/entry/d216f2df/
+
+            bool isUtf8 = true;
+            string headText;
+
+            using (FileStream stream = new FileStream(scriptFileFullPath, FileMode.Open, FileAccess.Read,
+                    FileShare.Read, 8192, FileOptions.SequentialScan))
+            {
+                long length = Math.Min(stream.Length, 8192);
+                byte[] bytes = new byte[length];
+                byte first;
+                long pos = 0;
+                while (pos < length)
+                {
+                    first = bytes[pos++] = (byte)stream.ReadByte();
+                    if (first < 192)
+                    {
+                    }
+                    else if (first < 224)
+                    {
+                        if ((length - pos > 1)
+                                && (bytes[pos++] = (byte)stream.ReadByte()) < 128)
+                        {
+                            isUtf8 = false;
+                            break;
+                        }
+                    }
+                    else if (first < 240)
+                    {
+                        if ((length - pos > 2)
+                                && !((bytes[pos++] = (byte)stream.ReadByte()) > 127
+                                        && (bytes[pos++] = (byte)stream.ReadByte()) > 127))
+                        {
+                            isUtf8 = false;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        if ((length - pos > 3)
+                                && !((bytes[pos++] = (byte)stream.ReadByte()) > 127
+                                        && (bytes[pos++] = (byte)stream.ReadByte()) > 127
+                                        && (bytes[pos++] = (byte)stream.ReadByte()) > 127))
+                        {
+                            isUtf8 = false;
+                            break;
+                        }
+                    }
+                }
+
+                headText = isUtf8 ? Encoding.UTF8.GetString(bytes) : Encoding.Default.GetString(bytes);
+            }
+
+            headText = headText.Replace("\r\n", "\n").Replace("\r", "");
+
+            int iniSectionLinePos = headText.IndexOf("\n[ClipboardAutoProcessor]\n");
+            if (iniSectionLinePos == -1)
+            {
+                if (headText.IndexOf("[ClipboardAutoProcessor]\n") == 0)
+                {
+                    iniSectionLinePos = 0;
+                }
+            }
+            else
+            {
+                iniSectionLinePos++;    // skip leading '\n'
+            }
+
+            if (iniSectionLinePos == -1)
+            {
+                return result;
+            }
+
+            StringBuilder embeddedIniStringBuilder = new StringBuilder();
+
+            string[] lines = headText.Substring(iniSectionLinePos).Split('\n');
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i].Trim();
+
+                if (line.Length == 0)
+                {
+                    break;
+                }
+
+                char firstChar = line[0];
+                if ((firstChar != '[')
+                        && (firstChar != '#')
+                        && !char.IsLetter(firstChar))
+                {
+                    break;
+                }
+
+                embeddedIniStringBuilder.AppendLine(line);
+            }
+
+            if (lines.Length == 0)
+            {
+                return result;
+            }
+
+            IniOptions iniOptions = new IniOptions()
+            {
+                Encoding = isUtf8 ? Encoding.UTF8 : Encoding.Default,
+                KeySpaceAroundDelimiter = true,
+                CommentStarter = IniCommentStarter.Hash     // to prevent MadMilkman.Ini from treating value after semicolon as comment
+            };
+
+            IniFile iniFile = new IniFile(iniOptions);
+            iniFile.Load(new StringReader(embeddedIniStringBuilder.ToString()));
+
+            result.InputEncoding = iniFile.Sections["ClipboardAutoProcessor"]?.Keys["inputEncoding"]?.Value;
+            result.OutputEncoding = iniFile.Sections["ClipboardAutoProcessor"]?.Keys["outputEncoding"]?.Value;
+
+            return result;
         }
     }
 }

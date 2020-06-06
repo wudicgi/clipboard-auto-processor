@@ -71,6 +71,7 @@
     <Compile Include="DataStructure\ApplicationState.cs" />
     <Compile Include="DataStructure\EncodingType.cs" />
     <Compile Include="DataStructure\IniEntry.cs" />
+    <Compile Include="DataStructure\ScriptFileEmbeddedConfig.cs" />
     <Compile Include="FormAbout.cs">
       <SubType>Form</SubType>
     </Compile>
