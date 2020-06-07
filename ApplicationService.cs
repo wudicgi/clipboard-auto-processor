@@ -24,5 +24,23 @@ namespace ClipboardAutoProcessor
         {
             // empty method to trigger loading config files in advance
         }
+
+        public static string GetCurrentVersion()
+        {
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            System.Diagnostics.FileVersionInfo versionInfo = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
+            string version = versionInfo.FileVersion;
+
+            return version;
+        }
+
+        public static string GetCopyrightInformation()
+        {
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            System.Diagnostics.FileVersionInfo versionInfo = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
+            string copyright = versionInfo.LegalCopyright;
+
+            return copyright;
+        }
     }
 }
