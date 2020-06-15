@@ -37,6 +37,8 @@ namespace ClipboardAutoProcessor
 
         private bool _duringSetClipboardText = false;
 
+        private bool _duringUpdateHistoryOperationList = false;
+
         #endregion
 
         #region Constructor
@@ -189,9 +191,13 @@ namespace ClipboardAutoProcessor
             comboBoxScriptFileList2.DisplayMember = nameof(ScriptFileItem.DisplayTitle);
             comboBoxScriptFileList2.DataSource = _scriptFileList2;
 
+            _duringUpdateHistoryOperationList = true;
             comboBoxHistoryOperationList.ValueMember = null;
             comboBoxHistoryOperationList.DisplayMember = nameof(HistoryOperationItem.DisplayText);
             comboBoxHistoryOperationList.DataSource = _historyOperationList;
+            _duringUpdateHistoryOperationList = false;
+
+            UpdateHistoryNavigationButtonStatus();
 
             if (comboBoxScriptFileList1.Items.Count > 0)
             {
@@ -343,7 +349,7 @@ namespace ClipboardAutoProcessor
 
         private void ButtonClipboardTextProcess_Click(object sender, EventArgs e)
         {
-            ProcessClipboardText();
+            ProcessClipboardText(false);
         }
 
         private void ButtonProcessedResult1Copy_Click(object sender, EventArgs e)
@@ -418,6 +424,66 @@ namespace ClipboardAutoProcessor
                 textBox.Text = newText;
                 textBox.SelectionStart = newSelectionStart;
                 textBox.ScrollToCaret();
+            }
+        }
+
+        private void ButtonHistoryPrevious_Click(object sender, EventArgs e)
+        {
+            SetHistoryOperationListSelectedIndex(-1);
+
+            if (!buttonHistoryPrevious.Focused)
+            {
+                buttonHistoryNext.Focus();
+            }
+        }
+
+        private void ButtonHistoryNext_Click(object sender, EventArgs e)
+        {
+            SetHistoryOperationListSelectedIndex(1);
+
+            if (!buttonHistoryNext.Focused)
+            {
+                buttonHistoryPrevious.Focus();
+            }
+        }
+
+        private void ComboBoxHistoryOperationList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateHistoryNavigationButtonStatus();
+
+            if (_duringUpdateHistoryOperationList)
+            {
+                return;
+            }
+
+            int selectedIndex = comboBoxHistoryOperationList.SelectedIndex;
+
+            HistoryOperationItem selectedItem = comboBoxHistoryOperationList.Items[selectedIndex] as HistoryOperationItem;
+            if (selectedItem == null)
+            {
+                return;
+            }
+
+            SetMultilineTextBoxText(textBoxClipboardText, selectedItem.ClipboardText);
+            SetMultilineTextBoxText(textBoxProcessedResult1, selectedItem.ProcessResult1);
+            SetMultilineTextBoxText(textBoxProcessedResult2, selectedItem.ProcessResult2);
+
+            if (selectedItem.ScriptFileName1 != null)
+            {
+                comboBoxScriptFileList1.SelectedValue = selectedItem.ScriptFileName1;
+            }
+            else
+            {
+                comboBoxScriptFileList1.SelectedIndex = 0;
+            }
+
+            if (selectedItem.ScriptFileName2 != null)
+            {
+                comboBoxScriptFileList2.SelectedValue = selectedItem.ScriptFileName2;
+            }
+            else
+            {
+                comboBoxScriptFileList2.SelectedIndex = 0;
             }
         }
 
@@ -516,7 +582,7 @@ namespace ClipboardAutoProcessor
                 return;
             }
 
-            ProcessClipboardText();
+            ProcessClipboardText(true);
         }
 
         private bool SetClipboardTextBoxText(string text)
@@ -556,7 +622,7 @@ namespace ClipboardAutoProcessor
             return Clipboard.GetText();
         }
 
-        private void ProcessClipboardText()
+        private void ProcessClipboardText(bool isAutoTriggered)
         {
             try
             {
@@ -572,7 +638,7 @@ namespace ClipboardAutoProcessor
 
                 string processedResult2 = ProcessUsingScriptFile2(processedResult1);
 
-                AddHistoryItem(clipboardText);
+                AddHistoryOperationItem(isAutoTriggered, clipboardText, processedResult1, processedResult2);
 
                 if (processedResult2 != null)
                 {
@@ -662,23 +728,51 @@ namespace ClipboardAutoProcessor
             return processedResult;
         }
 
-        private void AddHistoryItem(string clipboardText)
+        #endregion
+
+        #region History processing
+
+        private void AddHistoryOperationItem(bool isAutoTriggered, string clipboardText, string processedResult1, string processedResult2)
         {
-            string summaryText = Regex.Replace(clipboardText, "/[\\t\\r\\n]/", " ").Trim();
+            string type = isAutoTriggered ? I18n._("Auto") : I18n._("Manual");
+
+            DateTime time = DateTime.Now;
+
+            string summaryText = clipboardText.Replace("\t", " ").Replace("\r", " ").Replace("\n", " ");
+            while (summaryText.IndexOf("  ") != -1)
+            {
+                summaryText = summaryText.Replace("  ", " ");
+            }
+            summaryText = summaryText.Trim();
             if (summaryText.Length > 50)
             {
                 summaryText = summaryText.Substring(0, 47) + "...";
             }
 
+            string displayText = String.Format("[{0}] ({1:H:mm:ss}) {2}",
+                    type, time, summaryText);
+
+            string scriptFileName1 = comboBoxScriptFileList1.SelectedValue as string;
+
+            string scriptFileName2 = comboBoxScriptFileList2.SelectedValue as string;
+
             HistoryOperationItem historyOperation = new HistoryOperationItem()
             {
-                Type = I18n._("Auto"),
-                Time = DateTime.Now,
-                SummaryText = summaryText
+                DisplayText = displayText,
+
+                Type = type,
+                Time = time,
+                SummaryText = summaryText,
+
+                ClipboardText = clipboardText ?? string.Empty,
+                ProcessResult1 = processedResult1 ?? string.Empty,
+                ProcessResult2 = processedResult2 ?? string.Empty,
+
+                ScriptFileName1 = scriptFileName1,
+                ScriptFileName2 = scriptFileName2
             };
 
-            historyOperation.DisplayText = String.Format("[{0}] ({1:H:mm:ss}) {2}",
-                    historyOperation.Type, historyOperation.Time, historyOperation.SummaryText);
+            _duringUpdateHistoryOperationList = true;
 
             _historyOperationList.Add(historyOperation);
 
@@ -686,6 +780,27 @@ namespace ClipboardAutoProcessor
             {
                 comboBoxHistoryOperationList.SelectedIndex = comboBoxHistoryOperationList.Items.Count - 1;
             }
+
+            _duringUpdateHistoryOperationList = false;
+        }
+
+        private void SetHistoryOperationListSelectedIndex(int increment)
+        {
+            int newIndex = comboBoxHistoryOperationList.SelectedIndex + increment;
+            if ((newIndex < 0) || (newIndex > (comboBoxHistoryOperationList.Items.Count - 1)))
+            {
+                return;
+            }
+
+            comboBoxHistoryOperationList.SelectedIndex = newIndex;
+        }
+
+        private void UpdateHistoryNavigationButtonStatus()
+        {
+            int selectedIndex = comboBoxHistoryOperationList.SelectedIndex;
+
+            buttonHistoryPrevious.Enabled = (selectedIndex > 0);
+            buttonHistoryNext.Enabled = (selectedIndex < (comboBoxHistoryOperationList.Items.Count - 1));
         }
 
         #endregion

@@ -215,6 +215,7 @@
             this.comboBoxHistoryOperationList.Name = "comboBoxHistoryOperationList";
             this.comboBoxHistoryOperationList.Size = new System.Drawing.Size(572, 24);
             this.comboBoxHistoryOperationList.TabIndex = 9;
+            this.comboBoxHistoryOperationList.SelectedIndexChanged += new System.EventHandler(this.ComboBoxHistoryOperationList_SelectedIndexChanged);
             // 
             // buttonHistoryPrevious
             // 
@@ -226,6 +227,7 @@
             this.buttonHistoryPrevious.TabIndex = 10;
             this.buttonHistoryPrevious.Text = "<";
             this.buttonHistoryPrevious.UseVisualStyleBackColor = true;
+            this.buttonHistoryPrevious.Click += new System.EventHandler(this.ButtonHistoryPrevious_Click);
             // 
             // buttonHistoryNext
             // 
@@ -237,6 +239,7 @@
             this.buttonHistoryNext.TabIndex = 11;
             this.buttonHistoryNext.Text = ">";
             this.buttonHistoryNext.UseVisualStyleBackColor = true;
+            this.buttonHistoryNext.Click += new System.EventHandler(this.ButtonHistoryNext_Click);
             // 
             // comboBoxScriptFileList2
             // 

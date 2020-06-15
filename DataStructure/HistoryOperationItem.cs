@@ -25,9 +25,13 @@ namespace ClipboardAutoProcessor.DataStructure
         public string SummaryText { get; set; }
 
         public string ClipboardText { get; set; }
+
         public string ProcessResult1 { get; set; }
+
         public string ProcessResult2 { get; set; }
-        public string Script1 { get; set; }
-        public string Script2 { get; set; }
+
+        public string ScriptFileName1 { get; set; }
+
+        public string ScriptFileName2 { get; set; }
     }
 }
