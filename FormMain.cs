@@ -498,9 +498,12 @@ namespace ClipboardAutoProcessor
 
         private void MenuItemToolsOptions_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(I18n._("Please modify the application_config.ini file manually to set options."),
-                I18n._("Graphical interface is not implemented yet"),
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(
+                    I18n._("Graphical interface is not implemented yet.\nPlease modify the application_config.ini file manually to set options.")
+                            .Replace("\n", Environment.NewLine),
+                    I18n._("Clipboard Auto Processor"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
         }
 
         private void MenuItemHelpAbout_Click(object sender, EventArgs e)
@@ -651,7 +654,7 @@ namespace ClipboardAutoProcessor
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, String.Format(I18n._("Error")),
+                MessageBox.Show(ex.Message, I18n._("Error"),
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

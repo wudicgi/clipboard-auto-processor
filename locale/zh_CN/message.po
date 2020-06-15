@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ClipboardAutoProcessor\n"
-"POT-Creation-Date: 2020-06-15 22:32+0800\n"
-"PO-Revision-Date: 2020-06-15 22:32+0800\n"
+"POT-Creation-Date: 2020-06-15 22:50+0800\n"
+"PO-Revision-Date: 2020-06-15 22:50+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-KeywordsList: I18n._\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: FormAbout.cs:30 FormMain.cs:162
+#: FormAbout.cs:30 FormMain.cs:162 FormMain.cs:504
 msgid "Clipboard Auto Processor"
 msgstr "Clipboard Auto Processor"
 
@@ -112,31 +112,31 @@ msgstr "<"
 msgid ">"
 msgstr ">"
 
-#: FormMain.cs:501
-msgid "Please modify the application_config.ini file manually to set options."
-msgstr "请手动修改 application_config.ini 文件设置选项。"
-
 #: FormMain.cs:502
-msgid "Graphical interface is not implemented yet"
-msgstr "图形界面尚未实现"
+msgid ""
+"Graphical interface is not implemented yet.\n"
+"Please modify the application_config.ini file manually to set options."
+msgstr ""
+"图形界面尚未实现。\n"
+"请手动修改 application_config.ini 文件设置选项。"
 
-#: FormMain.cs:542
+#: FormMain.cs:545
 msgid "Save as file"
 msgstr "另存为文件"
 
-#: FormMain.cs:545
+#: FormMain.cs:548
 msgid "All files(*.*)|*.*|Text files(*.txt)|*.txt|Markdown files(*.md)|*.md"
 msgstr "所有文件(*.*)|*.*|文本文件(*.txt)|*.txt|Markdown 文件(*.md)|*.md"
 
-#: FormMain.cs:654
+#: FormMain.cs:657
 msgid "Error"
 msgstr "错误"
 
-#: FormMain.cs:737
+#: FormMain.cs:740
 msgid "Auto"
 msgstr "自动"
 
-#: FormMain.cs:737
+#: FormMain.cs:740
 msgid "Manual"
 msgstr "手动"
 
@@ -158,6 +158,9 @@ msgstr "脚本文件内嵌配置中的 {0} 值不合法: \"{1}\""
 #, csharp-format
 msgid "Invalid {0} value in script interpreter config: \"{1}\""
 msgstr "脚本解释器配置中的 {0} 值不合法: \"{1}\""
+
+#~ msgid "Graphical interface is not implemented yet"
+#~ msgstr "图形界面尚未实现"
 
 #~ msgid "Error occured:{0}{1}"
 #~ msgstr "有错误发生:{0}{1}"
