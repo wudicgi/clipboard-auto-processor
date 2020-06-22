@@ -113,6 +113,12 @@
     </Compile>
     <None Include="app.config" />
     <EmbeddedResource Include="locale\zh_CN\message.mo" />
+    <None Include="config.default.en-US.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="config.default.zh-CN.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
