@@ -66,7 +66,7 @@ namespace ClipboardAutoProcessor.DataStructure
 
         #endregion
 
-        private const string _INI_FILE_NAME = "application_state.ini";
+        private const string _INI_FILE_NAME = "state.ini";
 
         public static ApplicationState LoadFromFile()
         {

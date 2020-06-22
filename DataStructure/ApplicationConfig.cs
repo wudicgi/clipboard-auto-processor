@@ -38,7 +38,7 @@ namespace ClipboardAutoProcessor.DataStructure
 
         #endregion
 
-        private const string _INI_FILE_NAME = "application_config.ini";
+        private const string _INI_FILE_NAME = "config.ini";
 
         public Dictionary<string, ScriptInterpreterItem> ScriptInterpreters = new Dictionary<string, ScriptInterpreterItem>();
 

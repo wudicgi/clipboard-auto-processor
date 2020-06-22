@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ClipboardAutoProcessor\n"
-"POT-Creation-Date: 2020-06-15 22:50+0800\n"
-"PO-Revision-Date: 2020-06-15 22:50+0800\n"
+"POT-Creation-Date: 2020-06-22 23:01+0800\n"
+"PO-Revision-Date: 2020-06-22 23:01+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -115,10 +115,10 @@ msgstr ">"
 #: FormMain.cs:502
 msgid ""
 "Graphical interface is not implemented yet.\n"
-"Please modify the application_config.ini file manually to set options."
+"Please modify the config.ini file manually to set options."
 msgstr ""
 "图形界面尚未实现。\n"
-"请手动修改 application_config.ini 文件设置选项。"
+"请手动修改 config.ini 文件设置选项。"
 
 #: FormMain.cs:545
 msgid "Save as file"

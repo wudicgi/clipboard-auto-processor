@@ -499,7 +499,7 @@ namespace ClipboardAutoProcessor
         private void MenuItemToolsOptions_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
-                    I18n._("Graphical interface is not implemented yet.\nPlease modify the application_config.ini file manually to set options.")
+                    I18n._("Graphical interface is not implemented yet.\nPlease modify the config.ini file manually to set options.")
                             .Replace("\n", Environment.NewLine),
                     I18n._("Clipboard Auto Processor"),
                     MessageBoxButtons.OK,
