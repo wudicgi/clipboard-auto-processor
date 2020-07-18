@@ -130,7 +130,7 @@ namespace ClipboardAutoProcessor.Util
 
             process.Start();
 
-            process.StandardInput.WriteLine(stdinString);
+            process.StandardInput.Write(stdinString);
             process.StandardInput.Close();
 
             process.BeginOutputReadLine();

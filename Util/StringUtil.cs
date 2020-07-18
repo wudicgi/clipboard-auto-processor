@@ -17,10 +17,10 @@ namespace ClipboardAutoProcessor.Util
                     return text;
 
                 case EncodingType.Base64_SystemDefault:
-                    return Convert.ToBase64String(Encoding.Default.GetBytes(text));
+                    return Convert.ToBase64String(Encoding.Default.GetBytes(text)) + Environment.NewLine;
 
                 case EncodingType.Base64_UTF8:
-                    return Convert.ToBase64String(Encoding.UTF8.GetBytes(text));
+                    return Convert.ToBase64String(Encoding.UTF8.GetBytes(text)) + Environment.NewLine;
 
                 default:
                     return text;
