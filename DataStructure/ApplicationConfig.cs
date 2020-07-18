@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using ClipboardAutoProcessor.Util;
 using MadMilkman.Ini;
 
@@ -39,6 +40,10 @@ namespace ClipboardAutoProcessor.DataStructure
         #endregion
 
         private const string _INI_FILE_NAME = "config.ini";
+
+        private const string _DEFAULT_INI_FILE_NAME_ZH_CN = "config.default.zh-CN.ini";
+
+        private const string _DEFAULT_INI_FILE_NAME_EN_US = "config.default.en-US.ini";
 
         public Dictionary<string, ScriptInterpreterItem> ScriptInterpreters = new Dictionary<string, ScriptInterpreterItem>();
 
@@ -92,61 +97,28 @@ namespace ClipboardAutoProcessor.DataStructure
 
         private static void CreateDefault(string iniFileFullPath)
         {
-            ApplicationConfig applicationConfig = new ApplicationConfig();
+            System.Globalization.CultureInfo currentUICulture = System.Threading.Thread.CurrentThread.CurrentUICulture;
 
-            ScriptInterpreterItem defaultScriptInterpreterItem = new ScriptInterpreterItem()
+            string defaultIniFileName = (currentUICulture.TwoLetterISOLanguageName == "zh")
+                    ? _DEFAULT_INI_FILE_NAME_ZH_CN : _DEFAULT_INI_FILE_NAME_EN_US;
+
+            string defaultIniFileFullPath = FileSystemUtil.GetFullPathBasedOnProgramFile(defaultIniFileName);
+
+            try
             {
-                FileExtension = "php",
-                ExecutableProgram = @"C:\php\php.exe",
-                CommandLineArguments = "-f \"<filename>\" --",
-                SetPath = @"C:\php;%PATH%"
-            };
-            applicationConfig.ScriptInterpreters.Add(defaultScriptInterpreterItem.FileExtension.ToLower(), defaultScriptInterpreterItem);
-
-            IniFileUtil.WriteIniFile(iniFileFullPath, applicationConfig, (iniFile) =>
+                byte[] data = File.ReadAllBytes(defaultIniFileFullPath);
+                File.WriteAllBytes(iniFileFullPath, data);
+            }
+            catch (Exception ex)
             {
-                foreach (string key in applicationConfig.ScriptInterpreters.Keys)
-                {
-                    ScriptInterpreterItem item = applicationConfig.ScriptInterpreters[key];
-                    if (item.FileExtension == null)
-                    {
-                        continue;
-                    }
-
-                    IniSection iniSection = null;
-                    foreach (IniSection iteratedIniSection in iniFile.Sections)
-                    {
-                        if ((iteratedIniSection.Name == _INI_SECTION_NAME_SCRIPT_INTERPRETER)
-                                && iteratedIniSection.Keys.Contains("extension")
-                                && (iteratedIniSection.Keys["extension"].Value == item.FileExtension)) {
-                            iniSection = iteratedIniSection;
-                            break;
-                        }
-                    }
-
-                    if (iniSection == null)
-                    {
-                        iniSection = IniFileUtil.AddSection(iniFile, _INI_SECTION_NAME_SCRIPT_INTERPRETER);
-                    }
-
-                    if (item.FileExtension != null)
-                    {
-                        IniFileUtil.SetKeyValue(iniSection, "extension", item.FileExtension);
-                    }
-                    if (item.ExecutableProgram != null)
-                    {
-                        IniFileUtil.SetKeyValue(iniSection, "program", item.ExecutableProgram);
-                    }
-                    if (item.CommandLineArguments != null)
-                    {
-                        IniFileUtil.SetKeyValue(iniSection, "arguments", item.CommandLineArguments);
-                    }
-                    if (item.SetPath != null)
-                    {
-                        IniFileUtil.SetKeyValue(iniSection, "setPath", item.SetPath);
-                    }
-                }
-            });
+                MessageBox.Show(
+                        String.Format(I18n._("Error occurred while creating default config file:\n{0}")
+                                .Replace("\n", Environment.NewLine), ex.Message),
+                        I18n._("Clipboard Auto Processor"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                Environment.Exit(-1);
+            }
         }
 
         public ScriptInterpreterItem GetScriptInterpreter(string fileExtension)
