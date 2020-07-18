@@ -1,15 +1,9 @@
 <?php
 // 读取输入
 
-$fp = fopen('php://stdin', 'r');
-$input = stream_get_contents($fp);
-fclose($fp);
+$input = base64_decode(file_get_contents('php://stdin'));
 
-$input = base64_decode($input);
-
-file_put_contents('_input.txt', $input);
-
-// 开始处理
+// 处理
 
 $rows = parse_table($input);
 

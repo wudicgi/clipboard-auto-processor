@@ -1,6 +1,6 @@
 'use strict';
 
-// 读取输入
+// Read input
 
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
@@ -12,23 +12,27 @@ process.stdin.on('data', (inputLine) => {
 
 process.stdin.on('end', () => {
     let inputDataBuffer = Buffer.from(inputData, 'base64');
-    let inputText = inputDataBuffer.toString('utf-8');
+    let input = inputDataBuffer.toString('utf-8');
 
-    main(inputText);
+    main(input);
 });
 
-function main(inputText) {
-    // 开始处理
+function main(input) {
+    // Process
 
-    let str = inputText.replace(/\r\n/g, "\n");
-    let lines = str.trim().split("\n");
+    input = input.replace(/\r\n/g, "\n");
+    let lines = input.trim().split("\n");
 
-    let outputText = "";
+    let output = "";
     lines.forEach(line => {
-        outputText += line.replace(/^[\"]+|[\"]+$/g, "").replace(/\\/g, "/") + "\r\n";
+        output += line.replace(/^[\"]+|[\"]+$/g, "").replace(/\\/g, "/") + "\r\n";
     });
 
-    // 输出结果
+    if (!input.endsWith("\n")) {
+        output = output.trimEnd();
+    }
 
-    console.log(Buffer.from(outputText).toString('base64'));
+    // Output result
+
+    console.log(Buffer.from(output).toString('base64'));
 }

@@ -6,19 +6,22 @@ inputEncoding = systemDefault
 outputEncoding = systemDefault
 '''
 
-# 读取输入
+# Read input
 
-inputText = sys.stdin.read()
+input = sys.stdin.read()
 
-# 开始处理
+# Process
 
-str = inputText.replace("\r\n", "\n")
-lines = str.strip().split("\n")
+input = input.replace("\r\n", "\n")
+lines = input.strip().split("\n")
 
-outputText = ""
+output = ""
 for line in lines:
-    outputText += line.strip('"').replace("\\", "/") + "\r\n"
+    output += line.strip('"').replace("\\", "/") + "\r\n"
 
-# 输出结果
+if not input.endswith("\n"):
+    output = output.rstrip()
 
-print(outputText.replace("\r\n", "\n"), end = '')
+# Output result
+
+print(output.replace("\r\n", "\n"), end = '')
