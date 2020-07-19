@@ -30,7 +30,13 @@ function remove_illegal_characters($str) {
 
     $result = '';
     foreach ($chars as $char) {
-        if (($char != '?') && (mb_convert_encoding($char, 'GBK', 'UTF-8') == '?')) {
+        $char_gbk = mb_convert_encoding($char, 'GBK', 'UTF-8');
+        if (($char != '?') && ($char_gbk == '?')) {
+            continue;
+        }
+
+        $char_converted_back = mb_convert_encoding($char_gbk, 'UTF-8', 'GBK');
+        if ($char_converted_back != $char) {
             continue;
         }
 
